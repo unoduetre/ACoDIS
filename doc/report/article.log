@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2009.4.7)  22 MAR 2014 19:57
+This is pdfTeX, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2009.4.7)  22 MAR 2014 20:00
 entering extended mode
 **article.tex
 (./article.tex
@@ -10,11 +10,16 @@ anish, esperanto, spanish, catalan, galician, estonian, finnish, french, greek,
  icelandic, italian, latin, mongolian, dutch, norsk, polish, portuguese, romani
 an, russian, slovenian, uppersorbian, serbian, swedish, turkish, ukenglish, ukr
 ainian, loaded.
-(/usr/share/texmf/tex/latex/base/article.cls
-Document Class: article 2005/09/16 v1.4f Standard LaTeX document class
-(/usr/share/texmf/tex/latex/base/size10.clo
-File: size10.clo 2005/09/16 v1.4f Standard LaTeX file (size option)
+(./classrep.cls
+Document Class: classrep 2009/11/27 ICS Class Assignment Report
+(/usr/share/texmf/tex/latex/mwcls/mwart.cls
+Document Class: mwart 2003/05/09 v0.65 A LaTeX document class (MW)
+*** Beta version. Formatting may change
+*** in future versions of this class.
+(/usr/share/texmf/tex/latex/mwcls/mw12.clo
+File: mw12.clo 2003/05/09 v0.65 A document class size option (MW)
 )
+\@parindent=\dimen102
 \c@part=\count79
 \c@section=\count80
 \c@subsection=\count81
@@ -25,54 +30,19 @@ File: size10.clo 2005/09/16 v1.4f Standard LaTeX file (size option)
 \c@table=\count86
 \abovecaptionskip=\skip41
 \belowcaptionskip=\skip42
-\bibindent=\dimen102
+\bibindent=\dimen103
 )
 (/usr/share/texmf/tex/latex/platex/polski.sty
 Package: polski 2003/05/09 v1.3.1 Polish language package
 
 Document Language Style `polski' v1.3.1 <2003/05/09>
-   Switching to Polish text encoding and Polish maths fonts.
 (/usr/share/texmf/tex/latex/base/ot4enc.def
 File: ot4enc.def 2005/09/27 v1.99g Standard LaTeX file
-)
-LaTeX Font Info:    Try loading font information for OT4+cmr on input line 346.
-
-
-(/usr/share/texmf/tex/latex/platex/ot4cmr.fd
-File: ot4cmr.fd 2000/10/09 v1.2 Font defs for fonts PL (MW)
-)
-LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/cmr/bx/n --> OT4/cmr/bx/n on input line 346.
-LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT4/cmss/m/n on input line 346.
-LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmr/m/it --> OT4/cmr/m/it on input line 346.
-LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> OT4/cmtt/m/n on input line 346.
-LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> OT4/cmss/bx/n on input line 346.
-LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmr/bx/it --> OT4/cmr/bx/it on input line 346.
-LaTeX Font Info:    Encoding `OT1' has changed to `OT4' for symbol font
-(Font)              `operators' in the math version `normal' on input line 346.
-
-LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> OT4/cmr/m/n on input line 346.
-LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
-(Font)                  OML/cmm/m/it --> OML/plm/m/it on input line 346.
-LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
-(Font)                  OMS/cmsy/m/n --> OMS/plsy/m/n on input line 346.
-LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
-(Font)                  OMX/cmex/m/n --> OMX/plex/m/n on input line 346.
-LaTeX Font Info:    Encoding `OT1' has changed to `OT4' for symbol font
-(Font)              `operators' in the math version `bold' on input line 346.
-LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT4/cmr/bx/n on input line 346.
-LaTeX Font Info:    Overwriting symbol font `letters' in version `bold'
-(Font)                  OML/cmm/b/it --> OML/plm/b/it on input line 346.
-LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
-(Font)                  OMS/cmsy/b/n --> OMS/plsy/b/n on input line 346.
-) (./packages-article.tex
+))
+(/usr/share/texmf/tex/latex/ltxmisc/url.sty
+\Urlmuskip=\muskip10
+Package: url 2005/06/27  ver 3.2  Verb mode for urls, etc.
+)) (./packages-article.tex
 (./packages-common.tex (/usr/share/texmf/tex/latex/ucs/ucs.sty
 Package: ucs 2004/10/17 UCS: Unicode input support
 
@@ -129,16 +99,16 @@ Package graphics Info: Driver file: pdftex.def on input line 90.
 File: pdftex.def 2007/01/08 v0.04d Graphics/color for pdfTeX
 \Gread@gobject=\count88
 ))
-\Gin@req@height=\dimen103
-\Gin@req@width=\dimen104
+\Gin@req@height=\dimen104
+\Gin@req@width=\dimen105
 )
 (/usr/share/texmf/tex/latex/tools/dcolumn.sty
 Package: dcolumn 2001/05/28 v1.06 decimal alignment package (DPC)
 
 (/usr/share/texmf/tex/latex/tools/array.sty
 Package: array 2005/08/23 v2.4b Tabular extension package (FMi)
-\col@sep=\dimen105
-\extrarowheight=\dimen106
+\col@sep=\dimen106
+\extrarowheight=\dimen107
 \NC@list=\toks20
 \extratabsurround=\skip43
 \backup@length=\skip44
@@ -160,10 +130,6 @@ Package: colortbl 2001/02/13 v0.1j Color table columns (DPC)
 Package: enumerate 1999/03/05 v3.00 enumerate extensions (DPC)
 \@enLab=\toks22
 )
-(/usr/share/texmf/tex/latex/ltxmisc/url.sty
-\Urlmuskip=\muskip10
-Package: url 2005/06/27  ver 3.2  Verb mode for urls, etc.
-)
 (/usr/share/texmf/tex/latex/SIunits/SIunits.sty
 Package: SIunits 2002/08/01 v1.33 Support for the International System of units
  (MH)
@@ -178,7 +144,7 @@ Package: icomma 2002/03/10 v2.0 (WaS)
 )
 (/usr/share/texmf/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2007/02/07 v6.75r Hypertext links for LaTeX
-\@linkdim=\dimen107
+\@linkdim=\dimen108
 \Hy@linkcounter=\count89
 \Hy@pagecounter=\count90
 
@@ -214,8 +180,8 @@ Implicit mode ON; LaTeX internals redefined
 Package hyperref Info: Bookmarks ON on input line 2444.
 LaTeX Info: Redefining \url on input line 2599.
 \Fld@menulength=\count91
-\Field@Width=\dimen108
-\Fld@charsize=\dimen109
+\Field@Width=\dimen109
+\Fld@charsize=\dimen110
 \Choice@toks=\toks23
 \Field@toks=\toks24
 Package hyperref Info: Hyper figures OFF on input line 3102.
@@ -263,10 +229,10 @@ Package: verbatim 2003/08/22 v1.5q LaTeX2e package for verbatim enhancements
 (/usr/share/texmf/tex/latex/tabulary/tabulary.sty
 Package: tabulary 2003/09/14 v0.8 tabulary package (DPC)
 \TY@count=\count97
-\TY@linewidth=\dimen110
-\tymin=\dimen111
-\tymax=\dimen112
-\TY@tablewidth=\dimen113
+\TY@linewidth=\dimen111
+\tymin=\dimen112
+\tymax=\dimen113
+\TY@tablewidth=\dimen114
 )
 (/usr/share/texmf/tex/latex/tools/longtable.sty
 Package: longtable 2004/02/01 v4.11 Multi-page Table package (DPC)
@@ -275,7 +241,7 @@ Package: longtable 2004/02/01 v4.11 Multi-page Table package (DPC)
 \LTpre=\skip49
 \LTpost=\skip50
 \LTchunksize=\count98
-\LTcapwidth=\dimen114
+\LTcapwidth=\dimen115
 \LT@head=\box28
 \LT@firsthead=\box29
 \LT@foot=\box30
@@ -321,15 +287,15 @@ Package: listingsutf8 2007/11/11 v1.1 Adding support for UTF-8 to listings (HO)
 \lst@gtempboxa=\box35
 \lst@token=\toks31
 \lst@length=\count108
-\lst@currlwidth=\dimen115
+\lst@currlwidth=\dimen116
 \lst@column=\count109
 \lst@pos=\count110
-\lst@lostspace=\dimen116
-\lst@width=\dimen117
+\lst@lostspace=\dimen117
+\lst@width=\dimen118
 \lst@newlines=\count111
 \lst@lineno=\count112
 \c@lstlisting=\count113
-\lst@maxwidth=\dimen118
+\lst@maxwidth=\dimen119
 
 (/usr/share/texmf/tex/latex/listings/lstpatch.sty
 File: lstpatch.sty 2004/10/17 1.3b (Carsten Heinz)
@@ -378,7 +344,7 @@ Package: fancybox 2000/09/19 1.3
 
 Style option: `fancybox' v1.3 <2000/09/19> (tvz)
 \@fancybox=\box37
-\shadowsize=\dimen119
+\shadowsize=\dimen120
 \@Sbox=\box38
 \do@VerbBox=\toks32
 \the@fancyput=\toks33
@@ -399,11 +365,11 @@ Package: amstext 2000/06/29 v2.01
 (/usr/share/texmf/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0
 \@emptytoks=\toks36
-\ex@=\dimen120
+\ex@=\dimen121
 ))
 (/usr/share/texmf/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d
-\pmbraise@=\dimen121
+\pmbraise@=\dimen122
 )
 (/usr/share/texmf/tex/latex/amsmath/amsopn.sty
 Package: amsopn 1999/12/14 v2.01 operator names
@@ -420,7 +386,7 @@ LaTeX Info: Redefining \dots on input line 382.
 LaTeX Info: Redefining \cdots on input line 467.
 \Mathstrutbox@=\box39
 \strutbox@=\box40
-\big@size=\dimen122
+\big@size=\dimen123
 LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
 \macc@depth=\count122
@@ -433,12 +399,12 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
 \column@=\count127
 \maxfields@=\count128
 \andhelp@=\toks38
-\eqnshift@=\dimen123
-\alignsep@=\dimen124
-\tagshift@=\dimen125
-\tagwidth@=\dimen126
-\totwidth@=\dimen127
-\lineht@=\dimen128
+\eqnshift@=\dimen124
+\alignsep@=\dimen125
+\tagshift@=\dimen126
+\tagwidth@=\dimen127
+\totwidth@=\dimen128
+\lineht@=\dimen129
 \@envbody=\toks39
 \multlinegap=\skip54
 \multlinetaggap=\skip55
@@ -448,29 +414,34 @@ LaTeX Info: Redefining \] on input line 2667.
 ) (./article.aux)
 \openout1 = `article.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for OT4/cmr/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 8.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 8.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OT4/cmr/m/n on input line 25.
+LaTeX Font Info:    Try loading font information for OT4+cmr on input line 25.
+
+(/usr/share/texmf/tex/latex/platex/ot4cmr.fd
+File: ot4cmr.fd 2000/10/09 v1.2 Font defs for fonts PL (MW)
+)
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 25.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 25.
 
 (/usr/share/texmf/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
 
 (/usr/share/texmf/tex/latex/ucs/ucsencs.def
 File: ucsencs.def 2003/11/29 Fixes to fontencodings LGR, T3
@@ -478,19 +449,19 @@ File: ucsencs.def 2003/11/29 Fixes to fontencodings LGR, T3
 (/usr/share/texmf/tex/context/base/supp-pdf.tex
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count129
-\scratchdimen=\dimen129
+\scratchdimen=\dimen130
 \scratchbox=\box41
 \nofMPsegments=\count130
 \nofMParguments=\count131
 \MPscratchCnt=\count132
-\MPscratchDim=\dimen130
+\MPscratchDim=\dimen131
 \MPnumerator=\count133
 \everyMPtoPDFconversion=\toks41
 )
 Option `squaren' provided! 
  Command \squaren defined by SIunits package!
 
-Package hyperref Info: Link coloring OFF on input line 8.
+Package hyperref Info: Link coloring OFF on input line 25.
 (/usr/share/texmf/tex/latex/hyperref/nameref.sty
 Package: nameref 2006/12/27 v2.28 Cross-referencing by name of section
 
@@ -499,8 +470,8 @@ Package: refcount 2008/08/11 v3.1 Data extraction from references (HO)
 )
 \c@section@level=\count134
 )
-LaTeX Info: Redefining \ref on input line 8.
-LaTeX Info: Redefining \pageref on input line 8.
+LaTeX Info: Redefining \ref on input line 25.
+LaTeX Info: Redefining \pageref on input line 25.
  (./article.out)
 (./article.out)
 \@outlinefile=\write4
@@ -508,54 +479,64 @@ LaTeX Info: Redefining \pageref on input line 8.
 
 Package marginnote Info: \pdfoutput not 0 and \pdflastxpos available.
 (marginnote)             Extended possition detection mode activated.
-LaTeX Font Info:    Try loading font information for OML+plm on input line 9.
- (/usr/share/texmf/tex/latex/platex/omlplm.fd
-File: omlplm.fd 2000/10/09 v1.2 Font defs for fonts PL (MW)
+ (/usr/share/texmf/tex/latex/ucs/data/uni-1.def
+File: uni-1.def 2004/10/17 UCS: Unicode data U+0100..U+01FF
 )
-LaTeX Font Info:    Try loading font information for OMS+plsy on input line 9.
+Underfull \hbox (badness 10000) in paragraph at lines 27--27
 
-(/usr/share/texmf/tex/latex/platex/omsplsy.fd
-File: omsplsy.fd 2000/10/09 v1.2 Font defs for fonts PL (MW)
-)
-LaTeX Font Info:    Try loading font information for OMX+plex on input line 9.
+ []
 
-(/usr/share/texmf/tex/latex/platex/omxplex.fd
-File: omxplex.fd 2000/10/09 v1.2 Font defs for fonts PL (MW)
-)
-LaTeX Font Info:    External font `plex10' loaded for size
-(Font)              <10> on input line 9.
-LaTeX Font Info:    External font `plex10' loaded for size
-(Font)              <7> on input line 9.
-LaTeX Font Info:    External font `plex10' loaded for size
-(Font)              <5> on input line 9.
-LaTeX Font Info:    Try loading font information for U+msa on input line 9.
-
+LaTeX Font Info:    Try loading font information for U+msa on input line 27.
 (/usr/share/texmf/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2002/01/19 v2.2g AMS font definitions
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 9.
+LaTeX Font Info:    Try loading font information for U+msb on input line 27.
 
 (/usr/share/texmf/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2002/01/19 v2.2g AMS font definitions
+)
+Underfull \hbox (badness 10000) in paragraph at lines 27--27
+
+ []
+
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 27.
+(/usr/share/texmf/tex/latex/base/t1cmtt.fd
+File: t1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+(/usr/share/texmf/tex/latex/ucs/data/uni-0.def
+File: uni-0.def 2004/10/17 UCS: Unicode data U+0000..U+00FF
 ) [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./article.aux) ) 
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+Overfull \hbox (2.48453pt too wide) in paragraph at lines 74--75
+[]\T1/cmr/m/n/12 Nast¦pnie na-le-»y pod-su-mo-wa¢ po-wy»-sze wnio-ski oraz za-p
+ro-po-no-wa¢ ewen-
+ []
+
+
+LaTeX Warning: Empty `thebibliography' environment on input line 86.
+
+
+Underfull \vbox (badness 1308) has occurred while \output is active []
+
+ [2]
+[3] (./article.aux) ) 
 Here is how much of TeX's memory you used:
- 7453 strings out of 94086
- 100987 string characters out of 1167701
- 173574 words of memory out of 3500000
- 10551 multiletter control sequences out of 10000+50000
- 10170 words of font info for 34 fonts, out of 1200000 for 2000
+ 8735 strings out of 94086
+ 114686 string characters out of 1167701
+ 178537 words of memory out of 3500000
+ 11812 multiletter control sequences out of 10000+50000
+ 14688 words of font info for 44 fonts, out of 1200000 for 2000
  645 hyphenation exceptions out of 8191
- 39i,5n,34p,384b,349s stack positions out of 5000i,500n,6000p,200000b,5000s
-{/usr/sha
-re/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/usr/share/texmf/fonts/enc/d
-vips/pl/plmi.enc}{/usr/share/texmf/fonts/enc/dvips/pl/plrm.enc}</usr/share/texm
-f/fonts/type1/public/pl/plmi10.pfb></usr/share/texmf/fonts/type1/public/pl/plr1
-0.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on article.pdf (1 page, 9476 bytes).
+ 39i,8n,34p,423b,501s stack positions out of 5000i,500n,6000p,200000b,5000s
+{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc
+}</usr/share/texmf/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf/f
+onts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm
+-super/sfrm1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm2074.pfb>
+
+Output written on article.pdf (3 pages, 71810 bytes).
 PDF statistics:
- 30 PDF objects out of 1000 (max. 8388607)
- 2 named destinations out of 1000 (max. 131072)
- 17 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 74 PDF objects out of 1000 (max. 8388607)
+ 11 named destinations out of 1000 (max. 131072)
+ 81 words of extra memory for PDF output out of 10000 (max. 10000000)
 
