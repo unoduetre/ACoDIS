@@ -1,0 +1,2 @@
+Main-Class: main.Main
+Class-Path: lib
