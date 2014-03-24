@@ -91,12 +91,24 @@ Amerykański Narodowy Instytut Standardów i Technologii (National Institute of 
 bazujących na rolach. Role stanowią element pośredni, ułatwiający zarządzanie. Do jednej roli może być przyporządkowana więcej niż jedna osoba. Ponadto do jednej roli mogą być
 przyporządkowane różne zasoby.
 
-Należy tu przedstawić aktualny stan wiedzy na tematy związane z rozwiązywanym problemem. Należy zaprezentować teorię potrzebną do rozwiązania problemu (wraz z odwołaniami do pozycji bibliograficzych, z których uzyskano wiedzę na dany temat, a które zostaną umieszczone w ostaniej sekcji "Bibliografia"). Zamieszczony opis teorii ma być opisem własnym, a nie skopiowanym.
+Standard NIST podzielił systemy RBAC na 4 klasy, przy czym każda następna klasa jest rozszerzeniem poprzedniej:
+\begin{itemize}
+\item płaski RBAC
+\item hierarchiczny RBAC
+\item RBAC z więzami
+\item symetryczny RBAC
+\end{itemize}
+Najprostszą odmianą jest płaski RBAC, który zawiera powiązania między rolami a użytkownikami i uprawnieniami. RBAC hierarchiczny dodatkowo zawiera powiązania między rolami,
+takie jak na przykład dziedziczenie. W RBAC z więzami dodatkowo jest zapewniona spójność ról i podział odpowiedzialności, a także ograniczenia na powiązania między użytkownikami
+i rolami, a także pomiędzy jedną rolą a drugą. W symetrycznym RBAC dodatkowo jest możliwość nakładania ograniczeń na powiązania między rolami a uprawnieniami. Jest także możliwość przeglądania
+i zaawansowanego zarządzania uprawnieniami.
 
-Można opisać istniejące rozwiązania w ramach danej tematyki i ewentualnie przedstawić ich zalety i wady (jeżeli istnieją).
-
-
+Nasz system chcemy zrealizować jako system z uprawnieniami bazującymi na regułach. Silniki reguł biznesowych to popularne rozwiązanie w firmach. Służą tam one na przykład to zarządzania
+przepływem dokumentów, a także zarządzania zasobami ludzkimi. Najpopularniejszym rozwiązaniem jest Drools\cite{Drools}, który jest systemem reguł przeznaczonym dla środowiska Java i rozwijanym
+przez firmę RedHat. Jednakże w naszym projekcie chcemy użyć innego sprawdzonego rozwiązania, jakim jest język Prolog\cite{Prolog}. Jest to język programowania deklaratywnego w logice,
+który jest bardzo dobrze dostosowany do rozwiązywania skomplikowanych problemów w których występuje wiele reguł. 
 \section{Opis rozwiązania problemu}
+Posta
 
 W tej sekcji należy przedstawić zaproponowane rozwiązanie postawionego problemu:
 \begin{itemize}
@@ -145,5 +157,7 @@ Proszę przedstwić udział poszczególnych osób w realizacji projektu:
 \bibitem{RBAC}Ferraiolo, D. F., Kuhn, D.R., 1992. Role-Based Access Control. 15th National Computer Security Conference
 \bibitem{NISTModel}Sandhu, R., Ferraiolo D., Kuhn R. 2000. The NIST Model for  Role Based Access Control:  Toward a Unified Standard. 
 Proceedings, 5th ACM Workshop on Role Based Access Control, Lipiec 26--27, 2000, Berlin, pp. 47--63 
+\bibitem{Drools}Drools -- The Business Logic integration Platform \url{https://www.jboss.org/drools/}
+\bibitem{Prolog}Kluźniak F., Szpakowicz S. 1985. Prolog For Programmers.
 \end{thebibliography}
 \end{document}
