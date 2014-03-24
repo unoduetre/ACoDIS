@@ -3,39 +3,93 @@
 \input{packages-article}
 
 \studycycle{Informatyka, studia dzienne}
-\coursesemester{II}
+\coursesemester{III}
 
 \coursename{Pracownia Problemowa}
-\courseyear{2011/2012}
+\courseyear{2014}
 
-\courseteacher{Prowadzący}
-\coursegroup{dzień, godzina}
+\courseteacher{dr. inż Aneta Poniszewska-Marańda}
+\coursegroup{poniedziałek, 14:15}
 
 \author{
-  \studentinfo{Autor 1}{nr albumu 1} \and
+  \studentinfo{Mateusz Grotek}{186816} \and
   \studentinfo{Autor 2}{nr albumu 2} \and
   \studentinfo{Autor 3}{nr albumu 3} \and
   \studentinfo{Autor 4}{nr albumu 4} \and
   \studentinfo{Autor 5}{nr albumu 5}
 }
 
-\title{Temat projektu}
+\title{Kontrola dostępu w dynamicznych systemach informatycznych}
 
 
 \begin{document}
 \maketitle
 
 \section{Problem}
-
-W tej sekcji należy umieścić krótki opis problemu, który jest przedmiotem realizowanego projektu (2-4 zdania).
-
-
+Przedstawiony problem dotyczy tworzenia i analizy zaawansowanych, inteligentnych mechanizmów kontroli dostępu w dynamicznych systemach informatycznych. Celem projektu jest
+zapoznanie się ze stosowanymi rozwiązaniami, zdobycie aktualnej wiedzy na ten temat, a także wykonanie praktycznej implementacji wybranych rozwiązań.
 \section{Wprowadzenie}
+Pierwszą rzeczą, jaką należy zrobić w celu rozwiązania postawionego werbalnie problemu jest dokładne zrozumienie określeń użytych w jego specyfikacji. W wypadku
+kontroli dostępu w dynamicznych systemach informatycznych istotną rzeczą jest zwrócenie uwagi na pojęcia kontroli dostępu i dynamicznego systemu informatycznego. Jako, że główna
+część zagadnienia skupia się na zapewnieniu kontroli dostępu, wyjaśnimy najpierw drugie, mniej istotne pojęcie, jakim są dynamiczne systemy informatyczne.
 
-W ramach tej sekcji należy przedstawić problematykę związaną z realizowanym projektem. Można opisać punkt wyjścia, okoliczności powstania problemu, niewystarczalność istniejących rozwiązań.
+Pojęcie dynamiki można tutaj
+rozumieć na różne sposoby, ale na pewno podstawowym aspektem jest tutaj wrażliwość na zmieniające się warunki, takie jak na przykład czas, lub pewne zdarzenia zachodzące zarówno 
+w samym systemie, jak i poza nim. Oznacza to, że system nie powiniem robić żadnych założeń na temat tego co się aktualnie dzieje, a raczej reagować dynamicznie. Dla porównania
+możemy wskazać na przykład dostęp do plików na serwerze. Rozwiązanie statyczne mogłoby polegać na przykład na tym, że w systemie jest na stałe zapamiętane (zaszyfrowane) hasło,
+które użytkownik musi podać przy logowaniu, po którym uzyskuje pełny i nieograniczony czasowo dostęp do pewnych, na sztywno zdefiniowanych zasobów, takich jak pewne pliki w pewnych katalogach.
+Skontrastujmy to z systemem w którym dostęp do plików jest ograniczony pod względem na przykład ilości osób, które jednocześnie z nich korzystają, przy czym czas korzystania może być ograniczony
+w zależności od konkretnej osoby, a także od ilości osób. Poza tym dostęp może być włączany konkretnym osobom w konkretnych godzinach. Co więcej, uzyskanie dostępu może zależeć od
+wydania zezwolenia. Jak widać stworzenie systemu dynamicznego jest dużo trudniejsze od stworzenia systemu statycznego.
 
-
+Wróćmy teraz do pojęcia kontroli dostępu. Kontrola dostępu oznacza, że dostęp do pewnych zasobów jest, z jednej strony, dozwolony lub zabroniony, natomiast z drugiej, że
+jest on nadzorowany, czyli że na przykład każde skorzystanie z zasobów jest zapisywane, lub nawet zatwierdzane przez odpowiednią osobę. Wynika z tego, że elementami kontroli
+dostępu są nie tylko autentykacja i autoryzacja, ale także wydawanie zgody na dostęp i audyt.
 \section{Aktualny stan wiedzy}
+Jest wiele różnych sposobów na zapewnienie kontroli dostępu. Co więcej sposoby te niekoniecznie kolidują ze sobą, a często mogą ze sobą współpracować. Do podstawowych mechanizmów
+mogących zapewnić kontrolę dostępu należą\cite{owasp}\cite{computer}\cite{wikibooks}:
+\begin{itemize}
+\item kontrola dostępu uznaniowa \textit{Discretionary Access Control, DAC}
+\item kontrola dostępu obowiązkowa \textit{Mandatory Access Control, MAC}
+\item kontrola dostępu oparta na rolach \textit{Role Based Access Control, RBAC}.
+\end{itemize}
+Każdy z tych modeli różni się elementem, który przydziela prawa dostępu, a także mechanizmami dostępu\cite{wikibooks}. 
+
+W przypadku \textbf{DAC} zarządzaniem uprawnieniami zajmują się właściciele danych. Często wykorzystywane są do tego listy kontroli dostępu (\textit{Access Control Lists, ACLs}).
+Dobrym przykładem takiego rozwiązania jest dostęp do plików i katalogów na dysku w Uniksie/Linuksie. Właściciel pliku/katalogu może ustawić prawa dostępu dla siebie, grupy, do której należy
+dany plik, a także dla osób spoza grupy. Prawa te, to prawa odczytu, zapisu i wykonywania, a także pewne dodatkowe prawa o których nie będziemy tutaj pisać. Jednoczesną zaletą i wadą takiego
+rozwiązania jest fakt, że zarządzanie uprawnieniami dokonywane jest przez właścicieli zasobów. Jest to zaleta, gdyż łatwo jest zarządzać właścicielowi zasobami, które tylko on posiada,
+gdyż ich ilość jest ograniczona. Jest to wada, gdyż brak jest centralnego nadzoru nad uprawnieniami.
+
+Przypadek \textbf{MAC} zakłada, że przydzielaniem uprawnień zajmuje się sam system na podstawie etykiet przydzielonych do osób i zasobów. Na przykład jeśli osoba ma przydzieloną
+etykietę ,,Secret'', to może ona przeglądać zasoby oznaczone jako ,,Secret'', a także zasoby na poziomach niższych. Nie może już za to przeglądać zasobów oznaczonych jako ,,Top Secret''.
+Sam system zapewnia dostęp do zasobów na podstawie ustalonej w trakcie jego tworzenia polityki bezpieczeństwa.
+
+Przypadek \textbf{RBAC} bazuje na przydzieleniu dla każdego użytkownika jego roli w organizacji. Przydzielaniem ról i uprawnień do ról zajmuje się administrator. Następnie każdej roli
+są przydzielane dostępne dla niej zasoby.
+
+Amerykańskie ministerstwo obrony (DoD) zdefiniowało w dokumencie Trusted Computer System Evaluation Criteria\cite{tcsec} (w skrócie TCSEC) następujące 4 poziomy dostępu:
+\begin{itemize}
+\item A -- ochrona zweryfikowana
+\item B -- ochrona obowiązkowa
+\item C -- ochrona uznaniowa
+\item D -- ochrona minimalna
+\end{itemize}
+
+Ochrona minimalna dotyczy systemów, które zostały ocenione, ale nie spełniły żadnych kryteriów. Kolejne poziomy oznaczają lepszą ochronę. W wypadku poziomu C możliwa jest
+tylko ochrona DAC. Dla poziomu B mamy także politykę ochrony, czyli dodatkowo MAC. W wypadku A procedury zostały formalnie zweryfikowane (np. przez podanie dowodu poprawności programu).
+
+W naszym projekcie postanowiliśmy użyć połączenia modeli RBAC i MAC. Z modelu RBAC weźmiemy pojęcie roli. Każdy użytkownik będzie przypisany do określonej roli, której przysługują
+określone uprawnienia. Jednakże nie będą to uprawnienia statyczne, ale dynamiczne, co oznacza, że w pewnych warunkach pewne uprawnienia będą nieważne lub ograniczone.
+W tym celu zastosowane zostaną elementy modelu MAC. Inaczej mówiąc model RBAC będzie miał za zadanie zapewnić pewne statyczne uprawnienia, które następnie będą modyfikowane dynamiczne
+przez odpowiednie zdarzenia zachodzące w systemie i poza nim. Oznacza to, że nasz system uprawnień będzie miał strukturę dwuwarstwową. Pierwszą warstwę będą stanowić
+przypisane przez administratora systemu role i ich uprawnienia. Nazwijmy takie uprawnienia \textbf{możliwościami} roli. To że rola ma możliwość nie oznacza automatycznie,
+że ma ona także \textbf{uprawnienie}. Zdecyduje o tym system na podstawie aktualnych zdarzeń.
+
+Model RBAC został wstępnie opisany w artykule Ferraiolo i Kuhna\cite{RBAC}, a dalsze szegóły można znaleźć w artykule Sandhu, Ferraiolo i Kuhna\cite{NistModel}.
+Amerykański Narodowy Instytut Standardów i Technologii (National Institute of Standards and Technology) opracował model\cite{NIST}, którego celem jest standaryzacja systemów
+bazujących na rolach. Role stanowią element pośredni, ułatwiający zarządzanie. Do jednej roli może być przyporządkowana więcej niż jedna osoba. Ponadto do jednej roli mogą być
+przyporządkowane różne zasoby.
 
 Należy tu przedstawić aktualny stan wiedzy na tematy związane z rozwiązywanym problemem. Należy zaprezentować teorię potrzebną do rozwiązania problemu (wraz z odwołaniami do pozycji bibliograficzych, z których uzyskano wiedzę na dany temat, a które zostaną umieszczone w ostaniej sekcji "Bibliografia"). Zamieszczony opis teorii ma być opisem własnym, a nie skopiowanym.
 
@@ -83,8 +137,13 @@ Proszę przedstwić udział poszczególnych osób w realizacji projektu:
 
 
 \begin{thebibliography}{10}
+\bibitem{owasp}Access Control Cheat Sheet \url{https://www.owasp.org/index.php/Access\_Control\_Cheat\_Sheet}
+\bibitem{computer}Computer access control \url{http://en.wikipedia.org/wiki/Computer\_access\_control}
+\bibitem{wikibooks}Access Control Systems w \textsl{Fundamentals of Information Systems Security} \url{http://en.wikibooks.org/wiki/Fundamentals\_of\_Information\_Systems\_Security/Access\_Control\_Systems#Access\_Control\_Models}
+\bibitem{TCSEC}Trusted Computer System Evaluation Criteria \url{http://en.wikipedia.org/wiki/Trusted\_Computer\_System\_Evaluation\_Criteria}
+\bibitem{NIST}Role Based Access Control (RBAC) and Role Based Security \url{http://csrc.nist.gov/groups/SNS/rbac/}
+\bibitem{RBAC}Ferraiolo, D. F., Kuhn, D.R., 1992. Role-Based Access Control. 15th National Computer Security Conference
+\bibitem{NISTModel}Sandhu, R., Ferraiolo D., Kuhn R. 2000. The NIST Model for  Role Based Access Control:  Toward a Unified Standard. 
+Proceedings, 5th ACM Workshop on Role Based Access Control, Lipiec 26--27, 2000, Berlin, pp. 47--63 
 \end{thebibliography}
-Należy podać wykorzystaną w ramach projektu literaturę. Każda pozycja bibliograficzna powinna być wykorzystana zgodnie ze stanem faktycznym w powyższej dokumentacji.
-
-
 \end{document}
