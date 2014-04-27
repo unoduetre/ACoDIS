@@ -13,13 +13,13 @@
   <h:body>
     <c:if test="#{component == 'component1'}">
       <c:choose>
-        <c:when test="#{protect.hasReadAccess(component)}">
+        <c:when test="#{protect.hasReadAccess(component, category, resource)}">
           <ui:insert name="read component1"/>
         </c:when>
-        <c:when test="#{protect.hasWriteAccess(component)}">
+        <c:when test="#{protect.hasWriteAccess(component, category, resource)}">
           <ui:insert name="write component1"/>
         </c:when>
-        <c:when test="#{protect.hasSpecialAccess(component)}">
+        <c:when test="#{protect.hasSpecialAccess(component, category, resource)}">
           <ui:insert name="special component1"/>
         </c:when>
         <c:otherwise>
@@ -29,33 +29,17 @@
     </c:if>
     <c:if test="#{component == 'component2'}">
       <c:choose>
-        <c:when test="#{protect.hasReadAccess(component)}">
+        <c:when test="#{protect.hasReadAccess(component, category, resource)}">
           <ui:insert name="read component2"/>
         </c:when>
-        <c:when test="#{protect.hasWriteAccess(component)}">
+        <c:when test="#{protect.hasWriteAccess(component, category, resource)}">
           <ui:insert name="write component2"/>
         </c:when>
-        <c:when test="#{protect.hasSpecialAccess(component)}">
+        <c:when test="#{protect.hasSpecialAccess(component, category, resource)}">
           <ui:insert name="special component2"/>
         </c:when>
         <c:otherwise>
           <ui:insert name="no component2"/>
-        </c:otherwise>
-      </c:choose>
-    </c:if>
-    <c:if test="#{component == 'component3'}">
-      <c:choose>
-        <c:when test="#{protect.hasReadAccess(component)}">
-          <ui:insert name="read component3"/>
-        </c:when>
-        <c:when test="#{protect.hasWriteAccess(component)}">
-          <ui:insert name="write component3"/>
-        </c:when>
-        <c:when test="#{protect.hasSpecialAccess(component)}">
-          <ui:insert name="special component3"/>
-        </c:when>
-        <c:otherwise>
-          <ui:insert name="no component3"/>
         </c:otherwise>
       </c:choose>
     </c:if>

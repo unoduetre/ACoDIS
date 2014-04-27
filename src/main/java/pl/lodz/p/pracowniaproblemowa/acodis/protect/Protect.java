@@ -12,7 +12,7 @@ import javax.faces.context.ExternalContext;
 
 public class Protect
 {
-  private Map<String,String> accessMap = new HashMap<String, String>();
+  private Map<String,Map<String,Map<String, String>>> componentsAccess = new HashMap<String, Map<String,Map<String, String>>>();
 
   private FacesContext facesContext = FacesContext.getCurrentInstance();
   private ExternalContext externalContext = facesContext.getExternalContext();
@@ -20,38 +20,63 @@ public class Protect
 
   public Protect()
   {
-    accessMap.putAll(externalContext.getRequestParameterMap());
-  }
-
-  public void determineAccess(String component)
-  {
-    if(accessMap.get(component) == null)
+    Map<String, String> parameters = externalContext.getRequestParameterMap();
+    for(String parameterName : parameters.keySet())
     {
-      accessMap.put(component, "no");
+      if(parameterName.matches("\\A.+\\..+\\..+\\z"))
+      {
+        String[] three = parameterName.split("\\.");
+        assureExistence(three[0], three[1], three[2]);
+        componentsAccess.get(three[0]).get(three[1]).put(three[2],parameters.get(parameterName));
+      }
     }
   }
 
-  public Boolean hasSpecialAccess(String component)
+  private void determineAccess(String component, String category, String resource)
   {
-    determineAccess(component);
-    return accessMap.get(component).equals("special");
+    assureExistence(component, category, resource);
   }
 
-  public Boolean hasWriteAccess(String component)
+  private void assureExistence(String component, String category, String resource)
   {
-    determineAccess(component);
-    return accessMap.get(component).equals("write");
+    Map<String, Map<String, String>> categoriesAccess = componentsAccess.get(component);
+    if(categoriesAccess == null)
+    {
+      categoriesAccess = new HashMap<String, Map<String,String>>();
+      componentsAccess.put(component, categoriesAccess);
+    }
+
+    Map<String, String> resourcesAccess = categoriesAccess.get(category);
+    if(resourcesAccess == null)
+    {
+      resourcesAccess = new HashMap<String, String>();
+      categoriesAccess.put(category, resourcesAccess);
+    }
+
+    String access = resourcesAccess.get(resource);
+    if(access == null)
+    {
+      access = "no";
+      resourcesAccess.put(resource, "access");
+    }
   }
 
-  public Boolean hasReadAccess(String component)
+  public Boolean hasSpecialAccess(String component, String category, String resource)
   {
-    determineAccess(component);
-    return accessMap.get(component).equals("read");
+    determineAccess(component, category, resource);
+    return componentsAccess.get(component).get(category).get(resource).equals("special");
   }
 
-  public Collection<String> split(String list)
+  public Boolean hasWriteAccess(String component, String category, String resource)
   {
-    return Arrays.asList(list.split(" "));
+    determineAccess(component, category, resource);
+    return componentsAccess.get(component).get(category).get(resource).equals("write");
+  }
+
+  public Boolean hasReadAccess(String component, String category, String resource)
+  {
+    determineAccess(component, category, resource);
+    return componentsAccess.get(component).get(category).get(resource).equals("read");
   }
 }
 
