@@ -9,16 +9,83 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
+      <version>4.11</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>  
+      <groupId>org.primefaces</groupId>  
+      <artifactId>primefaces</artifactId>  
+      <version>4.0</version>
+    </dependency>
+    <dependency>
+        <groupId>javax</groupId>
+        <artifactId>javaee-api</artifactId>
+        <version>7.0</version>
+    </dependency>
+    <dependency>
+      <groupId>it.unibo.alice.tuprolog</groupId>
+      <artifactId>tuprolog</artifactId>
+      <version>2.1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>it.unibo.alice.tuprolog</groupId>
+      <artifactId>tuprolog-extensions</artifactId>
+      <version>2.1.1</version>
     </dependency>
   </dependencies>
   <build>
     <defaultGoal>deploy</defaultGoal>
     <finalName>acodis-${project.version}</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.glassfish.maven.plugin</groupId>
+        <artifactId>maven-glassfish-plugin</artifactId>
+        <version>2.1</version>
+        <configuration>
+          <glassfishDirectory>${glassfish.directory}</glassfishDirectory>
+          <user>${glassfish.user}</user>
+          <autoCreate>true</autoCreate>
+          <debug>true</debug>
+          <echo>true</echo>
+          <terse>false</terse>
+          <adminPassword>${glassfish.adminPassword}</adminPassword>
+          <domain>
+            <name>${glassfish.domain}</name>
+            <adminPort>4848</adminPort>
+            <httpPort>8080</httpPort>
+            <httpsPort>8181</httpsPort>
+            <iiopPort>3700</iiopPort>
+            <jmsPort>7676</jmsPort>
+            <reuse>false</reuse>
+          </domain>
+          <components>
+            <component>
+              <name>${project.artifactId}</name>
+              <artifact>${project.build.directory}/${project.build.finalName}.war</artifact>
+            </component>
+          </components>
+        </configuration>
+        <executions>
+          <execution>
+            <id>glassfish-redeploy</id>
+            <goals>
+              <goal>redeploy</goal>
+            </goals>
+            <phase>deploy</phase>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
   </build>
-  <description>Projekt z przedmiotu Pracownia Problemowa</description>
+  <description>Projekt ACoDIS z przedmiotu Pracownia Problemowa</description>
   <inceptionYear>2014</inceptionYear>
+  <licenses>
+    <license>
+      <name>GNU GPLv3 or later</name>
+      <url>http://www.gnu.org/copyleft/gpl.html</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
   <developers>
     <developer>
       <id>unoduetre</id>
@@ -32,7 +99,28 @@
   <mailingLists>
     <mailingList>
       <name>Pracownia problemowa 2014</name>
-      <post>pracownia-problemowa-2014@googlegroups.compracownia-problemowa-2014@googlegroups.com</post>
+      <post>pracownia-problemowa-2014@googlegroups.com</post>
     </mailingList>
   </mailingLists>
+  <scm>
+    <connection>scm:git:git://github.com/unoduetre/ACoDIS.git</connection>
+  </scm>
+  <distributionManagement>
+    <repository>
+      <id>packages</id>
+      <name>All packages ever generated</name>
+      <uniqueVersion>true</uniqueVersion>
+      <url>${local.repository}</url>
+      <layout>default</layout>
+    </repository>
+    <site>
+      <id>documentation</id>
+      <name>Documentation as a website</name>
+      <url>${local.site}</url>
+    </site>
+  </distributionManagement>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  </properties>
 </project>

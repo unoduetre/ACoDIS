@@ -1,0 +1,34 @@
+1. Download and unpack the Glassfish application server.
+2. Configure your maven by using the following configuration file (put it in ~/.m2/):
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+  <profiles>
+    <profile>
+      <id>glassfish</id>
+      <properties>
+        <glassfish.directory>/home/mateusz/pracownia problemowa/glassfish4</glassfish.directory>
+        <glassfish.domain>acodis</glassfish.domain>
+        <glassfish.user>unoduetre</glassfish.user>
+        <glassfish.adminPassword>7qwerty</glassfish.adminPassword>
+        <local.repository>file:///home/mateusz/pracownia problemowa/packages</local.repository>
+        <local.site>file:///home/mateusz/pracownia problemowa/documentation</local.site>
+      </properties>
+    </profile>
+  </profiles>
+  <activeProfiles>
+    <activeProfile>glassfish</activeProfile>
+  </activeProfiles>
+</settings>
+3. Run the following two lines ONCE only
+mvn install
+mvn glassfish:deploy
+4. Run the following:
+mvn clean deploy
+5. Go to the http://localhost:8080/acodis-1.0-SNAPSHOT/ to see how the application works.
+6. Go to the http://localhost:4848/ to configure the server
+7. When you want to sleep, you can turn off the application server:
+mvn glassfish:stop-domain
+8. You can start the application-server again by using:
+mvn glassfish:start-domain
+

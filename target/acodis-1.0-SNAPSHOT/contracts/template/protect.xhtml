@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pl"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+  xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+  xmlns:jsf="http://xmlns.jcp.org/jsf"
+  xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+  xmlns:pf="http://primefaces.org/ui">
+  <h:body>
+    <c:if test="#{component == 'component1'}">
+      <c:choose>
+        <c:when test="#{protect.hasReadAccess(component)}">
+          <ui:insert name="read component1"/>
+        </c:when>
+        <c:when test="#{protect.hasWriteAccess(component)}">
+          <ui:insert name="write component1"/>
+        </c:when>
+        <c:when test="#{protect.hasSpecialAccess(component)}">
+          <ui:insert name="special component1"/>
+        </c:when>
+        <c:otherwise>
+          <ui:insert name="no component1"/>
+        </c:otherwise>
+      </c:choose>
+    </c:if>
+    <c:if test="#{component == 'component2'}">
+      <c:choose>
+        <c:when test="#{protect.hasReadAccess(component)}">
+          <ui:insert name="read component2"/>
+        </c:when>
+        <c:when test="#{protect.hasWriteAccess(component)}">
+          <ui:insert name="write component2"/>
+        </c:when>
+        <c:when test="#{protect.hasSpecialAccess(component)}">
+          <ui:insert name="special component2"/>
+        </c:when>
+        <c:otherwise>
+          <ui:insert name="no component2"/>
+        </c:otherwise>
+      </c:choose>
+    </c:if>
+    <c:if test="#{component == 'component3'}">
+      <c:choose>
+        <c:when test="#{protect.hasReadAccess(component)}">
+          <ui:insert name="read component3"/>
+        </c:when>
+        <c:when test="#{protect.hasWriteAccess(component)}">
+          <ui:insert name="write component3"/>
+        </c:when>
+        <c:when test="#{protect.hasSpecialAccess(component)}">
+          <ui:insert name="special component3"/>
+        </c:when>
+        <c:otherwise>
+          <ui:insert name="no component3"/>
+        </c:otherwise>
+      </c:choose>
+    </c:if>
+  </h:body>
+</html>
