@@ -9,17 +9,35 @@ import javax.servlet.http.HttpServletRequest;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ExternalContext;
 
+import pl.lodz.p.pracowniaproblemowa.acodis.prolog.Prolog;
+import pl.lodz.p.pracowniaproblemowa.acodis.prolog.PassedContext;
 
 public class Protect
 {
+
+  private Prolog prolog = null;
+
   private Map<String,Map<String,Map<String, String>>> componentsAccess = new HashMap<String, Map<String,Map<String, String>>>();
 
   private FacesContext facesContext = FacesContext.getCurrentInstance();
   private ExternalContext externalContext = facesContext.getExternalContext();
   private HttpServletRequest request = (HttpServletRequest)externalContext.getRequest();
 
-  public Protect()
+  public Prolog getProlog()
   {
+    return prolog;
+  }
+
+  public void setProlog(Prolog prolog)
+  {
+    this.prolog = prolog;
+  }
+
+  private void determineAccess(String component, String category, String resource) throws Exception
+  {
+    assureExistence(component, category, resource);
+    componentsAccess.get(component).get(category).put(resource,prolog.accessLevel(new PassedContext(facesContext, component, category, resource)));
+
     Map<String, String> parameters = externalContext.getRequestParameterMap();
     for(String parameterName : parameters.keySet())
     {
@@ -30,11 +48,6 @@ public class Protect
         componentsAccess.get(three[0]).get(three[1]).put(three[2],parameters.get(parameterName));
       }
     }
-  }
-
-  private void determineAccess(String component, String category, String resource)
-  {
-    assureExistence(component, category, resource);
   }
 
   private void assureExistence(String component, String category, String resource)
@@ -61,19 +74,19 @@ public class Protect
     }
   }
 
-  public Boolean hasSpecialAccess(String component, String category, String resource)
+  public Boolean hasSpecialAccess(String component, String category, String resource) throws Exception
   {
     determineAccess(component, category, resource);
     return componentsAccess.get(component).get(category).get(resource).equals("special");
   }
 
-  public Boolean hasWriteAccess(String component, String category, String resource)
+  public Boolean hasWriteAccess(String component, String category, String resource) throws Exception
   {
     determineAccess(component, category, resource);
     return componentsAccess.get(component).get(category).get(resource).equals("write");
   }
 
-  public Boolean hasReadAccess(String component, String category, String resource)
+  public Boolean hasReadAccess(String component, String category, String resource) throws Exception
   {
     determineAccess(component, category, resource);
     return componentsAccess.get(component).get(category).get(resource).equals("read");

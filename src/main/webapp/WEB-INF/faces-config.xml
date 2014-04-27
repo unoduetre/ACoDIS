@@ -5,7 +5,7 @@
   xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
   <application>
     <resource-bundle>
-      <base-name>messages</base-name>
+      <base-name>pl.lodz.p.pracowniaproblemowa.acodis.resources.messages</base-name>
       <var>msgs</var>
     </resource-bundle>
     <resource-library-contracts>
@@ -24,10 +24,20 @@
     <managed-bean-name>prolog</managed-bean-name>
     <managed-bean-class>pl.lodz.p.pracowniaproblemowa.acodis.prolog.Prolog</managed-bean-class>
     <managed-bean-scope>application</managed-bean-scope>
+    <managed-property>
+      <property-name>theoryPath</property-name>
+      <property-class>java.lang.String</property-class>
+      <value>/pl/lodz/p/pracowniaproblemowa/acodis/resources/access.pl</value>
+    </managed-property>
   </managed-bean>
   <managed-bean>
     <managed-bean-name>protect</managed-bean-name>
     <managed-bean-class>pl.lodz.p.pracowniaproblemowa.acodis.protect.Protect</managed-bean-class>
     <managed-bean-scope>request</managed-bean-scope>
+    <managed-property>
+      <property-name>prolog</property-name>
+      <property-class>pl.lodz.p.pracowniaproblemowa.acodis.prolog.Prolog</property-class>
+      <value>#{prolog}</value>
+    </managed-property>
   </managed-bean>
 </faces-config>
