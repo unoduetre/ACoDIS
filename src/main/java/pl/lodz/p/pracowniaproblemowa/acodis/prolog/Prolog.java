@@ -8,6 +8,7 @@ import alice.tuprolog.SolveInfo;
 import alice.tuprolog.Term;
 import alice.tuprolog.Struct;
 import alice.tuprolog.Var;
+import alice.tuprolog.lib.JavaLibrary;
 
 
 public class Prolog
@@ -15,10 +16,6 @@ public class Prolog
   String theoryPath = null;
   alice.tuprolog.Prolog prolog = new alice.tuprolog.Prolog();
   
-  public Prolog()
-  {
-  }
-
   public String getTheoryPath()
   {
     return theoryPath;
@@ -30,36 +27,42 @@ public class Prolog
     prolog.setTheory(new Theory(Prolog.class.getResourceAsStream(theoryPath)));
   }
 
-  public String accessLevel(PassedContext passedContext) throws Exception
+  public synchronized String accessLevel(PassedContext passedContext) throws Exception
   {
-    String highestLevel = "no";
-    Term passedContextTerm = passedContext.toTerm();
+    JavaLibrary javaLibrary = (JavaLibrary)prolog.getLibrary("alice.tuprolog.lib.JavaLibrary");
+    Struct passedContextTerm = new Struct("passedContext");
 
-    if(prolog.solve(new Struct("canAccess",passedContextTerm,new Struct("readAccess"))).isSuccess())
+    javaLibrary.register(passedContextTerm, passedContext);
+
+    String highestLevel = "no";
+
+    if(prolog.solve(new Struct("canAccess",new Struct("readAccess"))).isSuccess())
     {
       highestLevel = "read";
     }
-    if(prolog.solve(new Struct("canAccess",passedContextTerm,new Struct("writeAccess"))).isSuccess())
+    if(prolog.solve(new Struct("canAccess",new Struct("writeAccess"))).isSuccess())
     {
       highestLevel = "write";
     }
-    if(prolog.solve(new Struct("canAccess",passedContextTerm,new Struct("specialAccess"))).isSuccess())
+    if(prolog.solve(new Struct("canAccess",new Struct("specialAccess"))).isSuccess())
     {
       highestLevel = "special";
     }
 
-    if(highestLevel.equals("special") && prolog.solve(new Struct("cannotAccess",passedContextTerm,new Struct("specialAccess"))).isSuccess())
+    if(highestLevel.equals("special") && prolog.solve(new Struct("cannotAccess",new Struct("specialAccess"))).isSuccess())
     {
       highestLevel = "write";
     }
-    if(highestLevel.equals("write") && prolog.solve(new Struct("cannotAccess",passedContextTerm,new Struct("writeAccess"))).isSuccess())
+    if(highestLevel.equals("write") && prolog.solve(new Struct("cannotAccess",new Struct("writeAccess"))).isSuccess())
     {
       highestLevel = "read";
     }
-    if(highestLevel.equals("read") && prolog.solve(new Struct("cannotAccess",passedContextTerm,new Struct("readAccess"))).isSuccess())
+    if(highestLevel.equals("read") && prolog.solve(new Struct("cannotAccess",new Struct("readAccess"))).isSuccess())
     {
       highestLevel = "no";
     }
+
+    javaLibrary.unregister(passedContextTerm);
 
     return highestLevel;
   }

@@ -1,2 +1,2 @@
-canAccess(passedContext(component1),writeAccess).
-canAccess(X,readAccess).
+canAccess(writeAccess) :- passedContext <- getComponent returns component1.
+canAccess(readAccess).

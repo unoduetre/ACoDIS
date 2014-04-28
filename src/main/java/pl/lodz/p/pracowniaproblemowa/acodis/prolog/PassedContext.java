@@ -20,9 +20,24 @@ public class PassedContext
     this.resource = resource;
   }
 
-  public Term toTerm()
+  public String getComponent()
   {
-    return new Struct("passedContext", new Struct(component));
+    return component;
+  }
+
+  public String getCategory()
+  {
+    return category;
+  }
+
+  public String getResource()
+  {
+    return resource;
+  }
+
+  public FacesContext getFacesContext()
+  {
+    return facesContext;
   }
 }
 
