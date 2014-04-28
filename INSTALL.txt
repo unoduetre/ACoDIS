@@ -1,5 +1,5 @@
 1. Download and unpack the Glassfish application server.
-2. Configure your maven by using the following configuration file (put it in ~/.m2/):
+2. Configure your maven by using the following configuration file (put settings.xml in ~/.m2/):
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
@@ -7,12 +7,12 @@
     <profile>
       <id>glassfish</id>
       <properties>
-        <glassfish.directory>/home/mateusz/pracownia problemowa/glassfish4</glassfish.directory>
-        <glassfish.domain>acodis</glassfish.domain>
-        <glassfish.user>unoduetre</glassfish.user>
-        <glassfish.adminPassword>7qwerty</glassfish.adminPassword>
-        <local.repository>file:///home/mateusz/pracownia problemowa/packages</local.repository>
-        <local.site>file:///home/mateusz/pracownia problemowa/documentation</local.site>
+        <glassfish.directory>ŚCIEŻKA_DO_GLASSFISHA</glassfish.directory>
+        <glassfish.domain>NAZWA_DOMENY</glassfish.domain>
+        <glassfish.user>NAZWA_UŻYTKOWNIKA</glassfish.user>
+        <glassfish.adminPassword>HASŁO</glassfish.adminPassword>
+        <local.repository>file://ŚCIEŻKA_DO_KATALOGU</local.repository>
+        <local.site>file://ŚCIEŻKA_DO_KATALOGU</local.site>
       </properties>
     </profile>
   </profiles>
