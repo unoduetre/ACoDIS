@@ -43,5 +43,21 @@
         </c:otherwise>
       </c:choose>
     </c:if>
+    <c:if test="#{component == 'filebrowser'}">
+      <c:choose>
+        <c:when test="#{protect.hasReadAccess(component, category, resource)}">
+          <ui:insert name="read filebrowser"/>
+        </c:when>
+        <c:when test="#{protect.hasWriteAccess(component, category, resource)}">
+          <ui:insert name="write filebrowser"/>
+        </c:when>
+        <c:when test="#{protect.hasSpecialAccess(component, category, resource)}">
+          <ui:insert name="special filebrowser"/>
+        </c:when>
+        <c:otherwise>
+          <ui:insert name="no filebrowser"/>
+        </c:otherwise>
+      </c:choose>
+    </c:if>
   </h:body>
 </html>

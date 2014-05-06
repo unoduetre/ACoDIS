@@ -2,9 +2,6 @@ package pl.lodz.p.pracowniaproblemowa.acodis.prolog;
 
 import javax.faces.context.FacesContext;
 
-import alice.tuprolog.Term;
-import alice.tuprolog.Struct;
-
 public class PassedContext
 {
   FacesContext facesContext = null;

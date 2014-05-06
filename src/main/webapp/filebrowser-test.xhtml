@@ -12,13 +12,11 @@
   xmlns:pf="http://primefaces.org/ui">
   <h:body>
     <ui:composition template="/template.xhtml">
-      <ui:define name="title">Index</ui:define>
-      <h1>Hello World</h1>
-      Zażółć gęślą jaźń tępy chuju.
-      XYZ
-      <h:form>
-        <pf:editor/>
-      </h:form>
+      <ui:define name="title">Przeglądarka plików</ui:define>
+      <p>
+        <ui:include src="filebrowser/filebrowser.xhtml"/>
+      </p>
     </ui:composition>
   </h:body>
 </html>
+
