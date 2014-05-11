@@ -40,4 +40,34 @@
       <value>#{prolog}</value>
     </managed-property>
   </managed-bean>
+  <managed-bean>
+    <managed-bean-name>hello</managed-bean-name>
+    <managed-bean-class>pl.lodz.p.pracowniaproblemowa.acodis.wiki.Hello</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+  </managed-bean>
+  <managed-bean>
+    <managed-bean-name>userNumberBean</managed-bean-name>
+    <managed-bean-class>pl.lodz.p.pracowniaproblemowa.acodis.wiki.UserNumberBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+  <managed-bean>
+    <managed-bean-name>wikiEditorBean</managed-bean-name>
+    <managed-bean-class>pl.lodz.p.pracowniaproblemowa.acodis.wiki.WikiEditorBean</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+  </managed-bean>
+  <managed-bean>
+    <managed-bean-name>installTestDataBean</managed-bean-name>
+    <managed-bean-class>pl.lodz.p.pracowniaproblemowa.acodis.wiki.InstallTestDataBean</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+  </managed-bean>
+  <managed-bean>
+    <managed-bean-name>wikiReaderBean</managed-bean-name>
+    <managed-bean-class>pl.lodz.p.pracowniaproblemowa.acodis.wiki.WikiReaderBean</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+  </managed-bean>
+  <managed-bean>
+    <managed-bean-name>wikiMenuBean</managed-bean-name>
+    <managed-bean-class>pl.lodz.p.pracowniaproblemowa.acodis.wiki.WikiMenuBean</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+  </managed-bean>
 </faces-config>

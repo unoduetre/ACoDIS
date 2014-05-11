@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pl"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+  xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+  xmlns:jsf="http://xmlns.jcp.org/jsf"
+  xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+  xmlns:pf="http://primefaces.org/ui">
+  <h:body>
+    <ui:composition template="/protect.xhtml">
+      <ui:param name="component" value="readerWrapper"/>
+      <ui:param name="category" value="wiki"/>
+      <ui:param name="resource" value="jakistam"/>
+      <ui:define name="write readerWrapper">
+        <div class="frame">
+          <h1>Reader Wrapper Write</h1>
+          <ui:include src="reader.xhtml" />
+        </div>
+      </ui:define>
+      <ui:define name="read readerWrapper">
+        <div class="frame">
+          <h1>Reader Wrapper Read</h1>
+          <ui:include src="reader.xhtml" />
+        </div>
+      </ui:define>
+      <ui:define name="no readerWrapper">
+        <div class="frame">
+          <h1>Reader Wrapper None</h1>
+          <p>
+            <strong>Nie posiadasz prawa do oglądania wskazanej strony wiki :(</strong>
+          </p>
+        </div>
+      </ui:define>
+    </ui:composition>
+  </h:body>
+</html>

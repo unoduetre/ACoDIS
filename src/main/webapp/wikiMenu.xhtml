@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pl"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+  xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+  xmlns:jsf="http://xmlns.jcp.org/jsf"
+  xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+  xmlns:pf="http://primefaces.org/ui">
+  <f:metadata>
+    <f:viewParam name="parameter" value="#{wikiReaderBean.page}" />
+    <f:event type="preRenderView" listener="#{wikiReaderBean.getPage}" />
+  </f:metadata>
+  <h:body>
+    <ui:composition template="/template.xhtml">
+      <ui:define name="title">:: Wiki Menu ::</ui:define>
+      <div>
+        
+        <pf:tree value="#{wikiMenuBean.menuElements}" var="node" id="tree">
+          <pf:treeNode id="treeNode">
+            <h:link value="#{node.page}" outcome="wiki" rendered="#{node.page != null}">
+              <f:param name="category" value="#{node.category}" />
+              <f:param name="page" value="#{node.page}" />
+            </h:link>
+            <h:outputText value="#{node.category}" rendered="#{node.page == null}" />
+          </pf:treeNode>
+        </pf:tree>
+        
+      </div>
+    </ui:composition>
+  </h:body>
+</html>
+

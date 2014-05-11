@@ -43,5 +43,22 @@
         </c:otherwise>
       </c:choose>
     </c:if>
+    <!-- WIKI -->
+    <c:if test="#{component == 'readerWrapper'}">
+      <c:choose>
+        <c:when test="#{protect.hasReadAccess(component, category, resource)}">
+          <ui:insert name="read readerWrapper"/>
+        </c:when>
+        <c:when test="#{protect.hasWriteAccess(component, category, resource)}">
+          <ui:insert name="write readerWrapper"/>
+        </c:when>
+        <c:when test="#{protect.hasSpecialAccess(component, category, resource)}">
+          <ui:insert name="special readerWrapper"/>
+        </c:when>
+        <c:otherwise>
+          <ui:insert name="no readerWrapper"/>
+        </c:otherwise>
+      </c:choose>
+    </c:if>
   </h:body>
 </html>
