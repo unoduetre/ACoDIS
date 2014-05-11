@@ -2,8 +2,6 @@ package pl.lodz.p.pracowniaproblemowa.acodis.protect;
 
 import java.util.Map;
 import java.util.HashMap;
-import java.util.Arrays;
-import java.util.Collection;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.faces.context.FacesContext;
@@ -21,6 +19,7 @@ public class Protect
 
   private FacesContext facesContext = FacesContext.getCurrentInstance();
   private ExternalContext externalContext = facesContext.getExternalContext();
+  @SuppressWarnings("unused")
   private HttpServletRequest request = (HttpServletRequest)externalContext.getRequest();
 
   public Prolog getProlog()

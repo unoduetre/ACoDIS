@@ -41,6 +41,11 @@
     </managed-property>
   </managed-bean>
   <managed-bean>
+    <managed-bean-name>filebrowserbean</managed-bean-name>
+    <managed-bean-class>pl.lodz.p.pracowniaproblemowa.acodis.filebrowser.FileBrowserBean</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+  </managed-bean>
+  <managed-bean>
     <managed-bean-name>hello</managed-bean-name>
     <managed-bean-class>pl.lodz.p.pracowniaproblemowa.acodis.wiki.Hello</managed-bean-class>
     <managed-bean-scope>request</managed-bean-scope>

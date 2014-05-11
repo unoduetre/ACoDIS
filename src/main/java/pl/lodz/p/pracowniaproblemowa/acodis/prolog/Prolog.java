@@ -1,13 +1,7 @@
 package pl.lodz.p.pracowniaproblemowa.acodis.prolog;
 
-import java.util.Set;
-import java.util.HashSet;
-
 import alice.tuprolog.Theory;
-import alice.tuprolog.SolveInfo;
-import alice.tuprolog.Term;
 import alice.tuprolog.Struct;
-import alice.tuprolog.Var;
 import alice.tuprolog.lib.JavaLibrary;
 
 
