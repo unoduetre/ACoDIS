@@ -56,7 +56,7 @@ public class WikiEditorBean {
   }
   
   ////////////////////////////////////////////////////////////////////////////
-  // Pseudo akcesory
+  // PSEUDO AKCESORY
   public List<String> getCategories() {
     return WikiUtils.getCategories();
   }
@@ -72,11 +72,11 @@ public class WikiEditorBean {
   } 
 
   public String getTitle() {
-    return title.replace('_', ' ');
+    return title;
   }
 
   public void setTitle(String title) {
-    this.title = title.replace(' ', '_');
+    this.title = title;
   }
 
   public String getCategory() {

@@ -77,5 +77,21 @@
         </c:otherwise>
       </c:choose>
     </c:if>
+    <c:if test="#{component == 'categoryManager'}">
+      <c:choose>
+        <c:when test="#{protect.hasReadAccess(component, category, resource)}">
+          <ui:insert name="read categoryManager"/>
+        </c:when>
+        <c:when test="#{protect.hasWriteAccess(component, category, resource)}">
+          <ui:insert name="write categoryManager"/>
+        </c:when>
+        <c:when test="#{protect.hasSpecialAccess(component, category, resource)}">
+          <ui:insert name="special categoryManager"/>
+        </c:when>
+        <c:otherwise>
+          <ui:insert name="no categoryManager"/>
+        </c:otherwise>
+      </c:choose>
+    </c:if>
   </h:body>
 </html>
