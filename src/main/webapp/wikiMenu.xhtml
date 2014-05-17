@@ -21,11 +21,11 @@
         
         <pf:tree value="#{wikiMenuBean.menuElements}" var="node" id="tree">
           <pf:treeNode id="treeNode">
-            <h:link value="#{node.page}" outcome="wiki" rendered="#{node.page != null}">
+            <h:link value="#{node.name}" outcome="wiki" rendered="#{node.page != null}">
               <f:param name="category" value="#{node.category}" />
               <f:param name="page" value="#{node.page}" />
             </h:link>
-            <h:outputText value="#{node.category}" rendered="#{node.page == null}" />
+            <h:outputText value="#{node.name}" rendered="#{node.page == null}" />
           </pf:treeNode>
         </pf:tree>
         

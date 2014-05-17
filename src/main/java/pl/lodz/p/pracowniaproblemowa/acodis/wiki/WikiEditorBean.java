@@ -31,28 +31,7 @@ public class WikiEditorBean {
   ////////////////////////////////////////////////////////////////////////////
   // PUBLICZNE
   public void saveFile(ActionEvent event) {
-    File outputFile = new File(WikiUtils.PAGES_PATH + "/" + category + "/" + title);
-    Logger.getLogger(WikiEditorBean.class.getName()).log(Level.WARNING, ("    *** Ścieżka do pliku: " + outputFile.getAbsolutePath()));
-    
-    if(outputFile.exists()) {
-      outputFile.delete();
-    }
-    
-    FileWriter fw = null;
-    try {
-      fw = new FileWriter( outputFile );
-      
-      fw.append(editorValue);
-      
-    } catch (IOException ex) {
-      Logger.getLogger(WikiEditorBean.class.getName()).log(Level.SEVERE, null, ex);
-    } finally {
-      try {
-        if(fw != null) { fw.close(); }
-      } catch (IOException ex) {
-        Logger.getLogger(WikiEditorBean.class.getName()).log(Level.SEVERE, null, ex);
-      }
-    }
+    WikiUtils.saveArticle(category, title, editorValue);
   }
   
   ////////////////////////////////////////////////////////////////////////////

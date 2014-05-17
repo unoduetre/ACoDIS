@@ -3,6 +3,7 @@ package pl.lodz.p.pracowniaproblemowa.acodis.wiki;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -10,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import org.primefaces.model.DefaultTreeNode;
@@ -25,6 +25,14 @@ import pl.lodz.p.pracowniaproblemowa.acodis.wiki.data.WikiMenuItem;
 public class WikiUtils {
   public static final String PAGES_PATH = ((ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext()).getRealPath("") + "/wikiPages";
   
+  public static String humanToUrl(String name) {
+    return name.replace(' ', '_');
+  }
+  
+  public static String urlToHuman(String name) {
+    return name.replace('_', ' ');
+  }
+  
   public static List<String> getCategories() {
     List<String> categories = new ArrayList<>();
     
@@ -33,7 +41,7 @@ public class WikiUtils {
     
     if(categoriesDir != null) {
       for (File categoryDir : categoriesDir) {
-        categories.add(categoryDir.getName());
+        categories.add( urlToHuman( categoryDir.getName() ) );
       }
     }
     
@@ -48,7 +56,7 @@ public class WikiUtils {
     
     if(pagesDir != null) {
       for (File pageDir : pagesDir) {
-        pages.add(pageDir.getName());
+        pages.add( urlToHuman( pageDir.getName() ) );
       }
     }
     
@@ -62,25 +70,25 @@ public class WikiUtils {
     
     Logger.getLogger(WikiUtils.class.getName()).log(Level.SEVERE, "DRZEWO MENU");
     for(String category : categories) {
-      Logger.getLogger(WikiUtils.class.getName()).log(Level.SEVERE, "  " + category);
-      List<String> pages = WikiUtils.getPages(category);
+      Logger.getLogger(WikiUtils.class.getName()).log(Level.SEVERE, ("  " + category));
+      List<String> pages = WikiUtils.getPages( humanToUrl( category ) );
       
-      TreeNode tnCategory = new DefaultTreeNode(new WikiMenuItem(category, null), root);
+      TreeNode tnCategory = new DefaultTreeNode(new WikiMenuItem( urlToHuman( category ), null), root );
       
       for(String page : pages) {
-        Logger.getLogger(WikiUtils.class.getName()).log(Level.SEVERE, "    " + page);
-        DefaultTreeNode tnPage = new DefaultTreeNode(new WikiMenuItem(category, page), tnCategory);
+        Logger.getLogger(WikiUtils.class.getName()).log(Level.SEVERE, ("    " + page));
+        DefaultTreeNode tnPage = new DefaultTreeNode(new WikiMenuItem( urlToHuman( category ), urlToHuman( page ) ), tnCategory);
       }
     }
     
     return root;
   }
 
-  static String getPage(String category, String page) {
+  static String getPage(String category, String title) {
     String result = "";
     
     try {
-      File file = new File( WikiUtils.PAGES_PATH + "/" + category + "/" + page );
+      File file = new File( WikiUtils.PAGES_PATH + "/" + category + "/" + title );
       byte[] encoded = Files.readAllBytes( file.toPath() );
       result = new String(encoded, StandardCharsets.UTF_8);
     } catch (IOException ex) {
@@ -97,5 +105,52 @@ public class WikiUtils {
     }
     if (!f.delete())
       throw new FileNotFoundException("Failed to delete file: " + f);
+  }
+  
+  public static void saveArticle(String category, String title, String text) {
+    File outputFile = new File(WikiUtils.PAGES_PATH + "/" + humanToUrl( category ) + "/" + humanToUrl( title ));
+    Logger.getLogger(WikiEditorBean.class.getName()).log(Level.WARNING, ("    *** Ścieżka do pliku: " + outputFile.getAbsolutePath()));
+    
+    if(outputFile.exists()) {
+      outputFile.delete();
+    }
+    
+    FileWriter fw = null;
+    try {
+      fw = new FileWriter( outputFile );
+      
+      fw.append(text);
+      
+    } catch (IOException ex) {
+      Logger.getLogger(WikiEditorBean.class.getName()).log(Level.SEVERE, null, ex);
+    } finally {
+      try {
+        if(fw != null) { fw.close(); }
+      } catch (IOException ex) {
+        Logger.getLogger(WikiEditorBean.class.getName()).log(Level.SEVERE, null, ex);
+      }
+    }
+  }
+  
+  public static void deleteCategories(List<String> categoriesToDelete) {
+    for(String category : categoriesToDelete) {
+      try {
+        File dir = new File(WikiUtils.PAGES_PATH + "/" + humanToUrl(category));
+        Logger.getLogger(CategoryManagerBean.class.getName()).log(Level.WARNING, ("Usuwam katalog: " + dir.getAbsolutePath()));
+        WikiUtils.delete(dir);
+      } catch(IOException ex) {
+        Logger.getLogger(CategoryManagerBean.class.getName()).log(Level.WARNING, ("Brak kategorii: " + humanToUrl(category)));
+      }
+    }
+  }
+  
+  public static void createCategory(String category) {
+      try {
+        File dir = new File(WikiUtils.PAGES_PATH + "/" + humanToUrl(category));
+        Logger.getLogger(CategoryManagerBean.class.getName()).log(Level.WARNING, ("Tworzę katalog: " + dir.getAbsolutePath()));
+        dir.mkdirs();
+      } catch(Exception ex) {
+        Logger.getLogger(CategoryManagerBean.class.getName()).log(Level.WARNING, ("Nie udało się utworzyć kategorii: " + humanToUrl(category)), ex);
+      }
   }
 }

@@ -20,25 +20,11 @@ public class CategoryManagerBean {
   ////////////////////////////////////////////////////////////////////////////
   // PUBLICZNE
   public void deleteSelected(ActionEvent event) {
-    for(String category : categoriesToDelete) {
-      try {
-        File dir = new File(WikiUtils.PAGES_PATH + "/" + category);
-        Logger.getLogger(CategoryManagerBean.class.getName()).log(Level.WARNING, ("Usuwam katalog: " + dir.getAbsolutePath()));
-        WikiUtils.delete(dir);
-      } catch(Exception ex) {
-        Logger.getLogger(CategoryManagerBean.class.getName()).log(Level.WARNING, ("Brak kategorii: " + category));
-      }
-    }
+    WikiUtils.deleteCategories(categoriesToDelete);
   }
   
   public void createCategory(ActionEvent event) {
-      try {
-        File dir = new File(WikiUtils.PAGES_PATH + "/" + getNewCategory());
-        Logger.getLogger(CategoryManagerBean.class.getName()).log(Level.WARNING, ("Tworzę katalog: " + dir.getAbsolutePath()));
-        dir.mkdirs();
-      } catch(Exception ex) {
-        Logger.getLogger(CategoryManagerBean.class.getName()).log(Level.WARNING, ("Nie udało się utworzyć kategorii: " + getNewCategory()), ex);
-      }
+      WikiUtils.createCategory(newCategory);
   }
   
   ////////////////////////////////////////////////////////////////////////////
