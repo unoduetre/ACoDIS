@@ -11,7 +11,47 @@
   xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
   xmlns:pf="http://primefaces.org/ui">
   <h:body>
-    <h:outputText value="#{wikiReaderBean.body}" escape="false" />
+    <ui:composition template="/protect.xhtml">
+      <ui:param name="component" value="reader"/>
+      <ui:param name="category" value="#{wikiReaderBean.categoryForUrl}"/>
+      <ui:param name="resource" value="#{wikiReaderBean.pageForUrl}"/>
+      
+      <ui:define name="write reader">
+        <div class="divWikiTopMenu">
+          <h:link value="edytuj" outcome="wiki">
+            <f:param name="destination" value="WIKIPAGE_EDITOR" />
+            <f:param name="category" value="#{wikiReaderBean.categoryForUrl}" />
+            <f:param name="page" value="#{wikiReaderBean.pageForUrl}" />
+          </h:link>
+          |
+          <h:link value="edytuj za prawem" outcome="wiki">
+            <f:param name="destination" value="WIKIPAGE_EDITOR" />
+            <f:param name="category" value="#{wikiReaderBean.categoryForUrl}" />
+            <f:param name="page" value="#{wikiReaderBean.pageForUrl}" />
+            <f:param name="editorWrapper.#{wikiReaderBean.categoryForUrl}.#{wikiReaderBean.pageForUrl}" value="write" />
+          </h:link>
+        </div>
+        <div class="frame">
+          <h1>#{wikiReaderBean.title} (Write)</h1>
+          <h:outputText value="#{wikiReaderBean.body}" escape="false" />
+        </div>
+      </ui:define>
+      
+      <ui:define name="read reader">
+        <div class="frame">
+          <h1>#{wikiReaderBean.title} (Read)</h1>
+          <h:outputText value="#{wikiReaderBean.body}" escape="false" />
+        </div>
+      </ui:define>
+      
+      <ui:define name="no reader">
+        <div class="frame">
+          <h1>Reader Wrapper None</h1>
+          <p>
+            <strong>Nie posiadasz prawa do oglądania wskazanej strony wiki :(</strong>
+          </p>
+        </div>
+      </ui:define>
+    </ui:composition>
   </h:body>
 </html>
-

@@ -61,35 +61,51 @@
     </c:if>
 
     <!-- WIKI -->
-    <c:if test="#{component == 'readerWrapper'}">
+    <c:if test="#{component == 'wiki'}">
       <c:choose>
         <c:when test="#{protect.hasReadAccess(component, category, resource)}">
-          <ui:insert name="read readerWrapper"/>
+          <ui:insert name="read wiki"/>
         </c:when>
         <c:when test="#{protect.hasWriteAccess(component, category, resource)}">
-          <ui:insert name="write readerWrapper"/>
+          <ui:insert name="write wiki"/>
         </c:when>
         <c:when test="#{protect.hasSpecialAccess(component, category, resource)}">
-          <ui:insert name="special readerWrapper"/>
+          <ui:insert name="special wiki"/>
         </c:when>
         <c:otherwise>
-          <ui:insert name="no readerWrapper"/>
+          <ui:insert name="no wiki"/>
         </c:otherwise>
       </c:choose>
     </c:if>
-    <c:if test="#{component == 'categoryManager'}">
+    <c:if test="#{component == 'reader'}">
       <c:choose>
         <c:when test="#{protect.hasReadAccess(component, category, resource)}">
-          <ui:insert name="read categoryManager"/>
+          <ui:insert name="read reader"/>
         </c:when>
         <c:when test="#{protect.hasWriteAccess(component, category, resource)}">
-          <ui:insert name="write categoryManager"/>
+          <ui:insert name="write reader"/>
         </c:when>
         <c:when test="#{protect.hasSpecialAccess(component, category, resource)}">
-          <ui:insert name="special categoryManager"/>
+          <ui:insert name="special reader"/>
         </c:when>
         <c:otherwise>
-          <ui:insert name="no categoryManager"/>
+          <ui:insert name="no reader"/>
+        </c:otherwise>
+      </c:choose>
+    </c:if>
+    <c:if test="#{component == 'editorWrapper'}">
+      <c:choose>
+        <c:when test="#{protect.hasReadAccess(component, category, resource)}">
+          <ui:insert name="read editorWrapper"/>
+        </c:when>
+        <c:when test="#{protect.hasWriteAccess(component, category, resource)}">
+          <ui:insert name="write editorWrapper"/>
+        </c:when>
+        <c:when test="#{protect.hasSpecialAccess(component, category, resource)}">
+          <ui:insert name="special editorWrapper"/>
+        </c:when>
+        <c:otherwise>
+          <ui:insert name="no editorWrapper"/>
         </c:otherwise>
       </c:choose>
     </c:if>

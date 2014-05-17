@@ -1,3 +1,29 @@
+/*******************************************************************************
+* WIKI TOP MENU
+*******************************************************************************/
+.divWikiTopMenu {
+  margin: 0px;
+  padding: 5px;
+  width: 100%;
+  height: 20px;
+  font-size: 12px;
+  background-color: #000000;
+  color: #FFFFFF;
+}
+
+.divWikiTopMenu a:link, .divWikiTopMenu a:visited, .divWikiTopMenu a:active {
+  color:#FFFFFF;
+  border-color: #FFFFFF;
+  text-decoration: none;
+}
+
+.divWikiTopMenu a:hover {
+  border-bottom: 1px dotted;
+}
+
+/*******************************************************************************
+* WIKI FORM
+*******************************************************************************/
 .inputForm {
   margin: 10px;
 }

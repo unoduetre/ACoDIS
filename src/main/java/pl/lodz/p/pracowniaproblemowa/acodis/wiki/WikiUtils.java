@@ -23,8 +23,17 @@ import pl.lodz.p.pracowniaproblemowa.acodis.wiki.data.WikiMenuItem;
  * @author lukkot
  */
 public class WikiUtils {
+  ////////////////////////////////////////////////////////////////////////////
+  // STAŁE PUBLICZNE
+  // Ścieżka do stron wiki
   public static final String PAGES_PATH = ((ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext()).getRealPath("") + "/wikiPages";
   
+  // Dostępne moduły wiki
+  public static final String WIKIPAGE_READER = "WIKIPAGE_READER";
+  public static final String WIKIPAGE_EDITOR = "WIKIPAGE_EDITOR";
+  
+  ////////////////////////////////////////////////////////////////////////////
+  // METODY PUBLICZNE
   public static String humanToUrl(String name) {
     return name.replace(' ', '_');
   }
@@ -68,15 +77,15 @@ public class WikiUtils {
     
     List<String> categories = WikiUtils.getCategories();
     
-    Logger.getLogger(WikiUtils.class.getName()).log(Level.SEVERE, "DRZEWO MENU");
+//    Logger.getLogger(WikiUtils.class.getName()).log(Level.SEVERE, "DRZEWO MENU");
     for(String category : categories) {
-      Logger.getLogger(WikiUtils.class.getName()).log(Level.SEVERE, ("  " + category));
+//      Logger.getLogger(WikiUtils.class.getName()).log(Level.SEVERE, ("  " + category));
       List<String> pages = WikiUtils.getPages( humanToUrl( category ) );
       
       TreeNode tnCategory = new DefaultTreeNode(new WikiMenuItem( urlToHuman( category ), null), root );
       
       for(String page : pages) {
-        Logger.getLogger(WikiUtils.class.getName()).log(Level.SEVERE, ("    " + page));
+//        Logger.getLogger(WikiUtils.class.getName()).log(Level.SEVERE, ("    " + page));
         DefaultTreeNode tnPage = new DefaultTreeNode(new WikiMenuItem( urlToHuman( category ), urlToHuman( page ) ), tnCategory);
       }
     }
@@ -88,7 +97,7 @@ public class WikiUtils {
     String result = "";
     
     try {
-      File file = new File( WikiUtils.PAGES_PATH + "/" + category + "/" + title );
+      File file = new File( WikiUtils.PAGES_PATH + "/" + humanToUrl( category ) + "/" + humanToUrl( title ) );
       byte[] encoded = Files.readAllBytes( file.toPath() );
       result = new String(encoded, StandardCharsets.UTF_8);
     } catch (IOException ex) {

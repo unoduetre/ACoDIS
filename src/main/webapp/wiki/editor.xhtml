@@ -11,22 +11,29 @@
   xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
   xmlns:pf="http://primefaces.org/ui">
   <h:body>
-    <ui:composition template="/template.xhtml">
-      <ui:define name="title">Wiki Edytor</ui:define>
-      <h:outputStylesheet library="css" name="wiki.css" />
+<!--    <ui:composition template="/template.xhtml">
+      <ui:define name="title">Wiki Edytor</ui:define>-->
+<!--      <h:outputStylesheet library="css" name="wiki.css" />-->
       
       <h:form styleClass="inputForm">
+<!--        <input type="hidden" name="inputTitle" value="#{wikiEditorBean.inputTitle}" />
+        <input type="hidden" name="inputCategory" value="#{wikiEditorBean.inputCategory}" />-->
+        <h:inputHidden id="inputTitle" value="#{wikiEditorBean.inputTitle}" />
+        <h:inputHidden id="inputCategory" value="#{wikiEditorBean.inputCategory}" />
+        <h:inputHidden id="isNewPage" value="#{wikiEditorBean.isNewPage}" />
+        
         <pf:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
         
         <p class="inputLabel">Tytuł:</p>
         <pf:inputText styleClass="inputLongTextField" required="true" label="Tytuł" value="#{wikiEditorBean.title}"
                       validatorMessage="Tytuł może się składać tylko z liter cyfr oraz znaków spacji!"
-                      requiredMessage="Tytuł jest wymagany!" >
+                      requiredMessage="Tytuł jest wymagany!" disabled="#{!wikiEditorBean.isNewPage}">
           <f:validateRegex pattern="^([a-zA-Z0-9]| )+$" />
         </pf:inputText>
         
         <p class="inputLabel">Kategoria:</p>
-        <pf:selectOneMenu styleClass="inputLongCombobox" id="category" value="#{wikiEditorBean.category}">
+        <pf:selectOneMenu styleClass="inputLongCombobox" id="category" value="#{wikiEditorBean.category}"
+                          disabled="#{!wikiEditorBean.isNewPage}" >
           <f:selectItems value="#{wikiEditorBean.categories}" />
         </pf:selectOneMenu>
         
@@ -35,12 +42,24 @@
         
         <hr styleClass="inputHr"/>
         <div class="divButtons">
-          <pf:commandButton id="buttonCancel" styleClass="inputButton" value="Anuluj" immediate="true" />
-          <pf:commandButton id="buttonSave" styleClass="inputButton" value="Zapisz" actionListener="#{wikiEditorBean.saveFile}" />
-          <pf:commandButton id="buttonSaveAndFinish" styleClass="inputButton" value="Zapisz i Zakończ" actionListener="#{wikiEditorBean.saveFile}" action="index"/>
+          <pf:commandButton id="buttonSave" styleClass="inputButton"
+                            value="Zapisz" actionListener="#{wikiEditorBean.saveFile}"
+                            ajax="true">
+            <f:param name="destination" value="WIKIPAGE_EDITOR" />
+<!--            <f:param name="category" value="#{wikiEditorBean.outputPage}" />
+            <f:param name="page" value="#{wikiEditorBean.outputCategory}" />-->
+          </pf:commandButton>
+          <pf:commandButton id="buttonSaveAndFinish" styleClass="inputButton"
+                            value="Zapisz i Zakończ" actionListener="#{wikiEditorBean.saveFile}"
+                            action="wiki"
+                            ajax="true">
+            <f:param name="destination" value="WIKIPAGE_READER" />
+            <f:param name="category" value="#{wikiEditorBean.outputPage}" />
+            <f:param name="page" value="#{wikiEditorBean.outputCategory}" />
+          </pf:commandButton>
         </div>
       </h:form>
-    </ui:composition>
+    <!--</ui:composition>-->
   </h:body>
 </html>
 

@@ -10,20 +10,27 @@
   xmlns:jsf="http://xmlns.jcp.org/jsf"
   xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
   xmlns:pf="http://primefaces.org/ui">
-  <f:metadata>
-    <f:viewParam name="parameter" value="#{wikiReaderBean.page}" />
-    <f:event type="preRenderView" listener="#{wikiReaderBean.getPage}" />
-  </f:metadata>
   <h:body>
     <ui:composition template="/template.xhtml">
       <ui:define name="title">:: Wiki Menu ::</ui:define>
+      
+      <h:outputStylesheet library="css" name="wiki.css" />
       <div>
+        
+        <h:link value="Nowa kategoria" outcome="wiki">
+          <f:param name="destination" value="WIKIPAGE_EDITOR" />
+        </h:link><br />
+        <h:link value="Nowa kategoria za prawem" outcome="wiki">
+          <f:param name="destination" value="WIKIPAGE_EDITOR" />
+          <f:param name="editorWrapper.." value="write" />
+        </h:link>
         
         <pf:tree value="#{wikiMenuBean.menuElements}" var="node" id="tree">
           <pf:treeNode id="treeNode">
             <h:link value="#{node.name}" outcome="wiki" rendered="#{node.page != null}">
               <f:param name="category" value="#{node.category}" />
               <f:param name="page" value="#{node.page}" />
+              <f:param name="destination" value="WIKIPAGE_READER" />
             </h:link>
             <h:outputText value="#{node.name}" rendered="#{node.page == null}" />
           </pf:treeNode>

@@ -10,16 +10,13 @@
   xmlns:jsf="http://xmlns.jcp.org/jsf"
   xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
   xmlns:pf="http://primefaces.org/ui">
-  <f:metadata>
-    <f:viewParam name="parameter" value="#{wikiReaderBean.page}" />
-    <f:event type="preRenderView" listener="#{wikiReaderBean.getPage}" />
-  </f:metadata>
   <h:body>
     <ui:composition template="/template.xhtml">
-      <ui:define name="title">#{wikiReaderBean.title}</ui:define>
-      <div>
-        <ui:include src="wiki/readerWrapper.xhtml" />
-      </div>
+      <ui:define name="title">#{wikiDispatcherBean.title}</ui:define>
+        <h:outputStylesheet library="css" name="wiki.css" />
+        <div>
+          <ui:include src="wiki/#{wikiDispatcherBean.destination}" />
+        </div>
     </ui:composition>
   </h:body>
 </html>
