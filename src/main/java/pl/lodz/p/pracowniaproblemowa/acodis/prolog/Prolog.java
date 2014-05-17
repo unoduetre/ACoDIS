@@ -1,5 +1,7 @@
 package pl.lodz.p.pracowniaproblemowa.acodis.prolog;
 
+import java.util.logging.Logger;
+
 import alice.tuprolog.Theory;
 import alice.tuprolog.Struct;
 import alice.tuprolog.lib.JavaLibrary;
@@ -9,6 +11,13 @@ public class Prolog
 {
   String theoryPath = null;
   alice.tuprolog.Prolog prolog = new alice.tuprolog.Prolog();
+  Logger logger = Logger.getLogger(Prolog.class.getName());
+  JavaLibrary javaLibrary = (JavaLibrary)prolog.getLibrary("alice.tuprolog.lib.JavaLibrary");
+
+  public Prolog() throws Exception
+  {
+    javaLibrary.register(new Struct("logger"),logger);
+  }
   
   public String getTheoryPath()
   {
@@ -23,7 +32,6 @@ public class Prolog
 
   public synchronized String accessLevel(PassedContext passedContext) throws Exception
   {
-    JavaLibrary javaLibrary = (JavaLibrary)prolog.getLibrary("alice.tuprolog.lib.JavaLibrary");
     Struct passedContextTerm = new Struct("passedContext");
 
     javaLibrary.register(passedContextTerm, passedContext);
@@ -57,6 +65,8 @@ public class Prolog
     }
 
     javaLibrary.unregister(passedContextTerm);
+
+    logger.info(highestLevel);
 
     return highestLevel;
   }
