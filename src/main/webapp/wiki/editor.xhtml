@@ -13,77 +13,24 @@
   <h:body>
     <ui:composition template="/template.xhtml">
       <ui:define name="title">Wiki Edytor</ui:define>
-      
-      <style>
-        .inputForm {
-          margin: 10px;
-        }
-        
-        .inputLabel {
-          margin: 0px;
-          padding: 0px;
-          
-          margin-top: 5px;
-          margin-bottom: 5px;
-        }
-        
-        .ui-messages {
-          font-size: 10px;
-        }
-        
-        .inputHr {
-          width: 100%;
-          margin: 0px;
-          padding: 0px;
-        }
-        
-        .inputTitle {
-          width: 100%;
-          margin: 0px;
-          padding: 0px;
-        }
-        
-        .inputCategories {
-          width: 100%;
-          margin: 0px;
-          padding: 0px;
-        }
-        
-        .inputEditor {
-          width: 100%;
-          margin: 0px;
-          padding: 0px;
-        }
-        
-        .divButtons {
-          width: 100%;
-          margin: 0px;
-          padding: 0px;
-          text-align: right;
-        }
-        
-        .inputButton {
-          font-size: 10px;
-        }
-      </style>
+      <h:outputStylesheet library="css" name="wiki.css" />
       
       <h:form styleClass="inputForm">
         <pf:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
         
         <p class="inputLabel">Tytuł:</p>
-        <pf:inputText styleClass="inputTitle" required="true" label="Tytuł" value="#{wikiEditorBean.title}"
+        <pf:inputText styleClass="inputLongTextField" required="true" label="Tytuł" value="#{wikiEditorBean.title}"
                       validatorMessage="Tytuł może się składać tylko z liter cyfr oraz znaków spacji!"
                       requiredMessage="Tytuł jest wymagany!" >
           <f:validateRegex pattern="^([a-zA-Z0-9]| )+$" />
         </pf:inputText>
         
         <p class="inputLabel">Kategoria:</p>
-        <pf:selectOneMenu styleClass="inputCategories" id="category" value="#{wikiEditorBean.category}">
-          <f:selectItem itemLabel="Wybierz kategorię" itemValue="" />
+        <pf:selectOneMenu styleClass="inputLongCombobox" id="category" value="#{wikiEditorBean.category}">
           <f:selectItems value="#{wikiEditorBean.categories}" />
         </pf:selectOneMenu>
         
-        <hr styleClass="inputHr"/>
+        <hr class="inputHr"/>
         <pf:editor styleClass="inputEditor" value="#{wikiEditorBean.editorValue}"/>
         
         <hr styleClass="inputHr"/>

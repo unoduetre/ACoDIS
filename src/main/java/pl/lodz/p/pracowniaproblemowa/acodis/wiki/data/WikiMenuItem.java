@@ -1,6 +1,8 @@
 
 package pl.lodz.p.pracowniaproblemowa.acodis.wiki.data;
 
+import pl.lodz.p.pracowniaproblemowa.acodis.wiki.WikiUtils;
+
 /**
  *
  * @author lukkot
@@ -8,8 +10,8 @@ package pl.lodz.p.pracowniaproblemowa.acodis.wiki.data;
 public class WikiMenuItem {
   ////////////////////////////////////////////////////////////////////////////
   // ZMIENNE
-  private String category;
-  private String page;
+  private final String category;
+  private final String page;
   
   ////////////////////////////////////////////////////////////////////////////
   // KONSTRUKTORY
@@ -27,18 +29,12 @@ public class WikiMenuItem {
   ////////////////////////////////////////////////////////////////////////////
   // AKCESORY
   public String getCategory() {
-    return category;
-  }
-
-  public void setCategory(String category) {
-    this.category = category;
+    return WikiUtils.humanToUrl( category );
   }
 
   public String getPage() {
-    return page;
-  }
-
-  public void setPage(String page) {
-    this.page = page;
+    if(page == null) return null;
+    
+    return WikiUtils.humanToUrl( page );
   }
 }
