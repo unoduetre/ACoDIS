@@ -11,6 +11,22 @@
   xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
   xmlns:pf="http://primefaces.org/ui">
   <h:body>
+    <c:if test="#{component == 'login'}">
+      <c:choose>
+        <c:when test="#{protect.hasReadAccess(component, category, resource)}">
+          <ui:insert name="read login"/>
+        </c:when>
+        <c:when test="#{protect.hasWriteAccess(component, category, resource)}">
+          <ui:insert name="write login"/>
+        </c:when>
+        <c:when test="#{protect.hasSpecialAccess(component, category, resource)}">
+          <ui:insert name="special login"/>
+        </c:when>
+        <c:otherwise>
+          <ui:insert name="no login"/>
+        </c:otherwise>
+      </c:choose>
+    </c:if>
     <c:if test="#{component == 'component1'}">
       <c:choose>
         <c:when test="#{protect.hasReadAccess(component, category, resource)}">
