@@ -9,14 +9,15 @@
   xmlns:cc="http://java.sun.com/jsf/composite"
   xmlns:jsf="http://xmlns.jcp.org/jsf"
   xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-  xmlns:pf="http://primefaces.org/ui">
+  xmlns:pf="http://primefaces.org/ui"
+  xmlns:wiki="http://java.sun.com/jsf/composite/wiki">
   <h:body>
     <ui:composition template="/template.xhtml">
       <ui:define name="title">#{wikiDispatcherBean.title}</ui:define>
-        <h:outputStylesheet library="css" name="wiki.css" />
-        <div>
-          <ui:include src="wiki/editorWrapper.xhtml" />
-        </div>
+      <h:outputStylesheet library="css" name="wiki.css" />
+      <div>
+        <wiki:editorWrapper/>
+      </div>
     </ui:composition>
   </h:body>
 </html>
