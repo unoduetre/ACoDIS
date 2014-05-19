@@ -60,7 +60,7 @@ public class WikiUtils {
   public static List<String> getPages(String category) {
     List<String> pages = new ArrayList<>();
     
-    File pagesPathFile = new File(WikiUtils.PAGES_PATH + "\\" + category);
+    File pagesPathFile = new File(WikiUtils.PAGES_PATH + "/" + category);
     File[] pagesDir = pagesPathFile.listFiles();
     
     if(pagesDir != null) {

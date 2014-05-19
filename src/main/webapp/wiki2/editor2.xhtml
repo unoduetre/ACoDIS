@@ -13,31 +13,37 @@
   <h:body>
     <cc:interface></cc:interface>
     <cc:implementation>
-      <c:set var="component" value="readerWrapper"/>
-      <c:set var="category" value="wiki"/>
-      <c:set var="resource" value="jakistam"/>
+      <c:set var="component" value="editor"/>
+      <c:set var="category" value="cat1"/>
+      <c:set var="resource" value="plik_testowy"/>
       <c:choose>
         <c:when test="#{protect.getAccessLevel(component, category, resource) == 'special'}">
         </c:when>
         <c:when test="#{protect.getAccessLevel(component, category, resource) == 'write'}">
-          <div class="frame">
-            <h1>Reader Wrapper Write</h1>
-            <ui:include src="reader.xhtml" />
-          </div>
         </c:when>
         <c:when test="#{protect.getAccessLevel(component, category, resource) == 'read'}">
-          <div class="frame">
-            <h1>Reader Wrapper Read</h1>
-            <ui:include src="reader.xhtml" />
-          </div>
+          <h:form>
+            <p>
+              <h:outputText value="#{msgs['alreadyLogged']}"/>
+              <h:outputText value=" "/>
+              <h:outputText value="#{login.username}"/>
+            </p>
+            <p>
+              <pf:commandButton value="#{msgs['logout']}" action="#{login.logout()}" ajax="false"/>
+            </p>
+          </h:form>
         </c:when>
         <c:otherwise>
-          <div class="frame">
-            <h1>Reader Wrapper None</h1>
+          <h:form>
             <p>
-              <strong>Nie posiadasz prawa do oglądania wskazanej strony wiki :(</strong>
+              <h:outputText value="#{msgs['alreadyLogged']}"/>
+              <h:outputText value=" "/>
+              <h:outputText value="#{login.username}"/>
             </p>
-          </div>
+            <p>
+              <pf:commandButton value="#{msgs['logout']}" action="#{login.logout()}" ajax="false"/>
+            </p>
+          </h:form>
         </c:otherwise>
       </c:choose>
     </cc:implementation>

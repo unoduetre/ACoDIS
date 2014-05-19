@@ -6,7 +6,7 @@
   xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
   xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
   xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+  xmlns:cc="http://java.sun.com/jsf/composite"
   xmlns:jsf="http://xmlns.jcp.org/jsf"
   xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
   xmlns:pf="http://primefaces.org/ui">
@@ -42,21 +42,24 @@
         
         <hr styleClass="inputHr"/>
         <div class="divButtons">
-          <pf:commandButton id="buttonSave" styleClass="inputButton"
-                            value="Zapisz" actionListener="#{wikiEditorBean.saveFile}"
-                            ajax="true">
-            <f:param name="destination" value="WIKIPAGE_EDITOR" />
+          <!--pf:commandButton id="buttonSave" styleClass="inputButton"
+                            value="Zapisz" actionListener="wikiEditorBean.saveFile"
+                            ajax="false"-->
+          <h:commandButton id="buttonSave" styleClass="inputButton"
+              value="Zapisz" action="#{wikiEditorBean.xSaveFile()}">
+            <!--<f:param name="destination" value="WIKIPAGE_EDITOR" />-->
 <!--            <f:param name="category" value="#{wikiEditorBean.outputPage}" />
             <f:param name="page" value="#{wikiEditorBean.outputCategory}" />-->
-          </pf:commandButton>
-          <pf:commandButton id="buttonSaveAndFinish" styleClass="inputButton"
-                            value="Zapisz i Zakończ" actionListener="#{wikiEditorBean.saveFile}"
+          </h:commandButton>
+          <!--/pf:commandButton
+          pf:commandButton id="buttonSaveAndFinish" styleClass="inputButton"
+                            value="Zapisz i Zakończ" actionListener="wikiEditorBean.saveFile"
                             action="wiki"
-                            ajax="true">
-            <f:param name="destination" value="WIKIPAGE_READER" />
-            <f:param name="category" value="#{wikiEditorBean.outputPage}" />
-            <f:param name="page" value="#{wikiEditorBean.outputCategory}" />
-          </pf:commandButton>
+                            ajax="false"
+            f:param name="destination" value="WIKIPAGE_READER" /
+            f:param name="category" value="wikiEditorBean.outputPage" /
+            f:param name="page" value="wikiEditorBean.outputCategory" /
+          /pf:commandButton-->
         </div>
       </h:form>
     <!--</ui:composition>-->

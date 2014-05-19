@@ -36,7 +36,7 @@ public class Login implements Serializable
   {
     username = null;
     password = null;
-    return "login";
+    return "index";
   }
 }
 

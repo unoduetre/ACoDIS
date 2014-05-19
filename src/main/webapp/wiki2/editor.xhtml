@@ -13,31 +13,23 @@
   <h:body>
     <cc:interface></cc:interface>
     <cc:implementation>
-      <c:set var="component" value="readerWrapper"/>
-      <c:set var="category" value="wiki"/>
-      <c:set var="resource" value="jakistam"/>
+      <c:set var="component" value="editor"/>
+      <c:set var="category" value="cat1"/>
+      <c:set var="resource" value="plik_tekstowy"/>
       <c:choose>
         <c:when test="#{protect.getAccessLevel(component, category, resource) == 'special'}">
         </c:when>
         <c:when test="#{protect.getAccessLevel(component, category, resource) == 'write'}">
-          <div class="frame">
-            <h1>Reader Wrapper Write</h1>
-            <ui:include src="reader.xhtml" />
-          </div>
+          XYZ
+          <h:form>
+            <h:commandButton value="Zapisz" action="#{login.logout()}"/>
+          </h:form>
         </c:when>
         <c:when test="#{protect.getAccessLevel(component, category, resource) == 'read'}">
-          <div class="frame">
-            <h1>Reader Wrapper Read</h1>
-            <ui:include src="reader.xhtml" />
-          </div>
+          ARGH
         </c:when>
         <c:otherwise>
-          <div class="frame">
-            <h1>Reader Wrapper None</h1>
-            <p>
-              <strong>Nie posiadasz prawa do oglądania wskazanej strony wiki :(</strong>
-            </p>
-          </div>
+          Nie
         </c:otherwise>
       </c:choose>
     </cc:implementation>

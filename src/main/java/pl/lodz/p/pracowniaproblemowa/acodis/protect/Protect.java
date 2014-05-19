@@ -12,15 +12,10 @@ import pl.lodz.p.pracowniaproblemowa.acodis.prolog.PassedContext;
 
 public class Protect
 {
-
+  private Map<String, Map<String, Map<String, String>>> componentsAccessLevels = new HashMap<String, Map<String, Map<String, String>>>();
   private Prolog prolog = null;
-
-  private Map<String,Map<String,Map<String, String>>> componentsAccess = new HashMap<String, Map<String,Map<String, String>>>();
-
   private FacesContext facesContext = FacesContext.getCurrentInstance();
   private ExternalContext externalContext = facesContext.getExternalContext();
-  @SuppressWarnings("unused")
-  private HttpServletRequest request = (HttpServletRequest)externalContext.getRequest();
 
   public Prolog getProlog()
   {
@@ -32,63 +27,52 @@ public class Protect
     this.prolog = prolog;
   }
 
-  private void determineAccess(String component, String category, String resource) throws Exception
+  private String findAccessLevel(String component, String category, String resource) throws Exception
   {
-    assureExistence(component, category, resource);
-    componentsAccess.get(component).get(category).put(resource,prolog.accessLevel(new PassedContext(facesContext, component, category, resource)));
+    String accessLevel = prolog.accessLevel(new PassedContext(facesContext, component, category, resource));
 
-    Map<String, String> parameters = externalContext.getRequestParameterMap();
-    for(String parameterName : parameters.keySet())
+    String accessParameter = externalContext.getRequestParameterMap().get(component+"."+category+"."+resource);
+    if(accessParameter != null)
     {
-      if(parameterName.matches("\\A.+\\..+\\..+\\z"))
-      {
-        String[] three = parameterName.split("\\.");
-        assureExistence(three[0], three[1], three[2]);
-        componentsAccess.get(three[0]).get(three[1]).put(three[2],parameters.get(parameterName));
-      }
-    }
-  }
-
-  private void assureExistence(String component, String category, String resource)
-  {
-    Map<String, Map<String, String>> categoriesAccess = componentsAccess.get(component);
-    if(categoriesAccess == null)
-    {
-      categoriesAccess = new HashMap<String, Map<String,String>>();
-      componentsAccess.put(component, categoriesAccess);
+      accessLevel = accessParameter;
     }
 
-    Map<String, String> resourcesAccess = categoriesAccess.get(category);
-    if(resourcesAccess == null)
+    Map<String, Map<String, String>> categoriesAccessLevels = componentsAccessLevels.get(component);
+    if(categoriesAccessLevels == null)
     {
-      resourcesAccess = new HashMap<String, String>();
-      categoriesAccess.put(category, resourcesAccess);
+      categoriesAccessLevels = new HashMap<String, Map<String, String>>();
+      componentsAccessLevels.put(component, categoriesAccessLevels);
     }
-
-    String access = resourcesAccess.get(resource);
-    if(access == null)
+    Map<String, String> resourcesAccessLevels = categoriesAccessLevels.get(category);
+    if(resourcesAccessLevels == null)
     {
-      access = "no";
-      resourcesAccess.put(resource, "access");
+      resourcesAccessLevels = new HashMap<String, String>();
+      categoriesAccessLevels.put(category, resourcesAccessLevels);
     }
+    resourcesAccessLevels.put(resource,accessLevel);
+
+    return accessLevel;
   }
 
-  public Boolean hasSpecialAccess(String component, String category, String resource) throws Exception
+  public String getAccessLevel(String component, String category, String resource) throws Exception
   {
-    determineAccess(component, category, resource);
-    return componentsAccess.get(component).get(category).get(resource).equals("special");
-  }
 
-  public Boolean hasWriteAccess(String component, String category, String resource) throws Exception
-  {
-    determineAccess(component, category, resource);
-    return componentsAccess.get(component).get(category).get(resource).equals("write");
-  }
-
-  public Boolean hasReadAccess(String component, String category, String resource) throws Exception
-  {
-    determineAccess(component, category, resource);
-    return componentsAccess.get(component).get(category).get(resource).equals("read");
+    Map<String, Map<String, String>> categoriesAccessLevels = componentsAccessLevels.get(component);
+    if(categoriesAccessLevels == null)
+    {
+      return findAccessLevel(component, category, resource);
+    }
+    Map<String, String> resourcesAccessLevels = categoriesAccessLevels.get(category);
+    if(resourcesAccessLevels == null)
+    {
+      return findAccessLevel(component, category, resource);
+    }
+    String accessLevel = resourcesAccessLevels.get(resource);
+    if(accessLevel == null)
+    {
+      return findAccessLevel(component, category, resource);
+    }
+    return accessLevel;
   }
 }
 

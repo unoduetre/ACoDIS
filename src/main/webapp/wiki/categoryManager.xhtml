@@ -6,20 +6,21 @@
   xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
   xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
   xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+  xmlns:cc="http://java.sun.com/jsf/composite"
   xmlns:jsf="http://xmlns.jcp.org/jsf"
   xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
   xmlns:pf="http://primefaces.org/ui">
   <h:body>
-    <ui:composition template="/template.xhtml">
-    <ui:define name="title">Index</ui:define>
-<!--      <ui:composition template="/protect.xhtml">
-        <ui:param name="component" value="categoryManager"/>
-        <ui:param name="category" value="categoryManager"/>
-        <ui:param name="resource" value="categoryManager"/>
-        
-        <ui:define name="write categoryManager">-->
-        <h:outputStylesheet library="css" name="wiki.css"  />
+    <cc:interface></cc:interface>
+    <cc:implementation>
+      <c:set var="component" value="categoryManager"/>
+      <c:set var="category" value="categoryManager"/>
+      <c:set var="resource" value="categoryManager"/>
+      <c:choose>
+        <c:when test="#{protect.getAccessLevel(component, category, resource) == 'special'}">
+        </c:when>
+        <c:when test="#{protect.getAccessLevel(component, category, resource) == 'write'}">
+          <h:outputStylesheet library="css" name="wiki.css"  />
           <div class="frame" width="100%">
             <h1>Menadżer kategorii</h1>
             
@@ -60,10 +61,8 @@
               </div>
             </h:form>
           </div>
-        
-<!--        </ui:define>
-        
-        <ui:define name="read categoryManager">
+        </c:when>
+        <c:when test="#{protect.getAccessLevel(component, category, resource) == 'read'}">
           <div class="frame" width="100%">
             <h1>Menadżer kategorii</h1>
             <h:form>
@@ -74,15 +73,14 @@
               </div>
             </h:form>
           </div>
-        </ui:define>
-         
-        <ui:define name="no categoryManager">
+        </c:when>
+        <c:otherwise>
           <div class="frame" width="100%">
             <h1>Menadżer kategorii</h1>
             <p>Brak dostępu</p>
           </div>
-        </ui:define>
-      </ui:composition>-->
-    </ui:composition>
+        </c:otherwise>
+      </c:choose>
+    </cc:implementation>
   </h:body>
 </html>

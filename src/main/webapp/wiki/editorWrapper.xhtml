@@ -6,42 +6,44 @@
   xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
   xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
   xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+  xmlns:cc="http://java.sun.com/jsf/composite"
   xmlns:jsf="http://xmlns.jcp.org/jsf"
   xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
   xmlns:pf="http://primefaces.org/ui">
   <h:body>
-<!--    <ui:composition template="/protect.xhtml">
-      <ui:param name="component" value="editorWrapper"/>
-      <ui:param name="category" value="#{wikiEditorBean.rightCategory}"/>
-      <ui:param name="resource" value="#{wikiEditorBean.rightPage}"/>
-      
-      <ui:define name="write editorWrapper">-->
-        <h:outputStylesheet library="css" name="wiki.css" />
-        <div>
-          <ui:include src="editor.xhtml" />
-        </div>
-<!--      </ui:define>
-      
-      <ui:define name="read editorWrapper">
-        <h:outputStylesheet library="css" name="wiki.css" />
-        <div class="frame">
-          <h1>Edycja strony (read only)</h1>
-          <p>
-            <strong>Brak dostępu!</strong>
-          </p>
-        </div>
-      </ui:define>
-      
-      <ui:define name="no editorWrapper">
-        <h:outputStylesheet library="css" name="wiki.css" />
-        <div class="frame">
-          <h1>Edycja strony</h1>
-          <p>
-            <strong>Brak dostępu!</strong>
-          </p>
-        </div>
-      </ui:define>
-    </ui:composition>-->
+    <cc:interface></cc:interface>
+    <cc:implementation>
+      <c:set var="component" value="editorWrapper"/>
+      <c:set var="category" value="#{wikiEditorBean.rightCategory}"/>
+      <c:set var="resource" value="#{wikiEditorBean.rightPage}"/>
+      <c:choose>
+        <c:when test="#{protect.getAccessLevel(component, category, resource) == 'special'}">
+        </c:when>
+        <c:when test="#{protect.getAccessLevel(component, category, resource) == 'write'}">
+          <h:outputStylesheet library="css" name="wiki.css" />
+          <div>
+            <ui:include src="editor.xhtml" />
+          </div>
+        </c:when>
+        <c:when test="#{protect.getAccessLevel(component, category, resource) == 'read'}">
+          <h:outputStylesheet library="css" name="wiki.css" />
+          <div class="frame">
+            <h1>Edycja strony (read only)</h1>
+            <p>
+              <strong>Brak dostępu!</strong>
+            </p>
+          </div>
+        </c:when>
+        <c:otherwise>
+          <h:outputStylesheet library="css" name="wiki.css" />
+          <div class="frame">
+            <h1>Edycja strony</h1>
+            <p>
+              <strong>Brak dostępu!</strong>
+            </p>
+          </div>
+        </c:otherwise>
+      </c:choose>
+    </cc:implementation>
   </h:body>
 </html>

@@ -6,7 +6,7 @@
   xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
   xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
   xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+  xmlns:cc="http://java.sun.com/jsf/composite"
   xmlns:jsf="http://xmlns.jcp.org/jsf"
   xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
   xmlns:pf="http://primefaces.org/ui">
@@ -15,7 +15,7 @@
       <ui:define name="title">#{wikiDispatcherBean.title}</ui:define>
         <h:outputStylesheet library="css" name="wiki.css" />
         <div>
-          <ui:include src="wiki/#{wikiDispatcherBean.destination}" />
+          <ui:include src="wiki/editorWrapper.xhtml" />
         </div>
     </ui:composition>
   </h:body>

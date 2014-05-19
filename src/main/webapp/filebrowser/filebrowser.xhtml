@@ -6,151 +6,152 @@
   xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
   xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
   xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+  xmlns:cc="http://java.sun.com/jsf/composite"
   xmlns:jsf="http://xmlns.jcp.org/jsf"
   xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
   xmlns:pf="http://primefaces.org/ui">
   <h:body>
-    <ui:composition template="/protect.xhtml">
-      <ui:param name="component" value="filebrowser"/>
-      <ui:param name="category" value="filesystementry"/>
-      <ui:param name="resource" value="#{filebrowserbean.resource}"/>
-      
-      <ui:define name="write filebrowser">
-        <div class="frame">
-          <c:if test="#{filebrowserbean.hasParent()}">
-            <h:form>
-              <h:commandLink value="Parent directory">
-                <f:param name="resource" value="#{filebrowserbean.parentResource}" />
-              </h:commandLink>
-              <br />
-            </h:form>
-          </c:if>
-          <c:choose>
-            <c:when test="#{filebrowserbean.isDir()}">
+    <cc:interface></cc:interface>
+    <cc:implementation>
+      <c:set var="component" value="filebrowser"/>
+      <c:set var="category" value="filesystementry"/>
+      <c:set var="resource" value="#{filebrowserbean.resource}"/>
+      <c:choose>
+        <c:when test="#{protect.getAccessLevel(component, category, resource) == 'special'}">
+        </c:when>
+        <c:when test="#{protect.getAccessLevel(component, category, resource) == 'write'}">
+          <div class="frame">
+            <c:if test="#{filebrowserbean.hasParent()}">
+              <h:form>
+                <h:commandLink value="Parent directory">
+                  <f:param name="resource" value="#{filebrowserbean.parentResource}" />
+                </h:commandLink>
+                <br />
+              </h:form>
+            </c:if>
+            <c:choose>
+              <c:when test="#{filebrowserbean.isDir()}">
+                  <h1>#{filebrowserbean.path}</h1>
+                  <h2>Directory, access: read-write</h2>
+                  <c:choose>
+                    <c:when test="#{filebrowserbean.hasContents()}">
+                      <h:form>
+                        <pf:dataTable value="#{filebrowserbean.listDir()}" var="entry">
+                          <pf:column>
+                            <h:graphicImage library="graphics" name="#{entry.isDir() ? 'dir.png' : 'file.png'}" />
+                          </pf:column>
+                          <pf:column headerText="Name">
+                            <h:commandLink value="#{entry.name}">
+                              <f:param name="resource" value="#{entry.resource}" />
+                            </h:commandLink>
+                          </pf:column>
+                          <pf:column headerText="Mime type">
+                            #{entry.mimeType}
+                          </pf:column>
+                          <pf:column headerText="Size">
+                            <div style="text-align: right; font-family: monospace;">#{entry.size}</div>
+                          </pf:column>
+                        </pf:dataTable>
+                      </h:form>
+                    </c:when>
+                    <c:otherwise>
+                      <p>Empty directory.</p>
+                    </c:otherwise>
+                  </c:choose>
+              </c:when>
+              <c:otherwise>
                 <h1>#{filebrowserbean.path}</h1>
-                <h2>Directory, access: read-write</h2>
-                <c:choose>
-                  <c:when test="#{filebrowserbean.hasContents()}">
-                    <h:form>
-                      <pf:dataTable value="#{filebrowserbean.listDir()}" var="entry">
-                        <pf:column>
-                          <h:graphicImage library="graphics" name="#{entry.isDir() ? 'dir.png' : 'file.png'}" />
-                        </pf:column>
-                        <pf:column headerText="Name">
-                          <h:commandLink value="#{entry.name}">
-                            <f:param name="resource" value="#{entry.resource}" />
-                          </h:commandLink>
-                        </pf:column>
-                        <pf:column headerText="Mime type">
-                          #{entry.mimeType}
-                        </pf:column>
-                        <pf:column headerText="Size">
-                          <div style="text-align: right; font-family: monospace;">#{entry.size}</div>
-                        </pf:column>
-                      </pf:dataTable>
-                    </h:form>
-                  </c:when>
-                  <c:otherwise>
-                    <p>Empty directory.</p>
-                  </c:otherwise>
-                </c:choose>
-            </c:when>
-            <c:otherwise>
-              <h1>#{filebrowserbean.path}</h1>
-              <h2>#{filebrowserbean.mimeType} file, access: read-write</h2>
-              <pf:dataTable value="#{filebrowserbean.fileProperties}" var="property">
-                <pf:column>
-                  <strong>#{property.name}:</strong>
-                </pf:column>
-                <pf:column>
-                  <div style="text-align: right;">#{property.value}</div>
-                </pf:column>
-              </pf:dataTable>
-            </c:otherwise>
-          </c:choose>
-        </div>
-      </ui:define>
-      
-      <ui:define name="read filebrowser">
-        <div class="frame">
-          <c:if test="#{filebrowserbean.hasParent()}">
-            <h:form>
-              <h:commandLink value="Parent directory">
-                <f:param name="resource" value="#{filebrowserbean.parentResource}" />
-              </h:commandLink>
-              <br />
-            </h:form>
-          </c:if>
-          <c:choose>
-            <c:when test="#{filebrowserbean.isDir()}">
+                <h2>#{filebrowserbean.mimeType} file, access: read-write</h2>
+                <pf:dataTable value="#{filebrowserbean.fileProperties}" var="property">
+                  <pf:column>
+                    <strong>#{property.name}:</strong>
+                  </pf:column>
+                  <pf:column>
+                    <div style="text-align: right;">#{property.value}</div>
+                  </pf:column>
+                </pf:dataTable>
+              </c:otherwise>
+            </c:choose>
+          </div>
+        </c:when>
+        <c:when test="#{protect.getAccessLevel(component, category, resource) == 'read'}">
+          <div class="frame">
+            <c:if test="#{filebrowserbean.hasParent()}">
+              <h:form>
+                <h:commandLink value="Parent directory">
+                  <f:param name="resource" value="#{filebrowserbean.parentResource}" />
+                </h:commandLink>
+                <br />
+              </h:form>
+            </c:if>
+            <c:choose>
+              <c:when test="#{filebrowserbean.isDir()}">
+                  <h1>#{filebrowserbean.path}</h1>
+                  <h2>Directory, access: read-only</h2>
+                  <c:choose>
+                    <c:when test="#{filebrowserbean.hasContents()}">
+                      <h:form>
+                        <pf:dataTable value="#{filebrowserbean.listDir()}" var="entry">
+                          <pf:column>
+                            <h:graphicImage library="graphics" name="#{entry.isDir() ? 'dir.png' : 'file.png'}" />
+                          </pf:column>
+                          <pf:column headerText="Name">
+                            <h:commandLink value="#{entry.name}">
+                              <f:param name="resource" value="#{entry.resource}" />
+                            </h:commandLink>
+                          </pf:column>
+                          <pf:column headerText="Mime type">
+                            #{entry.mimeType}
+                          </pf:column>
+                          <pf:column headerText="Size">
+                            <div style="text-align: right; font-family: monospace;">#{entry.size}</div>
+                          </pf:column>
+                        </pf:dataTable>
+                      </h:form>
+                    </c:when>
+                    <c:otherwise>
+                      <p>Empty directory.</p>
+                    </c:otherwise>
+                  </c:choose>
+              </c:when>
+              <c:otherwise>
                 <h1>#{filebrowserbean.path}</h1>
-                <h2>Directory, access: read-only</h2>
-                <c:choose>
-                  <c:when test="#{filebrowserbean.hasContents()}">
-                    <h:form>
-                      <pf:dataTable value="#{filebrowserbean.listDir()}" var="entry">
-                        <pf:column>
-                          <h:graphicImage library="graphics" name="#{entry.isDir() ? 'dir.png' : 'file.png'}" />
-                        </pf:column>
-                        <pf:column headerText="Name">
-                          <h:commandLink value="#{entry.name}">
-                            <f:param name="resource" value="#{entry.resource}" />
-                          </h:commandLink>
-                        </pf:column>
-                        <pf:column headerText="Mime type">
-                          #{entry.mimeType}
-                        </pf:column>
-                        <pf:column headerText="Size">
-                          <div style="text-align: right; font-family: monospace;">#{entry.size}</div>
-                        </pf:column>
-                      </pf:dataTable>
-                    </h:form>
-                  </c:when>
-                  <c:otherwise>
-                    <p>Empty directory.</p>
-                  </c:otherwise>
-                </c:choose>
-            </c:when>
-            <c:otherwise>
-              <h1>#{filebrowserbean.path}</h1>
-              <h2>#{filebrowserbean.mimeType} file, access: read-only</h2>
-              <pf:dataTable value="#{filebrowserbean.fileProperties}" var="property">
-                <pf:column>
-                  <strong>#{property.name}:</strong>
-                </pf:column>
-                <pf:column>
-                  <div style="text-align: right;">#{property.value}</div>
-                </pf:column>
-              </pf:dataTable>
-            </c:otherwise>
-          </c:choose>
-        </div>
-      </ui:define>
-      
-      <ui:define name="no filebrowser">
-        <div class="frame">
-          <c:if test="#{filebrowserbean.hasParent()}">
-            <h:form>
-              <h:commandLink value="Parent directory">
-                <f:param name="resource" value="#{filebrowserbean.parentResource}" />
-              </h:commandLink>
-              <br />
-            </h:form>
-          </c:if>
-          <c:choose>
-            <c:when test="#{filebrowserbean.isDir()}">
+                <h2>#{filebrowserbean.mimeType} file, access: read-only</h2>
+                <pf:dataTable value="#{filebrowserbean.fileProperties}" var="property">
+                  <pf:column>
+                    <strong>#{property.name}:</strong>
+                  </pf:column>
+                  <pf:column>
+                    <div style="text-align: right;">#{property.value}</div>
+                  </pf:column>
+                </pf:dataTable>
+              </c:otherwise>
+            </c:choose>
+          </div>
+        </c:when>
+        <c:otherwise>
+          <div class="frame">
+            <c:if test="#{filebrowserbean.hasParent()}">
+              <h:form>
+                <h:commandLink value="Parent directory">
+                  <f:param name="resource" value="#{filebrowserbean.parentResource}" />
+                </h:commandLink>
+                <br />
+              </h:form>
+            </c:if>
+            <c:choose>
+              <c:when test="#{filebrowserbean.isDir()}">
+                  <h1>#{filebrowserbean.path}</h1>
+                  <h2>Directory, access denied!</h2>
+              </c:when>
+              <c:otherwise>
                 <h1>#{filebrowserbean.path}</h1>
-                <h2>Directory, access denied!</h2>
-            </c:when>
-            <c:otherwise>
-              <h1>#{filebrowserbean.path}</h1>
-              <h2>#{filebrowserbean.mimeType} file, access denied!</h2>
-            </c:otherwise>
-          </c:choose>
-        </div>
-      </ui:define>
-      
-    </ui:composition>
+                <h2>#{filebrowserbean.mimeType} file, access denied!</h2>
+              </c:otherwise>
+            </c:choose>
+          </div>
+        </c:otherwise>
+      </c:choose>
+    </cc:implementation>
   </h:body>
 </html>

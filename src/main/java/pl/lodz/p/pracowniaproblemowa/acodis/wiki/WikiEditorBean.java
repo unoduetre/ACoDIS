@@ -57,6 +57,20 @@ public class WikiEditorBean {
     
   ////////////////////////////////////////////////////////////////////////////
   // PUBLICZNE
+
+  public String xSaveFile() 
+  {
+    System.err.println("################## xSaveFile() ####################");
+    if(isNewPage) {
+      isNewPage = false;
+      inputCategory = category;
+      inputTitle = title;
+    }
+    
+    WikiUtils.saveArticle(inputCategory, inputTitle, editorValue);
+    return "example";
+  }
+
   public void saveFile(ActionEvent event) {
     if(isNewPage) {
       isNewPage = false;

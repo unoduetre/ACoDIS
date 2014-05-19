@@ -6,16 +6,15 @@
   xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
   xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
   xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+  xmlns:cc="http://java.sun.com/jsf/composite"
   xmlns:jsf="http://xmlns.jcp.org/jsf"
   xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-  xmlns:pf="http://primefaces.org/ui">
+  xmlns:pf="http://primefaces.org/ui"
+  xmlns:filebrowser="http://java.sun.com/jsf/composite/filebrowser">
   <h:body>
     <ui:composition template="/template.xhtml">
       <ui:define name="title">Przeglądarka plików</ui:define>
-      <p>
-        <ui:include src="filebrowser/filebrowser.xhtml"/>
-      </p>
+      <filebrowser:filebrowser/>
     </ui:composition>
   </h:body>
 </html>
