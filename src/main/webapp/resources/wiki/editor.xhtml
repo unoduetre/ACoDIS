@@ -45,12 +45,12 @@
           <!--pf:commandButton id="buttonSave" styleClass="inputButton"
                             value="Zapisz" actionListener="wikiEditorBean.saveFile"
                             ajax="false"-->
-          <h:commandButton id="buttonSave" styleClass="inputButton"
+          <pf:commandButton id="buttonSave" styleClass="inputButton"
               value="Zapisz" action="#{wikiEditorBean.xSaveFile()}">
             <!--<f:param name="destination" value="WIKIPAGE_EDITOR" />-->
 <!--            <f:param name="category" value="#{wikiEditorBean.outputPage}" />
             <f:param name="page" value="#{wikiEditorBean.outputCategory}" />-->
-          </h:commandButton>
+          </pf:commandButton>
           <!--/pf:commandButton
           pf:commandButton id="buttonSaveAndFinish" styleClass="inputButton"
                             value="Zapisz i Zakończ" actionListener="wikiEditorBean.saveFile"

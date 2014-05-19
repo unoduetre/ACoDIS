@@ -13,40 +13,35 @@
   <h:body>
     <cc:interface></cc:interface>
     <cc:implementation>
-      <c:set var="component" value="login"/>
-      <c:set var="category" value="login"/>
-      <c:set var="resource" value="login"/>
-      <c:choose>
-        <c:when test="#{protect.getAccessLevel(component, category, resource) == 'special'}">
-        </c:when>
-        <c:when test="#{protect.getAccessLevel(component, category, resource) == 'write'}">
-        </c:when>
-        <c:when test="#{protect.getAccessLevel(component, category, resource) == 'read'}">
-          <h:form>
-            <p>
-              <h:outputText value="#{msgs['alreadyLogged']}"/>
-              <h:outputText value=" "/>
-              <h:outputText value="#{login.username}"/>
-            </p>
-            <p>
-              <pf:commandButton value="#{msgs['logout']}" action="#{login.logout()}" ajax="false"/>
-            </p>
-          </h:form>
-        </c:when>
-        <c:otherwise>
-          <h:form>
-            <p>
-              <pf:inputText value="#{login.username}" label="#{msgs['username']}"/>
-            </p>
-            <p>
-              <pf:password value="#{login.password}" label="#{msgs['password']}"/>
-            </p>
-            <p>
-              <pf:commandButton value="#{msgs['login']}" action="index" ajax="false"/>
-            </p>
-          </h:form> 
-        </c:otherwise>
-      </c:choose>
+      <h:panelGroup rendered="#{protect.getAccessLevel('login', 'login', 'login') == 'special'}">
+      </h:panelGroup>
+      <h:panelGroup rendered="#{protect.getAccessLevel('login', 'login', 'login') == 'write'}">
+      </h:panelGroup>
+      <h:panelGroup rendered="#{protect.getAccessLevel('login', 'login', 'login') == 'read'}">
+        <h:form>
+          <p>
+            <h:outputText value="#{msgs['alreadyLogged']}"/>
+            <h:outputText value=" "/>
+            <h:outputText value="#{login.username}"/>
+          </p>
+          <p>
+            <pf:commandButton value="#{msgs['logout']}" action="#{login.logout()}" ajax="false"/>
+          </p>
+        </h:form>
+      </h:panelGroup>
+      <h:panelGroup rendered="#{protect.getAccessLevel('login', 'login', 'login') == 'no'}">
+        <h:form>
+          <p>
+            <pf:inputText value="#{login.username}" label="#{msgs['username']}"/>
+          </p>
+          <p>
+            <pf:password value="#{login.password}" label="#{msgs['password']}"/>
+          </p>
+          <p>
+            <pf:commandButton value="#{msgs['login']}" ajax="false"/>
+          </p>
+        </h:form> 
+      </h:panelGroup>
     </cc:implementation>
   </h:body>
 </html>

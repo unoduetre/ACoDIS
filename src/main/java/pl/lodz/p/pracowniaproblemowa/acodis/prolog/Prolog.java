@@ -66,8 +66,6 @@ public class Prolog
 
     javaLibrary.unregister(passedContextTerm);
 
-    logger.info(highestLevel);
-
     return highestLevel;
   }
 }

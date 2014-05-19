@@ -34,10 +34,9 @@ public class Login implements Serializable
 
   public String logout()
   {
-    System.err.println("############################# logout ################################");
     username = null;
     password = null;
-    return "index";
+    return null;
   }
 }
 

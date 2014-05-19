@@ -33,7 +33,7 @@
   <managed-bean>
     <managed-bean-name>protect</managed-bean-name>
     <managed-bean-class>pl.lodz.p.pracowniaproblemowa.acodis.protect.Protect</managed-bean-class>
-    <managed-bean-scope>request</managed-bean-scope>
+    <managed-bean-scope>view</managed-bean-scope>
     <managed-property>
       <property-name>prolog</property-name>
       <property-class>pl.lodz.p.pracowniaproblemowa.acodis.prolog.Prolog</property-class>

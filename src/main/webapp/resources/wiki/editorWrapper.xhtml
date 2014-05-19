@@ -13,37 +13,32 @@
   <h:body>
     <cc:interface></cc:interface>
     <cc:implementation>
-      <c:set var="component" value="editorWrapper"/>
-      <c:set var="category" value="#{wikiEditorBean.rightCategory}"/>
-      <c:set var="resource" value="#{wikiEditorBean.rightPage}"/>
-      <c:choose>
-        <c:when test="#{protect.getAccessLevel(component, category, resource) == 'special'}">
-        </c:when>
-        <c:when test="#{protect.getAccessLevel(component, category, resource) == 'write'}">
-          <h:outputStylesheet library="css" name="wiki.css" />
-          <div>
-            <ui:include src="editor.xhtml" />
-          </div>
-        </c:when>
-        <c:when test="#{protect.getAccessLevel(component, category, resource) == 'read'}">
-          <h:outputStylesheet library="css" name="wiki.css" />
-          <div class="frame">
-            <h1>Edycja strony (read only)</h1>
-            <p>
-              <strong>Brak dostępu!</strong>
-            </p>
-          </div>
-        </c:when>
-        <c:otherwise>
-          <h:outputStylesheet library="css" name="wiki.css" />
-          <div class="frame">
-            <h1>Edycja strony</h1>
-            <p>
-              <strong>Brak dostępu!</strong>
-            </p>
-          </div>
-        </c:otherwise>
-      </c:choose>
+      <h:panelGroup rendered="#{protect.getAccessLevel('editorWrapper', wikiEditorBean.rightCategory, wikiEditorBean.rightPage) == 'special'}">
+      </h:panelGroup>
+      <h:panelGroup rendered="#{protect.getAccessLevel('editorWrapper', wikiEditorBean.rightCategory, wikiEditorBean.rightPage) == 'write'}">
+        <h:outputStylesheet library="css" name="wiki.css" />
+        <div>
+          <ui:include src="editor.xhtml" />
+        </div>
+      </h:panelGroup>
+      <h:panelGroup rendered="#{protect.getAccessLevel('editorWrapper', wikiEditorBean.rightCategory, wikiEditorBean.rightPage) == 'read'}">
+        <h:outputStylesheet library="css" name="wiki.css" />
+        <div class="frame">
+          <h1>Edycja strony (read only)</h1>
+          <p>
+            <strong>Brak dostępu!</strong>
+          </p>
+        </div>
+      </h:panelGroup>
+      <h:panelGroup rendered="#{protect.getAccessLevel('editorWrapper', wikiEditorBean.rightCategory, wikiEditorBean.rightPage) == 'no'}">
+        <h:outputStylesheet library="css" name="wiki.css" />
+        <div class="frame">
+          <h1>Edycja strony</h1>
+          <p>
+            <strong>Brak dostępu!</strong>
+          </p>
+        </div>
+      </h:panelGroup>
     </cc:implementation>
   </h:body>
 </html>
