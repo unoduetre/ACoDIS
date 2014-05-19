@@ -28,12 +28,17 @@ public class WikiDispatcherBean {
       switch(outsideDestination) {
         case WikiUtils.WIKIPAGE_READER:
           destination = "reader.xhtml";
-          title = params.getOrDefault("page", "");
+          title = params.get("page");
+          if(title == null)
+              title = "";
           break;
 
         case WikiUtils.WIKIPAGE_EDITOR:
           destination = "editorWrapper.xhtml";
-          title = "Edycja: " + params.getOrDefault("page", "Nowa strona");
+          title = params.get("page");
+          if(title == null)
+              title = "Nowa strona";
+          title = "Edycja: " + title;
           break;
 
         default:
