@@ -5,31 +5,38 @@ import javax.faces.context.FacesContext;
 public class PassedContext
 {
   FacesContext facesContext = null;
-  String component = null;
-  String category = null;
-  String resource = null;
+  String componentType = null;
+  String componentId = null;
+  String resourceType = null;
+  String resourceId = null;
 
-  public PassedContext(FacesContext facesContext, String component, String category, String resource)
+  public PassedContext(FacesContext facesContext, String componentType, String componentId, String resourceType, String resourceId)
   {
     this.facesContext = facesContext;
-    this.component = component;
-    this.category = category;
-    this.resource = resource;
+    this.componentType = componentType;
+    this.componentId = componentId;
+    this.resourceType = resourceType;
+    this.resourceId = resourceId;
   }
 
-  public String getComponent()
+  public String getComponentType()
   {
-    return component;
+    return componentType;
   }
 
-  public String getCategory()
+  public String getComponentId()
   {
-    return category;
+    return componentId;
   }
 
-  public String getResource()
+  public String getResourceType()
   {
-    return resource;
+    return resourceType;
+  }
+
+  public String getResourceId()
+  {
+    return resourceId;
   }
 
   public FacesContext getFacesContext()

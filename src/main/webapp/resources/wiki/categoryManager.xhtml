@@ -11,11 +11,13 @@
   xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
   xmlns:pf="http://primefaces.org/ui">
   <h:body>
-    <cc:interface></cc:interface>
+    <cc:interface>
+      <cc:attribute name="componentId" required="true"/>
+    </cc:interface>
     <cc:implementation>
-      <h:panelGroup rendered="#{protect.getAccessLevel('categoryManager', 'categoryManager', 'categoryManager') == 'special'}">
+      <h:panelGroup rendered="#{protect.getAccessLevel('categoryManager', cc.attrs.componentId, 'categoryManager', 'categoryManager') == 'special'}">
       </h:panelGroup>
-      <h:panelGroup rendered="#{protect.getAccessLevel('categoryManager', 'categoryManager', 'categoryManager') == 'write'}">
+      <h:panelGroup rendered="#{protect.getAccessLevel('categoryManager', cc.attrs.componentId, 'categoryManager', 'categoryManager') == 'write'}">
         <h:outputStylesheet library="css" name="wiki.css"  />
         <div class="frame" width="100%">
           <h1>Menadżer kategorii</h1>
@@ -58,7 +60,7 @@
           </h:form>
         </div>
       </h:panelGroup>
-      <h:panelGroup rendered="#{protect.getAccessLevel('categoryManager', 'categoryManager', 'categoryManager') == 'read'}">
+      <h:panelGroup rendered="#{protect.getAccessLevel('categoryManager', cc.attrs.componentId, 'categoryManager', 'categoryManager') == 'read'}">
         <div class="frame" width="100%">
           <h1>Menadżer kategorii</h1>
           <h:form>
@@ -70,7 +72,7 @@
           </h:form>
         </div>
       </h:panelGroup>
-      <h:panelGroup rendered="#{protect.getAccessLevel('categoryManager', 'categoryManager', 'categoryManager') == 'no'}">
+      <h:panelGroup rendered="#{protect.getAccessLevel('categoryManager', cc.attrs.componentId, 'categoryManager', 'categoryManager') == 'no'}">
         <div class="frame" width="100%">
           <h1>Menadżer kategorii</h1>
           <p>Brak dostępu</p>

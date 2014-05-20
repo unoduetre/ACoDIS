@@ -1,93 +1,93 @@
+% Poniższe predykaty to predykaty systemowe. Nie należy ich zmieniać, jeśli nie wie sie co robi.
+
 :- initialization(initialize).
 
 initialize :-
-  info('Loading Prolog libraries...'),
+  infoMessageIsVisible('Loading Prolog libraries...'),
   load_library('alice.tuprolog.lib.BasicLibrary'),
-  info('BasicLibrary loaded.'),
+  infoMessageIsVisible('BasicLibrary loaded.'),
   load_library('alice.tuprolog.lib.ISOLibrary'),
-  info('ISOLibrary loaded.'),
+  infoMessageIsVisible('ISOLibrary loaded.'),
   load_library('alice.tuprolog.lib.IOLibrary'),
-  info('IOLibrary loaded.'),
+  infoMessageIsVisible('IOLibrary loaded.'),
   load_library('alice.tuprolog.lib.JavaLibrary'),
-  info('JavaLibrary loaded.'),
-  info('Loading access rules...').
+  infoMessageIsVisible('JavaLibrary loaded.'),
+  infoMessageIsVisible('Loading access rules...').
 
-info(Text) :-
+infoMessageIsVisible(Text) :-
   logger <- info(Text).
 
-warning(Text) :-
+warningMessageIsVisible(Text) :-
   logger <- warning(Text).
 
-severe(Text) :-
+severeMessageIsVisible(Text) :-
   logger <- severe(Text).
 
-concatenate([], '').
+isConcatenationOf('', []).
 
-concatenate([Head|Tail], Result) :-
-  concatenate(Tail, Rest),
-  text_concat(Head, Rest, Result).
-  
+isConcatenationOf(Concatenation,[Head|Tail]) :-
+  isConcatenationOf(TailConcatenation, Tail),
+  text_concat(Head, TailConcatenation, Concatenation).
 
-bean(Name, ClassName, Bean) :-
+isBeanNamed(Bean, Name, ClassName) :-
   passedContext <- getFacesContext returns FacesContext,
   FacesContext <- getApplication returns Application,
   class('java.lang.Class') <- forName(ClassName) returns Class,
   Application <- evaluateExpressionGet(FacesContext, Name, Class) returns Bean,
   !.
 
-bean(Name, ClassName, Bean) :-
-  concatenate(['Nie można załadować beana o nazwie: ', Name, '(', ClassName, ')'],Message),
-  severe(Message),
+isBeanNamed(Bean, Name, ClassName) :-
+  isConcatenationOf(Message, ['Nie można załadować beana o nazwie: ', Name, '(', ClassName, ')']),
+  severeMessageIsVisible(Message),
   halt.
 
-notNull(String,'') :-
-  var(String),
+convertsToString(Variable,'') :-
+  var(Variable),
   !.
 
-notNull(String, String) :-
+convertsToString(String, String) :-
   nonvar(String),
   !.
 
-loginBean(Bean) :-
-  bean('#{login}', 'pl.lodz.p.pracowniaproblemowa.acodis.login.Login', Bean).
+isLoginBean(Bean) :-
+  isBeanNamed(Bean, '#{login}', 'pl.lodz.p.pracowniaproblemowa.acodis.login.Login').
+
+isUser(user(Username, Password)) :-
+  isLoginBean(LoginBean),
+  LoginBean <- getUsername returns UsernameOrVariable,
+  convertsToString(UsernameOrVariable, Username),
+  LoginBean <- getRealPassword returns PasswordOrVariable,
+  convertsToString(PasswordOrVariable, Password).
+
+isResource(resource(ComponentType, ComponentId, ResourceType, ResourceId)) :-
+  passedContext <- getComponentType returns ComponentTypeOrVariable,
+  convertsToString(ComponentTypeOrVariable, ComponentType),
+  passedContext <- getComponentId returns ComponentIdOrVariable,
+  convertsToString(ComponentIdOrVariable, ComponentId),
+  passedContext <- getResourceType returns ResourceTypeOrVariable,
+  convertsToString(ResourceTypeOrVariable, ResourceType),
+  passedContext <- getResourceId returns ResourceIdOrVariable,
+  convertsToString(ResourceIdOrVariable,ResourceId).
 
 canAccess(AccessLevel) :- 
-  passedContext <- getComponent returns ComponentOrNull,
-  notNull(ComponentOrNull, Component),
-  passedContext <- getCategory returns CategoryOrNull,
-  notNull(CategoryOrNull, Category),
-  passedContext <- getResource returns ResourceOrNull,
-  notNull(ResourceOrNull, Resource),
-  loginBean(LoginBean),
-  LoginBean <- getUsername returns UsernameOrNull,
-  notNull(UsernameOrNull, Username),
-  LoginBean <- getRealPassword returns PasswordOrNull,
-  notNull(PasswordOrNull, Password),
-  concatenate([
-    'Sprawdzam uprawnienia dla użytkownika: ',
-    Username,
-    ' o haśle: ',
-    Password,
-    ' dla komponentu: ',
-    Component,
-    ' dla kategorii: ',
-    Category,
-    ' dla zasobu: ',
-    Resource,
-    ' na poziomie: ',
-    AccessLevel,
-    '.'
-  ],  Message),
-  info(Message),
-  canAccess(user(Username, Password,_), resource(Component, Category, Resource,_), AccessLevel),
-  info('Uprawnienia przyznane.').
+  isUser(User),
+  isResource(Resource),
+  canAccessAt(User, Resource, AccessLevel).
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+cannotAccess(AccessLevel) :-
+  isUser(User),
+  isResource(Resource),
+  cannotAccessAt(User, Resource, AccessLevel).
 
-password('test','test').
+% Poniższe predykaty to baza uprawnień. Można ją modyfikować aby nadać uprawnienia.
 
-canAccess(user(Username, Password, Rest), Resource, AccessLevel) :-
-  password(Username, Password),
-  canAccessLogged(user(Username, Password, Rest), Resource, AccessLevel).
+isPasswordFor('test','test').
 
-canAccessLogged(user(Username, Password, _), resource('login','login','login',_), readAccess).
+canAccessAt(user(Username, Password), Resource, AccessLevel) :-
+  isPasswordFor(Password, Username),
+  canAccessAtIfLogged(user(Username, Password), Resource, AccessLevel).
+
+canAccessAtIfLogged(_, resource('login','login','login','login'), readAccess).
+
+cannotAccessAt(user(Username, Password), _, _) :-
+  \+ isPasswordFor(Password, Username).

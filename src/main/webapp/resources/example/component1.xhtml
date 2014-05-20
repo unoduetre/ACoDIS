@@ -12,11 +12,13 @@
   xmlns:pf="http://primefaces.org/ui"
   xmlns:example="http://java.sun.com/jsf/composite/example">
   <h:body>
-    <cc:interface></cc:interface>
+    <cc:interface>
+      <cc:attribute name="componentId" required="true"/>
+    </cc:interface>
     <cc:implementation>
-      <h:panelGroup rendered="#{protect.getAccessLevel('component1', 'example', 'resource1') == 'special'}">
+      <h:panelGroup rendered="#{protect.getAccessLevel('component1', cc.attrs.componentId, 'example', 'resource1') == 'special'}">
       </h:panelGroup>
-      <h:panelGroup rendered="#{protect.getAccessLevel('component1', 'example', 'resource1') == 'write'}">
+      <h:panelGroup rendered="#{protect.getAccessLevel('component1', cc.attrs.componentId, 'example', 'resource1') == 'write'}">
         <div class="frame">
           <h1>Komponent 1 z zagnieżdżonym komponentem 2</h1>
           <p>
@@ -24,11 +26,11 @@
           </p>
           <p>
             Poniżej zagnieżdżony komponent 2:
-            <example:component2/>
+            <example:component2 componentId="exc1"/>
           </p>
         </div>
       </h:panelGroup>
-      <h:panelGroup rendered="#{protect.getAccessLevel('component1', 'example', 'resource1') == 'read'}">
+      <h:panelGroup rendered="#{protect.getAccessLevel('component1', cc.attrs.componentId, 'example', 'resource1') == 'read'}">
         <div class="frame">
           <h1>Komponent 1 z zagnieżdżonym komponentem 2</h1>
           <p>
@@ -36,11 +38,11 @@
           </p>
           <p>
             Poniżej zagnieżdżony komponent 2:
-            <example:component2/>
+            <example:component2 componentId="exc2"/>
           </p>
         </div>
       </h:panelGroup>
-      <h:panelGroup rendered="#{protect.getAccessLevel('component1', 'example', 'resource1') == 'no'}">
+      <h:panelGroup rendered="#{protect.getAccessLevel('component1', cc.attrs.componentId, 'example', 'resource1') == 'no'}">
         <div class="frame">
           <h1>Komponent 1 z zagnieżdżonym komponentem 2</h1>
           <p>
@@ -48,7 +50,7 @@
           </p>
           <p>
             Poniżej zagnieżdżony komponent 2:
-            <example:component2/>
+            <example:component2 componentId="exc3"/>
           </p>
         </div>
       </h:panelGroup>

@@ -11,13 +11,15 @@
   xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
   xmlns:pf="http://primefaces.org/ui">
   <h:body>
-    <cc:interface></cc:interface>
+    <cc:interface>
+      <cc:attribute name="componentId" required="true" type="java.lang.String"/>
+    </cc:interface>
     <cc:implementation>
-      <h:panelGroup rendered="#{protect.getAccessLevel('login', 'login', 'login') == 'special'}">
+      <h:panelGroup rendered="#{protect.getAccessLevel('login', cc.attrs.componentId, 'login', 'login') == 'special'}">
       </h:panelGroup>
-      <h:panelGroup rendered="#{protect.getAccessLevel('login', 'login', 'login') == 'write'}">
+      <h:panelGroup rendered="#{protect.getAccessLevel('login', cc.attrs.componentId, 'login', 'login') == 'write'}">
       </h:panelGroup>
-      <h:panelGroup rendered="#{protect.getAccessLevel('login', 'login', 'login') == 'read'}">
+      <h:panelGroup rendered="#{protect.getAccessLevel('login', cc.attrs.componentId, 'login', 'login') == 'read'}">
         <h:form>
           <p>
             <h:outputText value="#{msgs['alreadyLogged']}"/>
@@ -29,7 +31,7 @@
           </p>
         </h:form>
       </h:panelGroup>
-      <h:panelGroup rendered="#{protect.getAccessLevel('login', 'login', 'login') == 'no'}">
+      <h:panelGroup rendered="#{protect.getAccessLevel('login', cc.attrs.componentId, 'login', 'login') == 'no'}">
         <h:form>
           <p>
             <pf:inputText value="#{login.username}" label="#{msgs['username']}"/>

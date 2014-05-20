@@ -58,19 +58,6 @@ public class WikiEditorBean {
   ////////////////////////////////////////////////////////////////////////////
   // PUBLICZNE
 
-  public String xSaveFile() 
-  {
-    System.err.println("################## xSaveFile() ####################");
-    if(isNewPage) {
-      isNewPage = false;
-      inputCategory = category;
-      inputTitle = title;
-    }
-    
-    WikiUtils.saveArticle(inputCategory, inputTitle, editorValue);
-    return "example";
-  }
-
   public void saveFile(ActionEvent event) {
     if(isNewPage) {
       isNewPage = false;
@@ -102,7 +89,7 @@ public class WikiEditorBean {
     if(page != null) {
       return WikiUtils.humanToUrl(page);
     } else {
-      return "null";
+      return "none";
     }
   }
 
@@ -110,10 +97,10 @@ public class WikiEditorBean {
     if(category != null) {
       return WikiUtils.humanToUrl(category);
     } else {
-      return "null";
+      return "none";
     }
   }
-  
+
   public String getOutputPage() {
     return WikiUtils.humanToUrl( (inputTitle == null) ? page : inputTitle );
   }

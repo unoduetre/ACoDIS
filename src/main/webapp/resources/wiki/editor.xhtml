@@ -11,11 +11,16 @@
   xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
   xmlns:pf="http://primefaces.org/ui">
   <h:body>
-<!--    <ui:composition template="/template.xhtml">
-      <ui:define name="title">Wiki Edytor</ui:define>-->
+    <cc:interface>
+      <cc:attribute name="componentId" required="true"/>
+    </cc:interface>
+    <cc:implementation>
+      <h:panelGroup rendered="#{protect.getAccessLevel('editorWrapper', cc.attrs.componentId, wikiEditorBean.rightCategory, wikiEditorBean.rightPage) == 'special'}">
+      </h:panelGroup>
+      <h:panelGroup rendered="#{protect.getAccessLevel('editorWrapper', cc.attrs.componentId, wikiEditorBean.rightCategory, wikiEditorBean.rightPage) == 'write'}">
 <!--      <h:outputStylesheet library="css" name="wiki.css" />-->
       
-      <h:form styleClass="inputForm">
+        <h:form styleClass="inputForm">
 <!--        <input type="hidden" name="inputTitle" value="#{wikiEditorBean.inputTitle}" />
         <input type="hidden" name="inputCategory" value="#{wikiEditorBean.inputCategory}" />-->
         <h:inputHidden id="inputTitle" value="#{wikiEditorBean.inputTitle}" />
@@ -42,27 +47,43 @@
         
         <hr styleClass="inputHr"/>
         <div class="divButtons">
-          <!--pf:commandButton id="buttonSave" styleClass="inputButton"
-                            value="Zapisz" actionListener="wikiEditorBean.saveFile"
-                            ajax="false"-->
           <pf:commandButton id="buttonSave" styleClass="inputButton"
-              value="Zapisz" action="#{wikiEditorBean.xSaveFile()}">
-            <!--<f:param name="destination" value="WIKIPAGE_EDITOR" />-->
-<!--            <f:param name="category" value="#{wikiEditorBean.outputPage}" />
-            <f:param name="page" value="#{wikiEditorBean.outputCategory}" />-->
+              value="Zapisz" actionListener="#{wikiEditorBean.saveFile}"
+                            ajax="false">
+            <f:param name="destination" value="WIKIPAGE_EDITOR" />
+            <f:param name="category" value="#{wikiEditorBean.outputPage}"/>
+            <f:param name="page" value="#{wikiEditorBean.outputCategory}" />
           </pf:commandButton>
-          <!--/pf:commandButton
-          pf:commandButton id="buttonSaveAndFinish" styleClass="inputButton"
-                            value="Zapisz i Zakończ" actionListener="wikiEditorBean.saveFile"
-                            action="wiki"
-                            ajax="false"
-            f:param name="destination" value="WIKIPAGE_READER" /
-            f:param name="category" value="wikiEditorBean.outputPage" /
-            f:param name="page" value="wikiEditorBean.outputCategory" /
-          /pf:commandButton-->
+          <pf:commandButton id="buttonSaveAndFinish" styleClass="inputButton"
+                  value="Zapisz i Zakończ" actionListener="#{wikiEditorBean.saveFile}"
+                              action="wiki"
+                              ajax="false">
+            <f:param name="destination" value="WIKIPAGE_READER" />
+            <f:param name="category" value="wikiEditorBean.outputPage" />
+            <f:param name="page" value="wikiEditorBean.outputCategory" />
+          </pf:commandButton>
         </div>
-      </h:form>
-    <!--</ui:composition>-->
+        </h:form>
+      </h:panelGroup>
+      <h:panelGroup rendered="#{protect.getAccessLevel('editorWrapper', cc.attrs.componentId, wikiEditorBean.rightCategory, wikiEditorBean.rightPage) == 'read'}">
+        <h:outputStylesheet library="css" name="wiki.css" />
+        <div class="frame">
+          <h1>Edycja strony (read only)</h1>
+          <p>
+            <strong>Brak dostępu!</strong>
+          </p>
+        </div>
+      </h:panelGroup>
+      <h:panelGroup rendered="#{protect.getAccessLevel('editorWrapper', cc.attrs.componentId, wikiEditorBean.rightCategory, wikiEditorBean.rightPage) == 'no'}">
+        <h:outputStylesheet library="css" name="wiki.css" />
+        <div class="frame">
+          <h1>Edycja strony</h1>
+          <p>
+            <strong>Brak dostępu!</strong>
+          </p>
+        </div>
+      </h:panelGroup>
+    </cc:implementation>
   </h:body>
 </html>
 
