@@ -16,11 +16,11 @@
     </cc:interface>
     <cc:implementation>
       
-      <h:panelGroup rendered="#{protect.getAccessLevel('categoryManager', cc.attrs.componentId, 'categoryManager', 'categoryManager') == 'special'}">
+      <h:panelGroup rendered="#{protect.getAccessLevel('categoryManagerNew', cc.attrs.componentId, 'categoryManagerNew', 'categoryManagerNew') == 'special'}">
         <img src="http://media.carddit.com/a/tPtYRwkDv.jpg" />
       </h:panelGroup>
       
-      <h:panelGroup rendered="#{protect.getAccessLevel('categoryManager', cc.attrs.componentId, 'categoryManager', 'categoryManager') == 'write'}">
+      <h:panelGroup rendered="#{protect.getAccessLevel('categoryManagerNew', cc.attrs.componentId, 'categoryManagerNew', 'categoryManagerNew') == 'write'}">
         <h:outputStylesheet library="css" name="wiki.css"  />
         <div class="frame" width="100%">
           <h1>Menadżer kategorii</h1>
@@ -28,28 +28,31 @@
           <h:form>
             <pf:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
             
-            <div>
-              <pf:selectManyCheckbox id="categoriesToDelete" styleClass="inputCheckbox" value="#{wikiCategoryManagerBean.categoriesToDelete}" layout="pageDirection">
-                <f:selectItems id="categoriesToDeleteItems" value="#{wikiCategoryManagerBean.categories}"/>
-              </pf:selectManyCheckbox>
+            <div class="inputLabel">
+              <div>Nowa kategoria:</div>
+              <pf:inputText styleClass="inputLongTextField" required="true" label="Nazwa nowej kategorii" value="#{wikiCategoryManagerBean.newCategory}"
+                            validatorMessage="Nazwa kategorii może się składać tylko z liter cyfr oraz znaków spacji!"
+                            requiredMessage="Nazwa kategorii jest wymagana!" >
+                <f:validateRegex pattern="^([a-zA-Z0-9]| )+$" />
+              </pf:inputText>
             </div>
             <div class="divButtons">
-              <pf:commandButton id="buttonDelete" styleClass="inputButton"
-                                value="Usuń zaznaczone"
-                                action="#{wikiCategoryManagerBean.deleteSelected}"
+              <pf:commandButton id="buttonAdd" styleClass="inputButton"
+                                value="Dodaj"
+                                actionListener="#{wikiCategoryManagerBean.createCategory}"
                                 ajax="false" />
-              <pf:commandButton id="buttonDeleteRight" styleClass="inputButton"
-                                value="Usuń zaznaczone (prawo)"
-                                action="#{wikiCategoryManagerBean.deleteSelected}"
+              <pf:commandButton id="buttonAddRight" styleClass="inputButton"
+                                value="Dodaj (prawo)"
+                                actionListener="#{wikiCategoryManagerBean.createCategory}"
                                 ajax="false" >
-                <f:param name="categoryManager" value="write" />
+                <f:param name="categoryManagerNew" value="write" />
               </pf:commandButton>
             </div>
           </h:form>
         </div>
       </h:panelGroup>
       
-      <h:panelGroup rendered="#{protect.getAccessLevel('categoryManager', cc.attrs.componentId, 'categoryManager', 'categoryManager') == 'read'}">
+      <h:panelGroup rendered="#{protect.getAccessLevel('categoryManagerNew', cc.attrs.componentId, 'categoryManagerNew', 'categoryManagerNew') == 'read'}">
         <div class="frame" width="100%">
           <h1>Menadżer kategorii</h1>
           <h:form>
@@ -62,7 +65,7 @@
         </div>
       </h:panelGroup>
       
-      <h:panelGroup rendered="#{protect.getAccessLevel('categoryManager', cc.attrs.componentId, 'categoryManager', 'categoryManager') == 'no'}">
+      <h:panelGroup rendered="#{protect.getAccessLevel('categoryManagerNew', cc.attrs.componentId, 'categoryManagerNew', 'categoryManagerNew') == 'no'}">
         <div class="frame" width="100%">
           <h1>Menadżer kategorii</h1>
           <p>Brak dostępu</p>

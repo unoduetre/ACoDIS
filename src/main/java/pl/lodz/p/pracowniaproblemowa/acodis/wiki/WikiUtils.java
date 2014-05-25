@@ -31,6 +31,7 @@ public class WikiUtils {
   // Dostępne moduły wiki
   public static final String WIKIPAGE_READER = "WIKIPAGE_READER";
   public static final String WIKIPAGE_EDITOR = "WIKIPAGE_EDITOR";
+  public static final String WIKIPAGE_CATEGORY_MANAGER = "WIKIPAGE_CATEGORY_MANAGER";
   
   ////////////////////////////////////////////////////////////////////////////
   // METODY PUBLICZNE
@@ -145,10 +146,10 @@ public class WikiUtils {
     for(String category : categoriesToDelete) {
       try {
         File dir = new File(WikiUtils.PAGES_PATH + "/" + humanToUrl(category));
-        Logger.getLogger(CategoryManagerBean.class.getName()).log(Level.WARNING, ("Usuwam katalog: " + dir.getAbsolutePath()));
+        Logger.getLogger(WikiCategoryManagerBean.class.getName()).log(Level.WARNING, ("Usuwam katalog: " + dir.getAbsolutePath()));
         WikiUtils.delete(dir);
       } catch(IOException ex) {
-        Logger.getLogger(CategoryManagerBean.class.getName()).log(Level.WARNING, ("Brak kategorii: " + humanToUrl(category)));
+        Logger.getLogger(WikiCategoryManagerBean.class.getName()).log(Level.WARNING, ("Brak kategorii: " + humanToUrl(category)));
       }
     }
   }
@@ -156,10 +157,20 @@ public class WikiUtils {
   public static void createCategory(String category) {
       try {
         File dir = new File(WikiUtils.PAGES_PATH + "/" + humanToUrl(category));
-        Logger.getLogger(CategoryManagerBean.class.getName()).log(Level.WARNING, ("Tworzę katalog: " + dir.getAbsolutePath()));
+        Logger.getLogger(WikiCategoryManagerBean.class.getName()).log(Level.WARNING, ("Tworzę katalog: " + dir.getAbsolutePath()));
         dir.mkdirs();
       } catch(Exception ex) {
-        Logger.getLogger(CategoryManagerBean.class.getName()).log(Level.WARNING, ("Nie udało się utworzyć kategorii: " + humanToUrl(category)), ex);
+        Logger.getLogger(WikiCategoryManagerBean.class.getName()).log(Level.WARNING, ("Nie udało się utworzyć kategorii: " + humanToUrl(category)), ex);
+      }
+  }
+  
+    public static void deleteArticle(String category, String title) {
+      try {
+        File outputFile = new File(WikiUtils.PAGES_PATH + "/" + humanToUrl( category ) + "/" + humanToUrl( title ));
+        Logger.getLogger(WikiCategoryManagerBean.class.getName()).log(Level.WARNING, ("Usuwam artykuł: " + outputFile.getAbsolutePath()));
+        WikiUtils.delete(outputFile);
+      } catch(IOException ex) {
+        Logger.getLogger(WikiCategoryManagerBean.class.getName()).log(Level.WARNING, ("Problem przy usuwaniu artykułu:"), ex);
       }
   }
 }

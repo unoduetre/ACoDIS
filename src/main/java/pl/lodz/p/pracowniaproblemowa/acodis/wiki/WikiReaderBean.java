@@ -22,11 +22,19 @@ public class WikiReaderBean {
   public WikiReaderBean() {
     FacesContext fc = FacesContext.getCurrentInstance();
     Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
-    category = WikiUtils.urlToHuman( params.get("category") );
-    page = WikiUtils.urlToHuman( params.get("page") );
+    category = params.get("category");
+    page = params.get("page");
     
-    title = page;
-    body = WikiUtils.getPage(category, page);
+    if(category != null && page != null) {
+      category = WikiUtils.urlToHuman( params.get("category") );
+      page = WikiUtils.urlToHuman( params.get("page") );
+      
+      title = page;
+      body = WikiUtils.getPage(category, page);
+    } else {
+      title = "Brak strony";
+      body = "Strona wybrana do załadowania nie została poprawnie wybrana...";
+    }
   }
   
   ////////////////////////////////////////////////////////////////////////////
@@ -36,11 +44,19 @@ public class WikiReaderBean {
   }
   
   public String getCategoryForUrl() {
-    return WikiUtils.humanToUrl( category );
+    if(category != null) {
+      return WikiUtils.humanToUrl( category );
+    } else {
+      return "";
+    }
   }
   
   public String getPageForUrl() {
-    return WikiUtils.humanToUrl( page );
+    if(page != null) {
+      return WikiUtils.humanToUrl( page );
+    } else {
+      return "";
+    }
   }
   
   ////////////////////////////////////////////////////////////////////////////

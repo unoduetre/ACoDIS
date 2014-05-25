@@ -16,36 +16,38 @@
     </cc:interface>
     <cc:implementation>
       <h:panelGroup rendered="#{protect.getAccessLevel('reader', cc.attrs.componentId, wikiReaderBean.categoryForUrl, wikiReaderBean.pageForUrl) == 'special'}">
+        <img src="http://media.carddit.com/a/tPtYRwkDv.jpg" />
       </h:panelGroup>
+      
       <h:panelGroup rendered="#{protect.getAccessLevel('reader', cc.attrs.componentId, wikiReaderBean.categoryForUrl, wikiReaderBean.pageForUrl) == 'write'}">
         <div class="divWikiTopMenu">
-          <h:link value="edytuj" outcome="wiki">
-            <f:param name="destination" value="WIKIPAGE_EDITOR" />
+          <h:link value="edytuj" outcome="wikiEditor">
             <f:param name="category" value="#{wikiReaderBean.categoryForUrl}" />
             <f:param name="page" value="#{wikiReaderBean.pageForUrl}" />
           </h:link>
           |
-          <h:link value="edytuj za prawem" outcome="wiki">
-            <f:param name="destination" value="WIKIPAGE_EDITOR" />
+          <h:link value="edytuj za prawem" outcome="wikiEditor">
             <f:param name="category" value="#{wikiReaderBean.categoryForUrl}" />
             <f:param name="page" value="#{wikiReaderBean.pageForUrl}" />
-            <f:param name="editorWrapper.#{wikiReaderBean.categoryForUrl}.#{wikiReaderBean.pageForUrl}" value="write" />
+            <f:param name="editor" value="write" />
           </h:link>
         </div>
         <div class="frame">
-          <h1>#{wikiReaderBean.title} (Write)</h1>
+          <h1>#{wikiReaderBean.title}</h1>
           <h:outputText value="#{wikiReaderBean.body}" escape="false" />
         </div>
       </h:panelGroup>
+      
       <h:panelGroup rendered="#{protect.getAccessLevel('reader', cc.attrs.componentId, wikiReaderBean.categoryForUrl, wikiReaderBean.pageForUrl) == 'read'}">
         <div class="frame">
-          <h1>#{wikiReaderBean.title} (Read)</h1>
+          <h1>#{wikiReaderBean.title}</h1>
           <h:outputText value="#{wikiReaderBean.body}" escape="false" />
         </div>
       </h:panelGroup>
+      
       <h:panelGroup rendered="#{protect.getAccessLevel('reader', cc.attrs.componentId, wikiReaderBean.categoryForUrl, wikiReaderBean.pageForUrl) == 'no'}">
         <div class="frame">
-          <h1>Reader Wrapper None</h1>
+          <h1>Reader None</h1>
           <p>
             <strong>Nie posiadasz prawa do oglądania wskazanej strony wiki :(</strong>
           </p>

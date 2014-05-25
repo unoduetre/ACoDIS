@@ -16,13 +16,11 @@
     </cc:interface>
     <cc:implementation>
       <h:panelGroup rendered="#{protect.getAccessLevel('editorWrapper', cc.attrs.componentId, wikiEditorBean.rightCategory, wikiEditorBean.rightPage) == 'special'}">
+        <img src="http://media.carddit.com/a/tPtYRwkDv.jpg" />
       </h:panelGroup>
-      <h:panelGroup rendered="#{protect.getAccessLevel('editorWrapper', cc.attrs.componentId, wikiEditorBean.rightCategory, wikiEditorBean.rightPage) == 'write'}">
-<!--      <h:outputStylesheet library="css" name="wiki.css" />-->
       
+      <h:panelGroup rendered="#{protect.getAccessLevel('editorWrapper', cc.attrs.componentId, wikiEditorBean.rightCategory, wikiEditorBean.rightPage) == 'write'}">
         <h:form styleClass="inputForm">
-<!--        <input type="hidden" name="inputTitle" value="#{wikiEditorBean.inputTitle}" />
-        <input type="hidden" name="inputCategory" value="#{wikiEditorBean.inputCategory}" />-->
         <h:inputHidden id="inputTitle" value="#{wikiEditorBean.inputTitle}" />
         <h:inputHidden id="inputCategory" value="#{wikiEditorBean.inputCategory}" />
         <h:inputHidden id="isNewPage" value="#{wikiEditorBean.isNewPage}" />
@@ -47,24 +45,51 @@
         
         <hr styleClass="inputHr"/>
         <div class="divButtons">
-          <pf:commandButton id="buttonSave" styleClass="inputButton"
-              value="Zapisz" actionListener="#{wikiEditorBean.saveFile}"
-                            ajax="false">
-            <f:param name="destination" value="WIKIPAGE_EDITOR" />
-            <f:param name="category" value="#{wikiEditorBean.outputPage}"/>
-            <f:param name="page" value="#{wikiEditorBean.outputCategory}" />
+<!--          <pf:commandButton id="buttonDelete" styleClass="inputButton"
+              value="Usuń" action="#{wikiEditorBean.deleteFile}"
+              ajax="false" rendered="#{!wikiEditorBean.isNewPage}">
           </pf:commandButton>
+          
+          <pf:commandButton id="buttonDeleteRight" styleClass="inputButton"
+              value="Usuń (prawo)" action="#{wikiEditorBean.deleteFile}"
+              ajax="false" rendered="#{!wikiEditorBean.isNewPage}">
+            <f:param name="editor" value="write" />
+          </pf:commandButton>-->
+          
+          <pf:commandButton id="buttonSave" styleClass="inputButton"
+              value="Zapisz" action="#{wikiEditorBean.saveFile}"
+                            ajax="false">
+<!--            <f:param name="category" value="#{wikiEditorBean.outputPage}"/>
+            <f:param name="page" value="#{wikiEditorBean.outputCategory}" />-->
+          </pf:commandButton>
+          
+          <pf:commandButton id="buttonSaveRight" styleClass="inputButton"
+              value="Zapisz (prawo)" action="#{wikiEditorBean.saveFile}"
+                            ajax="false">
+            <f:param name="editor" value="write" />
+<!--            <f:param name="category" value="#{wikiEditorBean.outputPage}"/>
+            <f:param name="page" value="#{wikiEditorBean.outputCategory}" />-->
+          </pf:commandButton>
+          
           <pf:commandButton id="buttonSaveAndFinish" styleClass="inputButton"
-                  value="Zapisz i Zakończ" actionListener="#{wikiEditorBean.saveFile}"
-                              action="wiki"
-                              ajax="false">
-            <f:param name="destination" value="WIKIPAGE_READER" />
-            <f:param name="category" value="wikiEditorBean.outputPage" />
-            <f:param name="page" value="wikiEditorBean.outputCategory" />
+                  value="Zapisz i Zakończ" action="#{wikiEditorBean.saveFileAndFinish}"
+                  ajax="false">
+            <f:param name="category" value="#{wikiEditorBean.outputCategory}" />
+            <f:param name="page" value="#{wikiEditorBean.outputPage}" />
+          </pf:commandButton>
+          
+          <pf:commandButton id="buttonSaveAndFinishRight" styleClass="inputButton"
+                  value="Zapisz i Zakończ (prawo)" action="#{wikiEditorBean.saveFileAndFinish}"
+                  ajax="false">
+            <f:param name="reader" value="write" />
+            <f:param name="editor" value="write" />
+            <f:param name="category" value="#{wikiEditorBean.outputCategory}" />
+            <f:param name="page" value="#{wikiEditorBean.outputPage}" />
           </pf:commandButton>
         </div>
         </h:form>
       </h:panelGroup>
+      
       <h:panelGroup rendered="#{protect.getAccessLevel('editorWrapper', cc.attrs.componentId, wikiEditorBean.rightCategory, wikiEditorBean.rightPage) == 'read'}">
         <h:outputStylesheet library="css" name="wiki.css" />
         <div class="frame">
@@ -74,6 +99,7 @@
           </p>
         </div>
       </h:panelGroup>
+      
       <h:panelGroup rendered="#{protect.getAccessLevel('editorWrapper', cc.attrs.componentId, wikiEditorBean.rightCategory, wikiEditorBean.rightPage) == 'no'}">
         <h:outputStylesheet library="css" name="wiki.css" />
         <div class="frame">

@@ -13,10 +13,10 @@
   xmlns:wiki="http://java.sun.com/jsf/composite/wiki">
   <h:body>
     <ui:composition template="/template.xhtml">
-      <ui:define name="title">#{wikiDispatcherBean.title}</ui:define>
+      <ui:define name="title">Wiki -> Menadżer Kategorii</ui:define>
       <h:outputStylesheet library="css" name="wiki.css" />
       <div>
-        <wiki:editor componentId="editor"/>
+        <wiki:categoryManagerNew componentId="categoryManagerNew" />
       </div>
     </ui:composition>
   </h:body>
