@@ -52,16 +52,16 @@
                 <pf:layoutUnit position="center">
                     <pf:layout>
 
-                        <!-- LEWY PANEL -->
-                        <pf:layoutUnit position="west" size="20%" header="Menu zawartosci" resizable="true" collapsible="true">
-                            <ui:include src="left.xhtml"/>
-                        </pf:layoutUnit>
-
                         <!-- TRESC -->
                         <pf:layoutUnit position="center">
                             <div id="dupa">
                                 <ui:insert/>
                             </div>
+                        </pf:layoutUnit>
+                        
+                        <!-- LEWY PANEL -->
+                        <pf:layoutUnit position="west" size="20%" header="Menu zawartosci" resizable="true" collapsible="true">
+                            <ui:include src="left.xhtml"/>
                         </pf:layoutUnit>
 
                     </pf:layout>

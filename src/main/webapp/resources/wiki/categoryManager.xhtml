@@ -1,73 +1,78 @@
 <!DOCTYPE html>
 <html lang="pl"
-  xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:h="http://xmlns.jcp.org/jsf/html"
-  xmlns:f="http://xmlns.jcp.org/jsf/core"
-  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-  xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
-  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:cc="http://java.sun.com/jsf/composite"
-  xmlns:jsf="http://xmlns.jcp.org/jsf"
-  xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-  xmlns:pf="http://primefaces.org/ui">
-  <h:body>
-    <cc:interface>
-      <cc:attribute name="componentId" required="true"/>
-    </cc:interface>
-    <cc:implementation>
-      
-      <h:panelGroup rendered="#{protect.getAccessLevel('categoryManager', cc.attrs.componentId, 'categoryManager', 'categoryManager') == 'special'}">
-        <img src="http://media.carddit.com/a/tPtYRwkDv.jpg" />
-      </h:panelGroup>
-      
-      <h:panelGroup rendered="#{protect.getAccessLevel('categoryManager', cc.attrs.componentId, 'categoryManager', 'categoryManager') == 'write'}">
-        <h:outputStylesheet library="css" name="wiki.css"  />
-        <div class="frame" width="100%">
-          <h1>Menadżer kategorii</h1>
-          
-          <h:form>
-            <pf:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
-            
-            <div>
-              <pf:selectManyCheckbox id="categoriesToDelete" styleClass="inputCheckbox" value="#{wikiCategoryManagerBean.categoriesToDelete}" layout="pageDirection">
-                <f:selectItems id="categoriesToDeleteItems" value="#{wikiCategoryManagerBean.categories}"/>
-              </pf:selectManyCheckbox>
-            </div>
-            <div class="divButtons">
-              <pf:commandButton id="buttonDelete" styleClass="inputButton"
-                                value="Usuń zaznaczone"
-                                action="#{wikiCategoryManagerBean.deleteSelected}"
-                                ajax="false" />
-              <pf:commandButton id="buttonDeleteRight" styleClass="inputButton"
-                                value="Usuń zaznaczone (prawo)"
-                                action="#{wikiCategoryManagerBean.deleteSelected}"
-                                ajax="false" >
-                <f:param name="categoryManager" value="write" />
-              </pf:commandButton>
-            </div>
-          </h:form>
-        </div>
-      </h:panelGroup>
-      
-      <h:panelGroup rendered="#{protect.getAccessLevel('categoryManager', cc.attrs.componentId, 'categoryManager', 'categoryManager') == 'read'}">
-        <div class="frame" width="100%">
-          <h1>Menadżer kategorii</h1>
-          <h:form>
-            <div>
-              <pf:selectManyCheckbox id="categoriesToDelete" layout="pageDirection" disabled="true">
-                <f:selectItems value="#{wikiCategoryManagerBean.categories}"/>
-              </pf:selectManyCheckbox>
-            </div>
-          </h:form>
-        </div>
-      </h:panelGroup>
-      
-      <h:panelGroup rendered="#{protect.getAccessLevel('categoryManager', cc.attrs.componentId, 'categoryManager', 'categoryManager') == 'no'}">
-        <div class="frame" width="100%">
-          <h1>Menadżer kategorii</h1>
-          <p>Brak dostępu</p>
-        </div>
-      </h:panelGroup>
-    </cc:implementation>
-  </h:body>
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pf="http://primefaces.org/ui">
+    <h:body>
+        <cc:interface>
+            <cc:attribute name="componentId" required="true"/>
+        </cc:interface>
+        <cc:implementation>
+
+            <h:panelGroup rendered="#{protect.getAccessLevel('categoryManager', cc.attrs.componentId, 'categoryManager', 'categoryManager') == 'special'}">
+                <img src="http://media.carddit.com/a/tPtYRwkDv.jpg" />
+            </h:panelGroup>
+
+            <h:panelGroup rendered="#{protect.getAccessLevel('categoryManager', cc.attrs.componentId, 'categoryManager', 'categoryManager') == 'write'}">
+                <h:outputStylesheet library="css" name="wiki.css"  />
+                <div class="frame" width="100%">
+                    <h1>Menadżer kategorii</h1>
+
+                    <h:form>
+                        <pf:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
+
+                        <div>
+                            <pf:selectManyCheckbox id="categoriesToDelete" styleClass="inputCheckbox" value="#{wikiCategoryManagerBean.categoriesToDelete}" layout="pageDirection">
+                                <f:selectItems id="categoriesToDeleteItems" value="#{wikiCategoryManagerBean.categories}"/>
+                            </pf:selectManyCheckbox>
+                        </div>
+                        <div class="divButtons">
+                            <pf:commandButton id="buttonDelete" styleClass="inputButton"
+                                              value="Usuń zaznaczone"
+                                              action="#{wikiCategoryManagerBean.deleteSelected}"
+                                              ajax="false" />
+                            <pf:commandButton id="buttonDeleteRight" styleClass="inputButton"
+                                              value="Usuń zaznaczone (prawo)"
+                                              action="#{wikiCategoryManagerBean.deleteSelected}"
+                                              ajax="false" >
+                                <f:param name="categoryManager" value="write" />
+                            </pf:commandButton>
+                        </div>
+                    </h:form>
+                </div>
+            </h:panelGroup>
+
+            <h:panelGroup rendered="#{protect.getAccessLevel('categoryManager', cc.attrs.componentId, 'categoryManager', 'categoryManager') == 'read'}">
+                <div class="frame" width="100%">
+                    <h1>Menadżer kategorii</h1>
+                    <h:form>
+                        <div>
+                            <pf:selectManyCheckbox id="categoriesToDelete" layout="pageDirection" disabled="true">
+                                <f:selectItems value="#{wikiCategoryManagerBean.categories}"/>
+                            </pf:selectManyCheckbox>
+                        </div>
+                    </h:form>
+                </div>
+            </h:panelGroup>
+
+            <h:panelGroup rendered="#{protect.getAccessLevel('categoryManager', cc.attrs.componentId, 'categoryManager', 'categoryManager') == 'no'}">
+                <div class="frame" width="100%">
+                    <h1>Menadżer kategorii</h1>
+                    <p>Brak dostępu</p>
+                </div>
+
+                <pf:dialog header="Nie masz uprawnień." widgetVar="dlg1" minHeight="50" visible="true" resizable="false">
+                    <h:outputText value="Zaloguj się jako użytkownik mający uprawniena." />
+                </pf:dialog>
+
+            </h:panelGroup>
+        </cc:implementation>
+    </h:body>
 </html>

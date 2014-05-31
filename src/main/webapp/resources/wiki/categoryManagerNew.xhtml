@@ -1,76 +1,81 @@
 <!DOCTYPE html>
 <html lang="pl"
-  xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:h="http://xmlns.jcp.org/jsf/html"
-  xmlns:f="http://xmlns.jcp.org/jsf/core"
-  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-  xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
-  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:cc="http://java.sun.com/jsf/composite"
-  xmlns:jsf="http://xmlns.jcp.org/jsf"
-  xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-  xmlns:pf="http://primefaces.org/ui">
-  <h:body>
-    <cc:interface>
-      <cc:attribute name="componentId" required="true"/>
-    </cc:interface>
-    <cc:implementation>
-      
-      <h:panelGroup rendered="#{protect.getAccessLevel('categoryManagerNew', cc.attrs.componentId, 'categoryManagerNew', 'categoryManagerNew') == 'special'}">
-        <img src="http://media.carddit.com/a/tPtYRwkDv.jpg" />
-      </h:panelGroup>
-      
-      <h:panelGroup rendered="#{protect.getAccessLevel('categoryManagerNew', cc.attrs.componentId, 'categoryManagerNew', 'categoryManagerNew') == 'write'}">
-        <h:outputStylesheet library="css" name="wiki.css"  />
-        <div class="frame" width="100%">
-          <h1>Menadżer kategorii</h1>
-          
-          <h:form>
-            <pf:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
-            
-            <div class="inputLabel">
-              <div>Nowa kategoria:</div>
-              <pf:inputText styleClass="inputLongTextField" required="true" label="Nazwa nowej kategorii" value="#{wikiCategoryManagerBean.newCategory}"
-                            validatorMessage="Nazwa kategorii może się składać tylko z liter cyfr oraz znaków spacji!"
-                            requiredMessage="Nazwa kategorii jest wymagana!" >
-                <f:validateRegex pattern="^([a-zA-Z0-9]| )+$" />
-              </pf:inputText>
-            </div>
-            <div class="divButtons">
-              <pf:commandButton id="buttonAdd" styleClass="inputButton"
-                                value="Dodaj"
-                                actionListener="#{wikiCategoryManagerBean.createCategory}"
-                                ajax="false" />
-              <pf:commandButton id="buttonAddRight" styleClass="inputButton"
-                                value="Dodaj (prawo)"
-                                actionListener="#{wikiCategoryManagerBean.createCategory}"
-                                ajax="false" >
-                <f:param name="categoryManagerNew" value="write" />
-              </pf:commandButton>
-            </div>
-          </h:form>
-        </div>
-      </h:panelGroup>
-      
-      <h:panelGroup rendered="#{protect.getAccessLevel('categoryManagerNew', cc.attrs.componentId, 'categoryManagerNew', 'categoryManagerNew') == 'read'}">
-        <div class="frame" width="100%">
-          <h1>Menadżer kategorii</h1>
-          <h:form>
-            <div>
-              <pf:selectManyCheckbox id="categoriesToDelete" layout="pageDirection" disabled="true">
-                <f:selectItems value="#{wikiCategoryManagerBean.categories}"/>
-              </pf:selectManyCheckbox>
-            </div>
-          </h:form>
-        </div>
-      </h:panelGroup>
-      
-      <h:panelGroup rendered="#{protect.getAccessLevel('categoryManagerNew', cc.attrs.componentId, 'categoryManagerNew', 'categoryManagerNew') == 'no'}">
-        <div class="frame" width="100%">
-          <h1>Menadżer kategorii</h1>
-          <p>Brak dostępu</p>
-        </div>
-      </h:panelGroup>
-    </cc:implementation>
-  </h:body>
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pf="http://primefaces.org/ui">
+    <h:body>
+        <cc:interface>
+            <cc:attribute name="componentId" required="true"/>
+        </cc:interface>
+        <cc:implementation>
+
+            <h:panelGroup rendered="#{protect.getAccessLevel('categoryManagerNew', cc.attrs.componentId, 'categoryManagerNew', 'categoryManagerNew') == 'special'}">
+                <img src="http://media.carddit.com/a/tPtYRwkDv.jpg" />
+            </h:panelGroup>
+
+            <h:panelGroup rendered="#{protect.getAccessLevel('categoryManagerNew', cc.attrs.componentId, 'categoryManagerNew', 'categoryManagerNew') == 'write'}">
+                <h:outputStylesheet library="css" name="wiki.css"  />
+                <div class="frame" width="100%">
+                    <h1>Menadżer kategorii</h1>
+
+                    <h:form>
+                        <pf:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
+
+                        <div class="inputLabel">
+                            <div>Nowa kategoria:</div>
+                            <pf:inputText styleClass="inputLongTextField" required="true" label="Nazwa nowej kategorii" value="#{wikiCategoryManagerBean.newCategory}"
+                                          validatorMessage="Nazwa kategorii może się składać tylko z liter cyfr oraz znaków spacji!"
+                                          requiredMessage="Nazwa kategorii jest wymagana!" >
+                                <f:validateRegex pattern="^([a-zA-Z0-9]| )+$" />
+                            </pf:inputText>
+                        </div>
+                        <div class="divButtons">
+                            <pf:commandButton id="buttonAdd" styleClass="inputButton"
+                                              value="Dodaj"
+                                              actionListener="#{wikiCategoryManagerBean.createCategory}"
+                                              ajax="false" />
+                            <pf:commandButton id="buttonAddRight" styleClass="inputButton"
+                                              value="Dodaj (prawo)"
+                                              actionListener="#{wikiCategoryManagerBean.createCategory}"
+                                              ajax="false" >
+                                <f:param name="categoryManagerNew" value="write" />
+                            </pf:commandButton>
+                        </div>
+                    </h:form>
+                </div>
+            </h:panelGroup>
+
+            <h:panelGroup rendered="#{protect.getAccessLevel('categoryManagerNew', cc.attrs.componentId, 'categoryManagerNew', 'categoryManagerNew') == 'read'}">
+                <div class="frame" width="100%">
+                    <h1>Menadżer kategorii</h1>
+                    <h:form>
+                        <div>
+                            <pf:selectManyCheckbox id="categoriesToDelete" layout="pageDirection" disabled="true">
+                                <f:selectItems value="#{wikiCategoryManagerBean.categories}"/>
+                            </pf:selectManyCheckbox>
+                        </div>
+                    </h:form>
+                </div>
+            </h:panelGroup>
+
+            <h:panelGroup rendered="#{protect.getAccessLevel('categoryManagerNew', cc.attrs.componentId, 'categoryManagerNew', 'categoryManagerNew') == 'no'}">
+                <div class="frame" width="100%">
+                    <h1>Menadżer kategorii</h1>
+                    <p>Brak dostępu</p>
+
+                    <pf:dialog header="Nie masz uprawnień." widgetVar="dlg1" minHeight="50" visible="true" resizable="false">
+                        <h:outputText value="Zaloguj się jako użytkownik mający uprawniena." />
+                    </pf:dialog>
+
+                </div>
+            </h:panelGroup>
+        </cc:implementation>
+    </h:body>
 </html>

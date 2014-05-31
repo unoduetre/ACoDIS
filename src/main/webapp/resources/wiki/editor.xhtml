@@ -1,115 +1,120 @@
 <!DOCTYPE html>
 <html lang="pl"
-  xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:h="http://xmlns.jcp.org/jsf/html"
-  xmlns:f="http://xmlns.jcp.org/jsf/core"
-  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-  xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
-  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:cc="http://java.sun.com/jsf/composite"
-  xmlns:jsf="http://xmlns.jcp.org/jsf"
-  xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-  xmlns:pf="http://primefaces.org/ui">
-  <h:body>
-    <cc:interface>
-      <cc:attribute name="componentId" required="true"/>
-    </cc:interface>
-    <cc:implementation>
-      <h:panelGroup rendered="#{protect.getAccessLevel('editorWrapper', cc.attrs.componentId, wikiEditorBean.rightCategory, wikiEditorBean.rightPage) == 'special'}">
-        <img src="http://media.carddit.com/a/tPtYRwkDv.jpg" />
-      </h:panelGroup>
-      
-      <h:panelGroup rendered="#{protect.getAccessLevel('editorWrapper', cc.attrs.componentId, wikiEditorBean.rightCategory, wikiEditorBean.rightPage) == 'write'}">
-        <h:form styleClass="inputForm">
-        <h:inputHidden id="inputTitle" value="#{wikiEditorBean.inputTitle}" />
-        <h:inputHidden id="inputCategory" value="#{wikiEditorBean.inputCategory}" />
-        <h:inputHidden id="isNewPage" value="#{wikiEditorBean.isNewPage}" />
-        
-        <pf:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
-        
-        <p class="inputLabel">Tytuł:</p>
-        <pf:inputText styleClass="inputLongTextField" required="true" label="Tytuł" value="#{wikiEditorBean.title}"
-                      validatorMessage="Tytuł może się składać tylko z liter cyfr oraz znaków spacji!"
-                      requiredMessage="Tytuł jest wymagany!" disabled="#{!wikiEditorBean.isNewPage}">
-          <f:validateRegex pattern="^([a-zA-Z0-9]| )+$" />
-        </pf:inputText>
-        
-        <p class="inputLabel">Kategoria:</p>
-        <pf:selectOneMenu styleClass="inputLongCombobox" id="category" value="#{wikiEditorBean.category}"
-                          disabled="#{!wikiEditorBean.isNewPage}" >
-          <f:selectItems value="#{wikiEditorBean.categories}" />
-        </pf:selectOneMenu>
-        
-        <hr class="inputHr"/>
-        <pf:editor styleClass="inputEditor" value="#{wikiEditorBean.editorValue}"/>
-        
-        <hr styleClass="inputHr"/>
-        <div class="divButtons">
-<!--          <pf:commandButton id="buttonDelete" styleClass="inputButton"
-              value="Usuń" action="#{wikiEditorBean.deleteFile}"
-              ajax="false" rendered="#{!wikiEditorBean.isNewPage}">
-          </pf:commandButton>
-          
-          <pf:commandButton id="buttonDeleteRight" styleClass="inputButton"
-              value="Usuń (prawo)" action="#{wikiEditorBean.deleteFile}"
-              ajax="false" rendered="#{!wikiEditorBean.isNewPage}">
-            <f:param name="editor" value="write" />
-          </pf:commandButton>-->
-          
-          <pf:commandButton id="buttonSave" styleClass="inputButton"
-              value="Zapisz" action="#{wikiEditorBean.saveFile}"
-                            ajax="false">
-<!--            <f:param name="category" value="#{wikiEditorBean.outputPage}"/>
-            <f:param name="page" value="#{wikiEditorBean.outputCategory}" />-->
-          </pf:commandButton>
-          
-          <pf:commandButton id="buttonSaveRight" styleClass="inputButton"
-              value="Zapisz (prawo)" action="#{wikiEditorBean.saveFile}"
-                            ajax="false">
-            <f:param name="editor" value="write" />
-<!--            <f:param name="category" value="#{wikiEditorBean.outputPage}"/>
-            <f:param name="page" value="#{wikiEditorBean.outputCategory}" />-->
-          </pf:commandButton>
-          
-          <pf:commandButton id="buttonSaveAndFinish" styleClass="inputButton"
-                  value="Zapisz i Zakończ" action="#{wikiEditorBean.saveFileAndFinish}"
-                  ajax="false">
-            <f:param name="category" value="#{wikiEditorBean.outputCategory}" />
-            <f:param name="page" value="#{wikiEditorBean.outputPage}" />
-          </pf:commandButton>
-          
-          <pf:commandButton id="buttonSaveAndFinishRight" styleClass="inputButton"
-                  value="Zapisz i Zakończ (prawo)" action="#{wikiEditorBean.saveFileAndFinish}"
-                  ajax="false">
-            <f:param name="reader" value="write" />
-            <f:param name="editor" value="write" />
-            <f:param name="category" value="#{wikiEditorBean.outputCategory}" />
-            <f:param name="page" value="#{wikiEditorBean.outputPage}" />
-          </pf:commandButton>
-        </div>
-        </h:form>
-      </h:panelGroup>
-      
-      <h:panelGroup rendered="#{protect.getAccessLevel('editorWrapper', cc.attrs.componentId, wikiEditorBean.rightCategory, wikiEditorBean.rightPage) == 'read'}">
-        <h:outputStylesheet library="css" name="wiki.css" />
-        <div class="frame">
-          <h1>Edycja strony (read only)</h1>
-          <p>
-            <strong>Brak dostępu!</strong>
-          </p>
-        </div>
-      </h:panelGroup>
-      
-      <h:panelGroup rendered="#{protect.getAccessLevel('editorWrapper', cc.attrs.componentId, wikiEditorBean.rightCategory, wikiEditorBean.rightPage) == 'no'}">
-        <h:outputStylesheet library="css" name="wiki.css" />
-        <div class="frame">
-          <h1>Edycja strony</h1>
-          <p>
-            <strong>Brak dostępu!</strong>
-          </p>
-        </div>
-      </h:panelGroup>
-    </cc:implementation>
-  </h:body>
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pf="http://primefaces.org/ui">
+    <h:body>
+        <cc:interface>
+            <cc:attribute name="componentId" required="true"/>
+        </cc:interface>
+        <cc:implementation>
+            <h:panelGroup rendered="#{protect.getAccessLevel('editorWrapper', cc.attrs.componentId, wikiEditorBean.rightCategory, wikiEditorBean.rightPage) == 'special'}">
+                <img src="http://media.carddit.com/a/tPtYRwkDv.jpg" />
+            </h:panelGroup>
+
+            <h:panelGroup rendered="#{protect.getAccessLevel('editorWrapper', cc.attrs.componentId, wikiEditorBean.rightCategory, wikiEditorBean.rightPage) == 'write'}">
+                <h:form styleClass="inputForm">
+                    <h:inputHidden id="inputTitle" value="#{wikiEditorBean.inputTitle}" />
+                    <h:inputHidden id="inputCategory" value="#{wikiEditorBean.inputCategory}" />
+                    <h:inputHidden id="isNewPage" value="#{wikiEditorBean.isNewPage}" />
+
+                    <pf:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
+
+                    <p class="inputLabel">Tytuł:</p>
+                    <pf:inputText styleClass="inputLongTextField" required="true" label="Tytuł" value="#{wikiEditorBean.title}"
+                                  validatorMessage="Tytuł może się składać tylko z liter cyfr oraz znaków spacji!"
+                                  requiredMessage="Tytuł jest wymagany!" disabled="#{!wikiEditorBean.isNewPage}">
+                        <f:validateRegex pattern="^([a-zA-Z0-9]| )+$" />
+                    </pf:inputText>
+
+                    <p class="inputLabel">Kategoria:</p>
+                    <pf:selectOneMenu styleClass="inputLongCombobox" id="category" value="#{wikiEditorBean.category}"
+                                      disabled="#{!wikiEditorBean.isNewPage}" >
+                        <f:selectItems value="#{wikiEditorBean.categories}" />
+                    </pf:selectOneMenu>
+
+                    <hr class="inputHr"/>
+                    <pf:editor styleClass="inputEditor" value="#{wikiEditorBean.editorValue}"/>
+
+                    <hr styleClass="inputHr"/>
+                    <div class="divButtons">
+                        <!--          <pf:commandButton id="buttonDelete" styleClass="inputButton"
+                                      value="Usuń" action="#{wikiEditorBean.deleteFile}"
+                                      ajax="false" rendered="#{!wikiEditorBean.isNewPage}">
+                                  </pf:commandButton>
+                                  
+                                  <pf:commandButton id="buttonDeleteRight" styleClass="inputButton"
+                                      value="Usuń (prawo)" action="#{wikiEditorBean.deleteFile}"
+                                      ajax="false" rendered="#{!wikiEditorBean.isNewPage}">
+                                    <f:param name="editor" value="write" />
+                                  </pf:commandButton>-->
+
+                        <pf:commandButton id="buttonSave" styleClass="inputButton"
+                                          value="Zapisz" action="#{wikiEditorBean.saveFile}"
+                                          ajax="false">
+              <!--            <f:param name="category" value="#{wikiEditorBean.outputPage}"/>
+                          <f:param name="page" value="#{wikiEditorBean.outputCategory}" />-->
+                        </pf:commandButton>
+
+                        <pf:commandButton id="buttonSaveRight" styleClass="inputButton"
+                                          value="Zapisz (prawo)" action="#{wikiEditorBean.saveFile}"
+                                          ajax="false">
+                            <f:param name="editor" value="write" />
+                <!--            <f:param name="category" value="#{wikiEditorBean.outputPage}"/>
+                            <f:param name="page" value="#{wikiEditorBean.outputCategory}" />-->
+                        </pf:commandButton>
+
+                        <pf:commandButton id="buttonSaveAndFinish" styleClass="inputButton"
+                                          value="Zapisz i Zakończ" action="#{wikiEditorBean.saveFileAndFinish}"
+                                          ajax="false">
+                            <f:param name="category" value="#{wikiEditorBean.outputCategory}" />
+                            <f:param name="page" value="#{wikiEditorBean.outputPage}" />
+                        </pf:commandButton>
+
+                        <pf:commandButton id="buttonSaveAndFinishRight" styleClass="inputButton"
+                                          value="Zapisz i Zakończ (prawo)" action="#{wikiEditorBean.saveFileAndFinish}"
+                                          ajax="false">
+                            <f:param name="reader" value="write" />
+                            <f:param name="editor" value="write" />
+                            <f:param name="category" value="#{wikiEditorBean.outputCategory}" />
+                            <f:param name="page" value="#{wikiEditorBean.outputPage}" />
+                        </pf:commandButton>
+                    </div>
+                </h:form>
+            </h:panelGroup>
+
+            <h:panelGroup rendered="#{protect.getAccessLevel('editorWrapper', cc.attrs.componentId, wikiEditorBean.rightCategory, wikiEditorBean.rightPage) == 'read'}">
+                <h:outputStylesheet library="css" name="wiki.css" />
+                <div class="frame">
+                    <h1>Edycja strony (read only)</h1>
+                    <p>
+                        <strong>Brak dostępu!</strong>
+                    </p>
+                </div>
+            </h:panelGroup>
+
+            <h:panelGroup rendered="#{protect.getAccessLevel('editorWrapper', cc.attrs.componentId, wikiEditorBean.rightCategory, wikiEditorBean.rightPage) == 'no'}">
+                <h:outputStylesheet library="css" name="wiki.css" />
+                <div class="frame">
+                    <h1>Edycja strony</h1>
+                    <p>
+                        <strong>Brak dostępu!</strong>
+                    </p>
+
+                    <pf:dialog header="Nie masz uprawnień." widgetVar="dlg1" minHeight="50" visible="true" resizable="false">
+                        <h:outputText value="Zaloguj się jako użytkownik mający uprawniena." />
+                    </pf:dialog>
+
+                </div>
+            </h:panelGroup>
+        </cc:implementation>
+    </h:body>
 </html>
 
