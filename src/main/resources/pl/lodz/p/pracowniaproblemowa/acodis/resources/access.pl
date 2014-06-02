@@ -82,12 +82,20 @@ cannotAccess(AccessLevel) :-
 % Poniższe predykaty to baza uprawnień. Można ją modyfikować aby nadać uprawnienia.
 
 isPasswordFor('test','test').
+isPasswordFor('no','no').
+isPasswordFor('read','read').
+isPasswordFor('write','write').
 
 canAccessAt(user(Username, Password), Resource, AccessLevel) :-
   isPasswordFor(Password, Username),
   canAccessAtIfLogged(user(Username, Password), Resource, AccessLevel).
 
 canAccessAtIfLogged(_, resource('login','login','login','login'), readAccess).
+
+canAccessAtIfLogged(user('read','read'),Resource, readAccess) :-
+  \+ Resource = resource('login','login','login','login').
+canAccessAtIfLogged(user('write','write'),Resource, writeAccess) :-
+  \+ Resource = resource('login','login','login','login').
 
 cannotAccessAt(user(Username, Password), _, _) :-
   \+ isPasswordFor(Password, Username).

@@ -48,6 +48,7 @@ public class Protect implements Serializable
     }
     componentsAccessLevels.put(componentId,accessLevel);
 
+    logger.info("ACCESS("+componentType+" "+componentId+" "+resourceType+" "+resourceId+"): "+accessLevel);  
     return accessLevel;
   }
 
@@ -75,6 +76,7 @@ public class Protect implements Serializable
     {
       return findAccessLevel(componentType, componentId, resourceType, resourceId);
     }
+    logger.info("ACCESS("+componentType+" "+componentId+" "+resourceType+" "+resourceId+"): "+accessLevel);  
     return accessLevel;
   }
 }
