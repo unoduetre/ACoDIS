@@ -1,3 +1,5 @@
+<!--http://jquery-ui.googlecode.com/svn/tags/1.6rc5/tests/static/icons.html-->
+
 <!DOCTYPE html>
 <html lang="pl"
       xmlns="http://www.w3.org/1999/xhtml"
@@ -29,16 +31,16 @@
             <pf:layout fullPage="true" style="none">
 
                 <!-- NAGLOWEK -->
-                <pf:layoutUnit position="north" size="39" resizable="false">
+                <pf:layoutUnit position="north" size="50" resizable="false">
                     <!--<h:form>-->
-                    <pf:breadCrumb>
-                        <pf:menuitem value="Home" url="//index.xhtml" />
-                        <pf:menuitem value="Wiki" url="//wikiMenu.xhtml" />
-                        <pf:menuitem value="Pliki" url="//filebrowser-test.xhtml" />
-                        <pf:menuitem value="Logowanie" url="//login.xhtml" />
-                        <pf:menuitem value="Profil" url="//profile.xhtml" />
-                        <pf:menuitem value="Example" url="//example.xhtml" />
-                    </pf:breadCrumb>
+                    <pf:menubar >
+                        <pf:menuitem value="Home" icon="ui-icon-home" url="//index.xhtml" />
+                        <pf:menuitem value="Logowanie" icon="ui-icon-key" url="//login.xhtml" />
+                        <pf:menuitem value="Profil" icon="ui-icon-person" url="//profile.xhtml" />
+                        <pf:menuitem value="Wiki" icon="ui-icon-clipboard" url="//wikiMenu.xhtml" />
+                        <pf:menuitem value="Pliki" icon="ui-icon-folder-open" url="//filebrowser-test.xhtml" />
+                        
+                    </pf:menubar>
                     <!--<ui:include src="header.xhtml"/>-->
                     <!--</h:form>-->
                 </pf:layoutUnit>

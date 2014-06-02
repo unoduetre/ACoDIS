@@ -1,22 +1,86 @@
 <!DOCTYPE html>
 <html lang="pl"
-  xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:h="http://xmlns.jcp.org/jsf/html"
-  xmlns:f="http://xmlns.jcp.org/jsf/core"
-  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-  xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
-  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:cc="http://java.sun.com/jsf/composite"
-  xmlns:jsf="http://xmlns.jcp.org/jsf"
-  xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-  xmlns:pf="http://primefaces.org/ui">
-  <h:body>
-    <ui:composition template="/template.xhtml">
-      <ui:define name="title">Index</ui:define>
-      <h1>Hello World</h1>
-      <h:form>
-        <pf:editor/>
-      </h:form>
-    </ui:composition>
-  </h:body>
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pf="http://primefaces.org/ui">
+    <h:body>
+        <ui:composition template="/template.xhtml">
+            <ui:define name="title">Index</ui:define>
+            <h:form id="form">           
+                <pf:growl id="msgs" showDetail="true" />
+
+                <center><h1>ACoDIS</h1></center>
+                <br/>
+                
+                <center><h2>O projekcie</h2></center>
+                <pf:scrollPanel mode="native" style="width:100%; height:300px">
+                    <p>
+                        Kilka slow o projekcie
+                    </p>
+                    <p>
+                        Wymienione moduly i ficzery
+                    </p>
+                    <p>
+                        Podsumowanie i zart na koniec
+                    </p>
+                </pf:scrollPanel>
+
+                <center><h2>Autorzy</h2></center>
+                <pf:accordionPanel multiple="true" activeIndex="">
+                    <pf:tab title="Mateusz Grotek">
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputText value="Indeks:" style="font-weight: bold" />
+                            <h:outputText value="??????" />
+
+                            <h:outputText value="Odpowiedzialność:" style="font-weight: bold" />
+                            <h:outputText value="..." />
+                        </h:panelGrid>
+                    </pf:tab>
+                    <pf:tab title="Paweł Tarasiuk">
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputText value="Indeks:" style="font-weight: bold" />
+                            <h:outputText value="??????" />
+
+                            <h:outputText value="Odpowiedzialność:" style="font-weight: bold" />
+                            <h:outputText value="..." />
+                        </h:panelGrid>                    
+                    </pf:tab>
+                    <pf:tab title="Mateusz Jakóbczak">
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputText value="Indeks:" style="font-weight: bold" />
+                            <h:outputText value="??????" />
+
+                            <h:outputText value="Odpowiedzialność:" style="font-weight: bold" />
+                            <h:outputText value="..." />
+                        </h:panelGrid>
+                    </pf:tab>
+                    <pf:tab title="Łukasz Kotyński">
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputText value="Indeks:" style="font-weight: bold" />
+                            <h:outputText value="186829" />
+
+                            <h:outputText value="Odpowiedzialność:" style="font-weight: bold" />
+                            <h:outputText value="Wiki: dodawanie, usuwanie i edyca kategorii, oraz dokumentów (stron)." />
+                        </h:panelGrid>
+                    </pf:tab>
+                    <pf:tab title="Rafał Jurkiewicz">
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputText value="Indeks:" style="font-weight: bold" />
+                            <h:outputText value="186822" />
+
+                            <h:outputText value="Odpowiedzialność:" style="font-weight: bold" />
+                            <h:outputText value="Layout, wygląd i nawigacja" />
+                        </h:panelGrid>
+                    </pf:tab>
+                </pf:accordionPanel>
+            </h:form>
+        </ui:composition>
+    </h:body>
 </html>

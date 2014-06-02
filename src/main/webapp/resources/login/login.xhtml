@@ -1,49 +1,58 @@
 <!DOCTYPE html>
 <html lang="pl"
-  xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:h="http://xmlns.jcp.org/jsf/html"
-  xmlns:f="http://xmlns.jcp.org/jsf/core"
-  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-  xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
-  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:cc="http://java.sun.com/jsf/composite"
-  xmlns:jsf="http://xmlns.jcp.org/jsf"
-  xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-  xmlns:pf="http://primefaces.org/ui">
-  <h:body>
-    <cc:interface>
-      <cc:attribute name="componentId" required="true" type="java.lang.String"/>
-    </cc:interface>
-    <cc:implementation>
-      <h:panelGroup rendered="#{protect.getAccessLevel('login', cc.attrs.componentId, 'login', 'login') == 'special'}">
-      </h:panelGroup>
-      <h:panelGroup rendered="#{protect.getAccessLevel('login', cc.attrs.componentId, 'login', 'login') == 'write'}">
-      </h:panelGroup>
-      <h:panelGroup rendered="#{protect.getAccessLevel('login', cc.attrs.componentId, 'login', 'login') == 'read'}">
-        <h:form>
-          <p>
-            <h:outputText value="#{msgs['alreadyLogged']}"/>
-            <h:outputText value=" "/>
-            <h:outputText value="#{login.username}"/>
-          </p>
-          <p>
-            <pf:commandButton value="#{msgs['logout']}" action="#{login.logout()}" ajax="false"/>
-          </p>
-        </h:form>
-      </h:panelGroup>
-      <h:panelGroup rendered="#{protect.getAccessLevel('login', cc.attrs.componentId, 'login', 'login') == 'no'}">
-        <h:form>
-          <p>
-            <pf:inputText value="#{login.username}" label="#{msgs['username']}"/>
-          </p>
-          <p>
-            <pf:password value="#{login.password}" label="#{msgs['password']}"/>
-          </p>
-          <p>
-            <pf:commandButton value="#{msgs['login']}" ajax="false"/>
-          </p>
-        </h:form> 
-      </h:panelGroup>
-    </cc:implementation>
-  </h:body>
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pf="http://primefaces.org/ui">
+    <h:body>
+        <cc:interface>
+            <cc:attribute name="componentId" required="true" type="java.lang.String"/>
+        </cc:interface>
+        <cc:implementation>
+            <h:panelGroup rendered="#{protect.getAccessLevel('login', cc.attrs.componentId, 'login', 'login') == 'special'}">
+            </h:panelGroup>
+            <h:panelGroup rendered="#{protect.getAccessLevel('login', cc.attrs.componentId, 'login', 'login') == 'write'}">
+            </h:panelGroup>
+            <h:panelGroup rendered="#{protect.getAccessLevel('login', cc.attrs.componentId, 'login', 'login') == 'read'}">
+                <h:form>
+                    <p>
+                        <h:outputText value="#{msgs['alreadyLogged']}"/>
+                        <h:outputText value=" "/>
+                        <h:outputText value="#{login.username}"/>
+                    </p>
+                    <p>
+                        <pf:commandButton value="#{msgs['logout']}" action="#{login.logout()}" ajax="false"/>
+                    </p>
+                </h:form>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{protect.getAccessLevel('login', cc.attrs.componentId, 'login', 'login') == 'no'}">
+                <h:form>
+                    <center>
+                        <p>
+                            <b>Login</b>
+                        </p>
+                        <p>
+                            <pf:inputText value="#{login.username}" label="#{msgs['username']}"/>
+                        </p>
+                        <p>
+                            <b>Hasło</b>
+                        </p>
+                        <p>
+                            <pf:password value="#{login.password}" label="#{msgs['password']}"/>
+                        </p>
+                        <br/>
+                        <p>
+                            <pf:commandButton value="#{msgs['login']}" ajax="false"/>
+                        </p>
+                    </center>
+                </h:form> 
+            </h:panelGroup>
+        </cc:implementation>
+    </h:body>
 </html>
