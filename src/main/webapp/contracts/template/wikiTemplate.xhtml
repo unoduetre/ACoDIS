@@ -14,17 +14,11 @@
         <ui:composition template="/template.xhtml">
 
             <ui:define name="sidePanelLinks">
-                <h:link value="Nowa Kategoria" outcome="wikiCategoryManagerNew" /> | <h:link value="(prawo)" outcome="wikiCategoryManagerNew">
-                    <f:param name="categoryManagerNew" value="write" />
-                </h:link><br />
+                <h:link value="Nowa Kategoria" outcome="wikiCategoryManagerNew" /><br />
 
-                <h:link value="Zarządzaj kategoriami" outcome="wikiCategoryManager" /> | <h:link value="(prawo)" outcome="wikiCategoryManager">
-                    <f:param name="categoryManager" value="write" />
-                </h:link><br />
+                <h:link value="Zarządzaj kategoriami" outcome="wikiCategoryManager" /><br />
 
-                <h:link value="Nowa Strona" outcome="wikiEditor" /> | <h:link value="(prawo)" outcome="wikiEditor">
-                    <f:param name="editor" value="write" />
-                </h:link><br />
+                <h:link value="Nowa Strona" outcome="wikiEditor" /><br />
             </ui:define>
             
             <ui:define name="sidePanelContent">
@@ -33,11 +27,6 @@
                             <h:link value="#{node.name}" outcome="wikiReader" rendered="#{node.page != null}">
                                 <f:param name="category" value="#{node.category}" />
                                 <f:param name="page" value="#{node.page}" />
-                            </h:link>
-                            <h:link value="(prawo)" outcome="wikiReader" rendered="#{node.page != null}">
-                                <f:param name="category" value="#{node.category}" />
-                                <f:param name="page" value="#{node.page}" />
-                                <f:param name="reader" value="write" />
                             </h:link>
                             <h:outputText value="#{node.name}" rendered="#{node.page == null}" />
                         </pf:treeNode>

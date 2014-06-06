@@ -52,13 +52,6 @@
                           <f:param name="page" value="#{wikiEditorBean.outputCategory}" />-->
                         </pf:commandButton>
 
-                        <pf:commandButton id="buttonSaveRight" styleClass="inputButton"
-                                          value="Zapisz (prawo)" action="#{wikiEditorBean.saveFile}"
-                                          ajax="false">
-                            <f:param name="editor" value="write" />
-                <!--            <f:param name="category" value="#{wikiEditorBean.outputPage}"/>
-                            <f:param name="page" value="#{wikiEditorBean.outputCategory}" />-->
-                        </pf:commandButton>
 
                         <pf:commandButton id="buttonSaveAndFinish" styleClass="inputButton"
                                           value="Zapisz i Zakończ" action="#{wikiEditorBean.saveFileAndFinish}"
@@ -67,14 +60,6 @@
                             <f:param name="page" value="#{wikiEditorBean.outputPage}" />
                         </pf:commandButton>
 
-                        <pf:commandButton id="buttonSaveAndFinishRight" styleClass="inputButton"
-                                          value="Zapisz i Zakończ (prawo)" action="#{wikiEditorBean.saveFileAndFinish}"
-                                          ajax="false">
-                            <f:param name="reader" value="write" />
-                            <f:param name="editor" value="write" />
-                            <f:param name="category" value="#{wikiEditorBean.outputCategory}" />
-                            <f:param name="page" value="#{wikiEditorBean.outputPage}" />
-                        </pf:commandButton>
                     </div>
                 </h:form>
             </h:panelGroup>
