@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<profiles>
+    <profile id="123456">
+        <name>Jan</name>
+        <surname>Kowalski</surname>
+        <duty>programista</duty>
+        <age>28</age>
+        <access>2</access>
+    </profile>
+    <profile id="231543">
+        <name>Marek</name>
+        <surname>Zieliński</surname>
+        <duty>manager</duty>
+        <age>32</age>
+        <access>1</access>
+    </profile>
+    <profile id="323454">
+        <name>Zygmunt</name>
+        <surname>Staszewski</surname>
+        <duty>koordynator projektu</duty>
+        <age>40</age>
+        <access>3</access>
+    </profile>
+</profiles>

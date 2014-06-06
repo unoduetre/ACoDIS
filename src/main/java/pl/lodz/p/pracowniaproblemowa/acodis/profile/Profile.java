@@ -9,15 +9,6 @@ public class Profile {
     private int id;
     private int accessLevel;
 
-    public Profile() {
-        this.name = "Jan";
-        this.surname = "Kowalski";
-        this.duty = "programista";
-        this.age = 28;
-        this.id = 1122334455;
-        this.accessLevel = 2;
-    }
-
     public Profile(String name, String surname, String duty, int age, int id, int accessLevel) {
         this.name = name;
         this.surname = surname;
@@ -66,4 +57,7 @@ public class Profile {
         }
     }
 
+    public String getLabel() {
+        return name + " " + surname;
+    }
 }

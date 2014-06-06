@@ -16,27 +16,83 @@
         </cc:interface>
         <cc:implementation>
             <h:panelGroup rendered="#{protect.getAccessLevel('profile', cc.attrs.componentId, 'profile', 'profile') == 'special'}">
-                <h1>access level: special</h1>
+                <h:form>
+                    <p style="text-align: right">
+                        Wybierz profil: 
+                        <h:selectOneMenu value="#{profileDataBean.actualProfile}" onchange="submit()" valueChangeListener="#{profileDataBean.profileChangeListener}">  
+                            <f:converter converterId="profileConverter" />
+                            <f:selectItems value="#{profileDataBean.profiles}" var="p" itemLabel="#{p.label}" itemValue="#{p}" />
+                        </h:selectOneMenu>
+                    </p>
+                    <div class="frame">
+                        <h1>Informacje o profilu</h1>
+                        <h2>Dane podstawowe:</h2>
+                        <p><b>Imię: </b> 
+                            <h:inputText id="profile-name" value="#{profileDataBean.actualProfile.name}" size="200" style="border: none" readonly="true" /></p>
+                        <p><b>Nazwisko: </b> 
+                            <h:inputText id="profile-surname" value="#{profileDataBean.actualProfile.surname}" size="200" style="border: none" readonly="true" /></p>
+                        <p><b>Stanowisko: </b> 
+                            <h:inputText id="profile-duty" value="#{profileDataBean.actualProfile.duty}" size="200" style="border: none" readonly="true" /></p>
+                        <h2>Dane szczegółowe: </h2>
+                        <p><b>Wiek: </b> 
+                            <h:inputText id="profile-age" value="#{profileDataBean.actualProfile.age}" size="200" style="border: none" readonly="true" /></p>
+                        <p><b>Nr identyfikacyjny: </b> 
+                            <h:inputText id="profile-id" value="#{profileDataBean.actualProfile.id}" size="200" style="border: none" readonly="true" /></p>
+                        <h2>Stopień dostępu: </h2>
+                        <p><b>Dostęp:</b> 
+                            <h:inputText id="profile-access" value="#{profileDataBean.actualProfile.accessLabel}" size="200" style="border: none" readonly="true" /></p>
+                    </div>
+                </h:form>
             </h:panelGroup>
             <h:panelGroup rendered="#{protect.getAccessLevel('profile', cc.attrs.componentId, 'profile', 'profile') == 'write'}">
-                <h1>access level: write</h1>
+                <h:form>
+                    <p style="text-align: right">
+                        Wybierz profil: 
+                        <h:selectOneMenu value="#{profileDataBean.actualProfile}" onchange="submit()" valueChangeListener="#{profileDataBean.profileChangeListener}">  
+                            <f:converter converterId="profileConverter" />
+                            <f:selectItems value="#{profileDataBean.profiles}" var="p" itemLabel="#{p.label}" itemValue="#{p}" />
+                        </h:selectOneMenu>
+                    </p>
+                    <div class="frame">
+                        <h1>Informacje o profilu</h1>
+                        <h2>Dane podstawowe:</h2>
+                        <p><b>Imię: </b> 
+                            <h:inputText id="profile-name" value="#{profileDataBean.actualProfile.name}" size="200" style="border: none" readonly="true" /></p>
+                        <p><b>Nazwisko: </b> 
+                            <h:inputText id="profile-surname" value="#{profileDataBean.actualProfile.surname}" size="200" style="border: none" readonly="true" /></p>
+                        <p><b>Stanowisko: </b> 
+                            <h:inputText id="profile-duty" value="#{profileDataBean.actualProfile.duty}" size="200" style="border: none" readonly="true" /></p>
+                        <h2>Dane szczegółowe: </h2>
+                        <p><b>Wiek: </b> 
+                            <h:inputText id="profile-age" value="#{profileDataBean.actualProfile.age}" size="200" style="border: none" readonly="true" /></p>
+                        <p><b>Nr identyfikacyjny: </b> 
+                            <h:inputText id="profile-id" value="#{profileDataBean.actualProfile.id}" size="200" style="border: none" readonly="true" /></p>
+                    </div>
+                </h:form>
             </h:panelGroup>
             <h:panelGroup rendered="#{protect.getAccessLevel('profile', cc.attrs.componentId, 'profile', 'profile') == 'read'}">
-                <h1>access level: read</h1>
+                <h:form>
+                    <p style="text-align: right">
+                        Wybierz profil: 
+                        <h:selectOneMenu value="#{profileDataBean.actualProfile}" onchange="submit()" valueChangeListener="#{profileDataBean.profileChangeListener}">  
+                            <f:converter converterId="profileConverter" />
+                            <f:selectItems value="#{profileDataBean.profiles}" var="p" itemLabel="#{p.label}" itemValue="#{p}" />
+                        </h:selectOneMenu>
+                    </p>
+                    <div class="frame">
+                        <h1>Informacje o profilu</h1>
+                        <h2>Dane podstawowe:</h2>
+                        <p><b>Imię: </b> 
+                            <h:inputText id="profile-name" value="#{profileDataBean.actualProfile.name}" size="200" style="border: none" readonly="true" /></p>
+                        <p><b>Nazwisko: </b> 
+                            <h:inputText id="profile-surname" value="#{profileDataBean.actualProfile.surname}" size="200" style="border: none" readonly="true" /></p>
+                        <p><b>Stanowisko: </b> 
+                            <h:inputText id="profile-duty" value="#{profileDataBean.actualProfile.duty}" size="200" style="border: none" readonly="true" /></p></div>
+                </h:form>
             </h:panelGroup>
             <h:panelGroup rendered="#{protect.getAccessLevel('profile', cc.attrs.componentId, 'profile', 'profile') == 'no'}">
-                <!-- <h1>Nie masz uprawnień do przeglądania danych.</h1> -->
                 <div class="frame">
-                    <h1>Informacje o profilu</h1>
-                    <h2>Dane podstawowe:</h2>
-                    <p><b>Imię:</b> #{profile.name}</p>
-                    <p><b>Nazwisko:</b> #{profile.surname}</p>
-                    <p><b>Stanowisko:</b> #{profile.duty}</p>
-                    <h2>Dane szczegółowe:</h2>
-                    <p><b>Wiek:</b> #{profile.age}</p>
-                    <p><b>Nr identyfikacyjny:</b> #{profile.id}</p>
-                    <h2>Stopień dostępu:</h2>
-                    <p><b>Dostęp:</b> #{profile.accessLabel}</p>
+                    <h1>Nie masz uprawnień do przeglądania danych.</h1>
                 </div>
             </h:panelGroup>
         </cc:implementation>
