@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.application.ViewHandler;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -161,4 +163,15 @@ public class ProfileDataBean {
         }
         this.editable = !editable;
     }
+
+    public void cancelEdit() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        String viewId = context.getViewRoot().getViewId();
+        ViewHandler handler = context.getApplication().getViewHandler();
+        UIViewRoot root = handler.createView(context, viewId);
+        root.setViewId(viewId);
+        context.setViewRoot(root);
+        this.editable = false;
+    }
+
 }

@@ -83,9 +83,10 @@
                                 </div>
                             </div>
                         </div>
-                        <p style="padding-top: 10px">
+                        <p style="padding-top: 10px;">
                             <h:commandButton value="Edytuj profil" action="#{profileDataBean.changeEditable}" rendered="#{not profileDataBean.editable}" />
-                            <h:commandButton value="Zapisz profil" action="#{profileDataBean.changeEditable}" rendered="#{profileDataBean.editable}" />
+                            <h:commandButton value="Zapisz profil" action="#{profileDataBean.changeEditable}" rendered="#{profileDataBean.editable}" style="margin-right: 10px" />
+                            <h:commandButton value="Anuluj edycję" action="#{profileDataBean.cancelEdit}" rendered="#{profileDataBean.editable}" />
                         </p>
                     </div>
                 </h:form>
