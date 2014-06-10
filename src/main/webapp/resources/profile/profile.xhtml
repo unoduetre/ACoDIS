@@ -9,86 +9,23 @@
       xmlns:cc="http://java.sun.com/jsf/composite"
       xmlns:jsf="http://xmlns.jcp.org/jsf"
       xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-      xmlns:pf="http://primefaces.org/ui">
+      xmlns:pf="http://primefaces.org/ui"
+      xmlns:profile="http://xmlns.jcp.org/jsf/composite/profile">
     <h:body>
         <cc:interface>
             <cc:attribute name="componentId" required="true" type="java.lang.String"/>
         </cc:interface>
         <cc:implementation>
             <h:panelGroup rendered="#{protect.getAccessLevel('profile', cc.attrs.componentId, 'profile', 'profile') == 'special'}">
-                <h:form>
-                    <p style="text-align: right">
-                        Wybierz profil: 
-                        <h:selectOneMenu value="#{profileDataBean.actualProfile}" onchange="submit()" valueChangeListener="#{profileDataBean.profileChangeListener}">  
-                            <f:converter converterId="profileConverter" />
-                            <f:selectItems value="#{profileDataBean.profiles}" var="p" itemLabel="#{p.label}" itemValue="#{p}" />
-                        </h:selectOneMenu>
-                    </p>
-                    <div class="frame">
-                        <h1>Informacje o profilu</h1>
-                        <h2>Dane podstawowe:</h2>
-                        <p><b>Imię: </b> 
-                            <h:inputText id="profile-name" value="#{profileDataBean.actualProfile.name}" size="200" style="border: none" readonly="true" /></p>
-                        <p><b>Nazwisko: </b> 
-                            <h:inputText id="profile-surname" value="#{profileDataBean.actualProfile.surname}" size="200" style="border: none" readonly="true" /></p>
-                        <p><b>Stanowisko: </b> 
-                            <h:inputText id="profile-duty" value="#{profileDataBean.actualProfile.duty}" size="200" style="border: none" readonly="true" /></p>
-                        <h2>Dane szczegółowe: </h2>
-                        <p><b>Wiek: </b> 
-                            <h:inputText id="profile-age" value="#{profileDataBean.actualProfile.age}" size="200" style="border: none" readonly="true" /></p>
-                        <p><b>Nr identyfikacyjny: </b> 
-                            <h:inputText id="profile-id" value="#{profileDataBean.actualProfile.id}" size="200" style="border: none" readonly="true" /></p>
-                        <h2>Stopień dostępu: </h2>
-                        <p><b>Dostęp:</b> 
-                            <h:inputText id="profile-access" value="#{profileDataBean.actualProfile.accessLabel}" size="200" style="border: none" readonly="true" /></p>
-                    </div>
-                </h:form>
+                <div class="frame">
+                    <h1>Brak wsparcia dla tego elementu.</h1>
+                </div>
             </h:panelGroup>
             <h:panelGroup rendered="#{protect.getAccessLevel('profile', cc.attrs.componentId, 'profile', 'profile') == 'write'}">
-                <h:form>
-                    <p style="text-align: right">
-                        Wybierz profil: 
-                        <h:selectOneMenu value="#{profileDataBean.actualProfile}" onchange="submit()" valueChangeListener="#{profileDataBean.profileChangeListener}">  
-                            <f:converter converterId="profileConverter" />
-                            <f:selectItems value="#{profileDataBean.profiles}" var="p" itemLabel="#{p.label}" itemValue="#{p}" />
-                        </h:selectOneMenu>
-                    </p>
-                    <div class="frame">
-                        <h1>Informacje o profilu</h1>
-                        <h2>Dane podstawowe:</h2>
-                        <p><b>Imię: </b> 
-                            <h:inputText id="profile-name" value="#{profileDataBean.actualProfile.name}" size="200" style="border: none" readonly="true" /></p>
-                        <p><b>Nazwisko: </b> 
-                            <h:inputText id="profile-surname" value="#{profileDataBean.actualProfile.surname}" size="200" style="border: none" readonly="true" /></p>
-                        <p><b>Stanowisko: </b> 
-                            <h:inputText id="profile-duty" value="#{profileDataBean.actualProfile.duty}" size="200" style="border: none" readonly="true" /></p>
-                        <h2>Dane szczegółowe: </h2>
-                        <p><b>Wiek: </b> 
-                            <h:inputText id="profile-age" value="#{profileDataBean.actualProfile.age}" size="200" style="border: none" readonly="true" /></p>
-                        <p><b>Nr identyfikacyjny: </b> 
-                            <h:inputText id="profile-id" value="#{profileDataBean.actualProfile.id}" size="200" style="border: none" readonly="true" /></p>
-                    </div>
-                </h:form>
+                <profile:profileEditor componentId="profileEditor"/>
             </h:panelGroup>
             <h:panelGroup rendered="#{protect.getAccessLevel('profile', cc.attrs.componentId, 'profile', 'profile') == 'read'}">
-                <h:form>
-                    <p style="text-align: right">
-                        Wybierz profil: 
-                        <h:selectOneMenu value="#{profileDataBean.actualProfile}" onchange="submit()" valueChangeListener="#{profileDataBean.profileChangeListener}">  
-                            <f:converter converterId="profileConverter" />
-                            <f:selectItems value="#{profileDataBean.profiles}" var="p" itemLabel="#{p.label}" itemValue="#{p}" />
-                        </h:selectOneMenu>
-                    </p>
-                    <div class="frame">
-                        <h1>Informacje o profilu</h1>
-                        <h2>Dane podstawowe:</h2>
-                        <p><b>Imię: </b> 
-                            <h:inputText id="profile-name" value="#{profileDataBean.actualProfile.name}" size="200" style="border: none" readonly="true" /></p>
-                        <p><b>Nazwisko: </b> 
-                            <h:inputText id="profile-surname" value="#{profileDataBean.actualProfile.surname}" size="200" style="border: none" readonly="true" /></p>
-                        <p><b>Stanowisko: </b> 
-                            <h:inputText id="profile-duty" value="#{profileDataBean.actualProfile.duty}" size="200" style="border: none" readonly="true" /></p></div>
-                </h:form>
+                <profile:profileReader componentId="profileReader"/>
             </h:panelGroup>
             <h:panelGroup rendered="#{protect.getAccessLevel('profile', cc.attrs.componentId, 'profile', 'profile') == 'no'}">
                 <div class="frame">

@@ -33,6 +33,40 @@
     width: 100%;
 }
 
+.profiletable{
+    display: table;
+    border-collapse: collapse;
+}
+
+.ptheading {
+    display:table-row;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.ptrow {
+    display:table-row;
+}
+
+.ptname {
+    width: 120px;
+    display: table-cell;
+    float: left;
+    text-align: left;
+    font-weight: bold;
+    padding-left: 15px;
+    padding-bottom: 10px;
+}
+
+.ptvalue {
+    width: 150px;
+    display: table-cell;
+    float: left;
+    text-align: left;
+    font-weight: normal;
+    padding-bottom: 10px;
+}
+
 .ui-widget{
     font-size: 12px;
 }

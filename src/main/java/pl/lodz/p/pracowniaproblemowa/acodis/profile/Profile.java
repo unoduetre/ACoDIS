@@ -57,6 +57,42 @@ public class Profile {
         }
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public void setDuty(String duty) {
+        this.duty = duty;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setAccessLevel(int accessLevel) {
+        this.accessLevel = accessLevel;
+    }
+
+    public void setAccessLabel(String access) {
+        if (access.equals("read")) {
+            this.accessLevel = 1;
+        } else if (access.equals("write")) {
+            this.accessLevel = 2;
+        } else if (access.equals("special")) {
+            this.accessLevel = 3;
+        } else {
+            this.accessLevel = 0;
+        }
+    }
+
     public String getLabel() {
         return name + " " + surname;
     }

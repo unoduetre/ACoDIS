@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pl"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pf="http://primefaces.org/ui"
+      xmlns:profile="http://xmlns.jcp.org/jsf/composite/profile">
+    <h:body>
+        <cc:interface>
+            <cc:attribute name="componentId" required="true" type="java.lang.String"/>
+        </cc:interface>
+        <cc:implementation>
+            <h:panelGroup rendered="#{protect.getAccessLevel('profileEditor', cc.attrs.componentId, 'profile', 'profile') == 'special'}">
+                <div class="frame">
+                    <h1>Nie masz uprawnień do przeglądania danych.</h1>
+                </div>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{protect.getAccessLevel('profileEditor', cc.attrs.componentId, 'profile', 'profile') == 'write'}">
+                <h:form>
+                    <p style="text-align: right">
+                        Wybierz profil: 
+                        <h:selectOneMenu value="#{profileDataBean.actualProfile}" onchange="submit()" valueChangeListener="#{profileDataBean.profileChangeListener}" disabled="#{profileDataBean.editable}">  
+                            <f:converter converterId="profileConverter" />
+                            <f:selectItems value="#{profileDataBean.profiles}" var="p" itemLabel="#{p.label}" itemValue="#{p}" />
+                        </h:selectOneMenu>
+                    </p>
+                    <div class="frame">
+                        <h1>Informacje o profilu</h1>
+                        <div clss="profiletable">
+                            <h2>Dane podstawowe:</h2>
+                            <div class="ptrow">
+                                <div class="ptname">Imię:</div>
+                                <div class="ptvalue">
+                                    <h:outputText id="profile-name-output" value="#{profileDataBean.actualProfile.name}" rendered="#{not profileDataBean.editable}" />
+                                    <h:inputText id="profile-name-input" value="#{profileDataBean.actualProfile.name}" rendered="#{profileDataBean.editable}" />
+                                </div>
+                            </div>
+                            <div class="ptrow">
+                                <div class="ptname">Nazwisko:</div>
+                                <div class="ptvalue">
+                                    <h:outputText id="profile-surname-output" value="#{profileDataBean.actualProfile.surname}" rendered="#{not profileDataBean.editable}" />
+                                    <h:inputText id="profile-surname-input" value="#{profileDataBean.actualProfile.surname}" rendered="#{profileDataBean.editable}" />
+                                </div>
+                            </div>
+                            <div class="ptrow">
+                                <div class="ptname">Stanowisko:</div>
+                                <div class="ptvalue">
+                                    <h:outputText id="profile-duty-output" value="#{profileDataBean.actualProfile.duty}" rendered="#{not profileDataBean.editable}" />
+                                    <h:inputText id="profile-duty-input" value="#{profileDataBean.actualProfile.duty}" rendered="#{profileDataBean.editable}" />
+                                </div>
+                            </div>
+                            <h2>Dane szczegółowe:</h2>
+                            <div class="ptrow">
+                                <div class="ptname">Wiek:</div>
+                                <div class="ptvalue">
+                                    <h:outputText id="profile-age-output" value="#{profileDataBean.actualProfile.age}" rendered="#{not profileDataBean.editable}" />
+                                    <h:inputText id="profile-age-input" value="#{profileDataBean.actualProfile.age}" rendered="#{profileDataBean.editable}" />
+                                </div>
+                            </div>
+                            <div class="ptrow">
+                                <div class="ptname">Nr identyfikacyjny:</div>
+                                <div class="ptvalue">
+                                    <h:outputText id="profile-id-output" value="#{profileDataBean.actualProfile.id}" rendered="#{not profileDataBean.editable}" />
+                                    <h:inputText id="profile-id-input" value="#{profileDataBean.actualProfile.id}" rendered="#{profileDataBean.editable}" />
+                                </div>
+                            </div>
+                            <h2>Stopień dostępu:</h2>
+                            <div class="ptrow">
+                                <div class="ptname">Typ dostępu:</div>
+                                <div class="ptvalue">
+                                    <h:outputText id="profile-access-output" value="#{profileDataBean.actualProfile.accessLabel}" rendered="#{not profileDataBean.editable}" />
+                                    <h:selectOneMenu id="profile-access" value="#{profileDataBean.actualProfile.accessLevel}" rendered="#{profileDataBean.editable}">
+                                        <f:selectItem itemValue="0" itemLabel="no" />
+                                        <f:selectItem itemValue="1" itemLabel="read" />
+                                        <f:selectItem itemValue="2" itemLabel="write" />
+                                    </h:selectOneMenu>
+                                </div>
+                            </div>
+                        </div>
+                        <p style="padding-top: 10px">
+                            <h:commandButton value="Edytuj profil" action="#{profileDataBean.changeEditable}" rendered="#{not profileDataBean.editable}" />
+                            <h:commandButton value="Zapisz profil" action="#{profileDataBean.changeEditable}" rendered="#{profileDataBean.editable}" />
+                        </p>
+                    </div>
+                </h:form>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{protect.getAccessLevel('profileEditor', cc.attrs.componentId, 'profile', 'profile') == 'read'}">
+                <profile:profileReader componentId="profileReader"/>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{protect.getAccessLevel('profileEditor', cc.attrs.componentId, 'profile', 'profile') == 'no'}">
+                <div class="frame">
+                    <h1>Nie masz uprawnień do przeglądania danych.</h1>
+                </div>
+            </h:panelGroup>
+        </cc:implementation>
+    </h:body>
+</html>
