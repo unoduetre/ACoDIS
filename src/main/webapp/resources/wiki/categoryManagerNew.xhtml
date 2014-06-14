@@ -63,11 +63,7 @@
                 <div class="frame" width="100%">
                     <h1>Menadżer kategorii</h1>
                     <p>Brak dostępu</p>
-
-                    <pf:dialog header="Nie masz uprawnień." widgetVar="dlg1" minHeight="50" visible="true" resizable="false">
-                        <h:outputText value="Zaloguj się jako użytkownik mający uprawniena." />
-                    </pf:dialog>
-
+                    <ui:include src="/noAccessDialog.xhtml"/>
                 </div>
             </h:panelGroup>
         </cc:implementation>

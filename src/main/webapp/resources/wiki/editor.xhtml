@@ -81,11 +81,7 @@
                     <p>
                         <strong>Brak dostępu!</strong>
                     </p>
-
-                    <pf:dialog header="Nie masz uprawnień." widgetVar="dlg1" minHeight="50" visible="true" resizable="false">
-                        <h:outputText value="Zaloguj się jako użytkownik mający uprawniena." />
-                    </pf:dialog>
-
+                    <ui:include src="/noAccessDialog.xhtml"/>
                 </div>
             </h:panelGroup>
         </cc:implementation>

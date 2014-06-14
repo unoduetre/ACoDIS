@@ -141,18 +141,12 @@
                         <c:when test="#{filebrowserbean.isDir()}">
                             <h1>#{filebrowserbean.path}</h1>
                             <h2>Directory, access denied!</h2>
-
-                            <pf:dialog header="Nie masz uprawnień." widgetVar="dlg1" minHeight="50" visible="true" resizable="false">
-                                <h:outputText value="Zaloguj się jako użytkownik mający uprawniena." />
-                            </pf:dialog>
+                            <ui:include src="/noAccessDialog.xhtml"/>
                         </c:when>
                         <c:otherwise>
                             <h1>#{filebrowserbean.path}</h1>
                             <h2>#{filebrowserbean.mimeType} file, access denied!</h2>
-
-                            <pf:dialog header="Nie masz uprawnień." widgetVar="dlg1" minHeight="50" visible="true" resizable="false">
-                                <h:outputText value="Zaloguj się jako użytkownik mający uprawniena." />
-                            </pf:dialog>
+                            <ui:include src="/noAccessDialog.xhtml"/>
                         </c:otherwise>
                     </c:choose>
                 </div>

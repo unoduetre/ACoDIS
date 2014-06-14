@@ -18,12 +18,14 @@
             <h:panelGroup rendered="#{protect.getAccessLevel('profileReader', cc.attrs.componentId, 'profile', 'profile') == 'special'}">
                 <div class="frame">
                     <h1>Nie masz uprawnień do przeglądania danych.</h1>
+                    <ui:include src="/noAccessDialog.xhtml"/>
                 </div>
             </h:panelGroup>
             <h:panelGroup rendered="#{protect.getAccessLevel('profileReader', cc.attrs.componentId, 'profile', 'profile') == 'write'}">
                 <div class="frame">
                     <h1>Nie masz uprawnień do przeglądania danych.</h1>
                 </div>
+                <ui:include src="/noAccessDialog.xhtml"/>
             </h:panelGroup>
             <h:panelGroup rendered="#{protect.getAccessLevel('profileReader', cc.attrs.componentId, 'profile', 'profile') == 'read'}">
                 <h:form>
@@ -72,6 +74,7 @@
                 <div class="frame">
                     <h1>Nie masz uprawnień do przeglądania danych.</h1>
                 </div>
+                <ui:include src="/noAccessDialog.xhtml"/>
             </h:panelGroup>
         </cc:implementation>
     </h:body>

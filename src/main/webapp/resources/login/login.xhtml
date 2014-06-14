@@ -21,14 +21,19 @@
             </h:panelGroup>
             <h:panelGroup rendered="#{protect.getAccessLevel('login', cc.attrs.componentId, 'login', 'login') == 'read'}">
                 <h:form>
-                    <p>
-                        <h:outputText value="#{msgs['alreadyLogged']}"/>
-                        <h:outputText value=" "/>
-                        <h:outputText value="#{login.username}"/>
-                    </p>
-                    <p>
-                        <pf:commandButton value="#{msgs['logout']}" action="#{login.logout()}" ajax="false"/>
-                    </p>
+                    <center>
+                        <p>
+                            <h:outputText value="#{msgs['alreadyLogged']}"/>
+                            <h:outputText value=" "/>
+                            <b>                                
+                                <h:outputText value="#{login.username}"/>
+                            </b>
+                        </p>
+                        <br/>
+                        <p>
+                            <pf:commandButton value="#{msgs['logout']}" action="#{login.logout()}" ajax="false"/>
+                        </p>
+                    </center>
                 </h:form>
             </h:panelGroup>
             <h:panelGroup rendered="#{protect.getAccessLevel('login', cc.attrs.componentId, 'login', 'login') == 'no'}">
