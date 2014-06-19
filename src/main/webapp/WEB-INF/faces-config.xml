@@ -83,7 +83,11 @@
     <managed-bean>
         <managed-bean-name>profileDataBean</managed-bean-name>
         <managed-bean-class>pl.lodz.p.pracowniaproblemowa.acodis.profile.ProfileDataBean</managed-bean-class>
-    
         <managed-bean-scope>view</managed-bean-scope>
+        <managed-property>
+            <property-name>login</property-name>
+            <property-class>pl.lodz.p.pracowniaproblemowa.acodis.login.Login</property-class>
+            <value>#{login}</value>
+        </managed-property>
     </managed-bean>
 </faces-config>

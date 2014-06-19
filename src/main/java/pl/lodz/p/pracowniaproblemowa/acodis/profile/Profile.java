@@ -1,19 +1,26 @@
 package pl.lodz.p.pracowniaproblemowa.acodis.profile;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class Profile {
 
     private String name;
     private String surname;
     private String duty;
-    private int age;
+    private Date birthday;
     private int id;
     private int accessLevel;
+    private final static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-    public Profile(String name, String surname, String duty, int age, int id, int accessLevel) {
+    public Profile(String name, String surname, String duty, Date birthday, int id, int accessLevel) {
         this.name = name;
         this.surname = surname;
         this.duty = duty;
-        this.age = age;
+        this.birthday = birthday;
         this.id = id;
         this.accessLevel = accessLevel;
     }
@@ -30,8 +37,20 @@ public class Profile {
         return duty;
     }
 
-    public int getAge() {
-        return age;
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public String getBirthdayString() {
+        return sdf.format(birthday);
+    }
+
+    public void setBirthday(String birthday) {
+        try {
+            this.birthday = sdf.parse(birthday);
+        } catch (ParseException ex) {
+            Logger.getLogger(Profile.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public int getId() {
@@ -69,8 +88,8 @@ public class Profile {
         this.duty = duty;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 
     public void setId(int id) {
