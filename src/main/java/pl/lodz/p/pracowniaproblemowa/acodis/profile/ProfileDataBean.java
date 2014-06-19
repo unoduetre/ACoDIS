@@ -202,11 +202,15 @@ public class ProfileDataBean {
     //------------------------------------------------------------------
     public boolean isHappyBirthday() {
         Date today = new Date();
-        if (actualProfile.getUsername().equals(login.getUsername())
-                && sdf.format(today).compareTo(sdf.format(actualProfile.getBirthday())) == 0) {
-            return true;
+        return actualProfile.getUsername().equals(login.getUsername())
+                && sdf.format(today).compareTo(sdf.format(actualProfile.getBirthday())) == 0;
+    }
+
+    public boolean isFilled() {
+        if (actualProfile.getUsername().equals(login.getUsername())) {
+            return actualProfile.checkIfFilled();
         } else {
-            return false;
+            return true;
         }
     }
 

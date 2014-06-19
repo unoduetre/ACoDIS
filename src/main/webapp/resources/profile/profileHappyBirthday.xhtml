@@ -27,11 +27,21 @@
                         Wszystkiego najlepszego z okazji urodzin, #{profileDataBean.actualProfile.label}!
                     </div>
                 </h:panelGroup>
+                <h:panelGroup layout="block" rendered="#{not profileDataBean.filled}">
+                    <div style="text-align: left; font-weight: bold;">
+                        Twój profil nie posiada wypełnionych podstawowych danych!
+                    </div>
+                </h:panelGroup>
             </h:panelGroup>
             <h:panelGroup rendered="#{protect.getAccessLevel('profileHappyBirthday', cc.attrs.componentId, profileDataBean.actualProfile, profileDataBean.actualProfile.id) == 'read'}">
                 <h:panelGroup layout="block" rendered="#{profileDataBean.happyBirthday}">
                     <div style="font-family: cursive; font-size: xx-large; color: red; text-align: center;">
                         Wszystkiego najlepszego z okazji urodzin, #{profileDataBean.actualProfile.label}!
+                    </div>
+                </h:panelGroup>
+                <h:panelGroup layout="block" rendered="#{not profileDataBean.filled}">
+                    <div style="text-align: left; font-weight: bold;">
+                        Twój profil nie posiada wypełnionych podstawowych danych!
                     </div>
                 </h:panelGroup>
             </h:panelGroup>

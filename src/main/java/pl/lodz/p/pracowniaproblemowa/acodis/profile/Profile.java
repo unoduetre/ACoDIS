@@ -122,6 +122,11 @@ public class Profile {
         this.username = username;
     }
 
+    public boolean checkIfFilled() {
+        return name != null && !name.isEmpty()
+                && surname != null && !surname.isEmpty() && duty != null && !duty.isEmpty();
+    }
+
     public String getLabel() {
         return name + " " + surname;
     }
