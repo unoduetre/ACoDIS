@@ -5,7 +5,8 @@
         <surname>Kowalski</surname>
         <duty>programista</duty>
         <birthday>1985-01-01</birthday>
-        <access>2</access>
+        <access>0</access>
+        <username>no</username>
     </profile>
     <profile id="231543">
         <name>Marek</name>
@@ -13,12 +14,14 @@
         <duty>manager</duty>
         <birthday>1980-04-04</birthday>
         <access>1</access>
+        <username>read</username>
     </profile>
     <profile id="323454">
         <name>Zygmunt</name>
         <surname>Staszewski</surname>
         <duty>koordynator projektu</duty>
         <birthday>1975-08-08</birthday>
-        <access>3</access>
+        <access>2</access>
+        <username>write</username>
     </profile>
 </profiles>

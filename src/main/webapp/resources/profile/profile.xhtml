@@ -22,9 +22,11 @@
                 </div>
             </h:panelGroup>
             <h:panelGroup rendered="#{protect.getAccessLevel('profile', cc.attrs.componentId, profileDataBean.actualProfile, profileDataBean.actualProfile.id) == 'write'}">
+                <profile:profileHappyBirthday componentId="profileHappyBirthday"/>
                 <profile:profileEditor componentId="profileEditor"/>
             </h:panelGroup>
             <h:panelGroup rendered="#{protect.getAccessLevel('profile', cc.attrs.componentId, profileDataBean.actualProfile, profileDataBean.actualProfile.id) == 'read'}">
+                <profile:profileHappyBirthday componentId="profileHappyBirthday"/>
                 <profile:profileReader componentId="profileReader"/>
             </h:panelGroup>
             <h:panelGroup rendered="#{protect.getAccessLevel('profile', cc.attrs.componentId, profileDataBean.actualProfile, profileDataBean.actualProfile.id) == 'no'}">

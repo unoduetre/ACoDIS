@@ -88,7 +88,8 @@ public class ProfileDataBean {
                 }
                 int id = Integer.parseInt(elem.getAttribute("id"));
                 int accessLevel = Integer.parseInt(elem.getElementsByTagName("access").item(0).getTextContent());
-                profiles.add(new Profile(name, surname, duty, birthday, id, accessLevel));
+                String username = elem.getElementsByTagName("username").item(0).getTextContent();
+                profiles.add(new Profile(name, surname, duty, birthday, id, accessLevel, username));
             }
         }
 
@@ -125,6 +126,9 @@ public class ProfileDataBean {
                 Element access = xmlDoc.createElement("access");
                 access.appendChild(xmlDoc.createTextNode(Integer.toString(p.getAccessLevel())));
                 e.appendChild(access);
+                Element username = xmlDoc.createElement("username");
+                username.appendChild(xmlDoc.createTextNode(p.getUsername()));
+                e.appendChild(username);
 
                 root.appendChild(e);
             }
@@ -193,6 +197,17 @@ public class ProfileDataBean {
         root.setViewId(viewId);
         context.setViewRoot(root);
         this.editable = false;
+    }
+
+    //------------------------------------------------------------------
+    public boolean isHappyBirthday() {
+        Date today = new Date();
+        if (actualProfile.getUsername().equals(login.getUsername())
+                && sdf.format(today).compareTo(sdf.format(actualProfile.getBirthday())) == 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

@@ -14,15 +14,17 @@ public class Profile {
     private Date birthday;
     private int id;
     private int accessLevel;
+    private String username;
     private final static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-    public Profile(String name, String surname, String duty, Date birthday, int id, int accessLevel) {
+    public Profile(String name, String surname, String duty, Date birthday, int id, int accessLevel, String username) {
         this.name = name;
         this.surname = surname;
         this.duty = duty;
         this.birthday = birthday;
         this.id = id;
         this.accessLevel = accessLevel;
+        this.username = username;
     }
 
     public String getName() {
@@ -110,6 +112,14 @@ public class Profile {
         } else {
             this.accessLevel = 0;
         }
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getLabel() {
