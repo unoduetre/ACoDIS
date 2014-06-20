@@ -16,19 +16,19 @@
             <cc:attribute name="componentId" required="true" type="java.lang.String"/>
         </cc:interface>
         <cc:implementation>
-            <h:panelGroup rendered="#{protect.getAccessLevel('profileReader', cc.attrs.componentId, profileDataBean.actualProfile, profileDataBean.actualProfile.id) == 'special'}">
+            <h:panelGroup rendered="#{protect.getAccessLevel('profileReader', cc.attrs.componentId, profileDataBean.actualProfile, profileDataBean.actualProfile.username) == 'special'}">
                 <div class="frame">
                     <h1>Nie masz uprawnień do przeglądania danych.</h1>
                     <ui:include src="/noAccessDialog.xhtml"/>
                 </div>
             </h:panelGroup>
-            <h:panelGroup rendered="#{protect.getAccessLevel('profileReader', cc.attrs.componentId, profileDataBean.actualProfile, profileDataBean.actualProfile.id) == 'write'}">
+            <h:panelGroup rendered="#{protect.getAccessLevel('profileReader', cc.attrs.componentId, profileDataBean.actualProfile, profileDataBean.actualProfile.username) == 'write'}">
                 <div class="frame">
                     <h1>Nie masz uprawnień do przeglądania danych.</h1>
                 </div>
                 <ui:include src="/noAccessDialog.xhtml"/>
             </h:panelGroup>
-            <h:panelGroup rendered="#{protect.getAccessLevel('profileReader', cc.attrs.componentId, profileDataBean.actualProfile, profileDataBean.actualProfile.id) == 'read'}">
+            <h:panelGroup rendered="#{protect.getAccessLevel('profileReader', cc.attrs.componentId, profileDataBean.actualProfile, profileDataBean.actualProfile.username) == 'read'}">
                 <h:form>
                     <p style="text-align: right">
                         Wybierz profil: 
@@ -58,7 +58,7 @@
                     </div>
                 </h:form>
             </h:panelGroup>
-            <h:panelGroup rendered="#{protect.getAccessLevel('profileReader', cc.attrs.componentId, profileDataBean.actualProfile, profileDataBean.actualProfile.id) == 'no'}">
+            <h:panelGroup rendered="#{protect.getAccessLevel('profileReader', cc.attrs.componentId, profileDataBean.actualProfile, profileDataBean.actualProfile.username) == 'no'}">
                 <div class="frame">
                     <h1>Nie masz uprawnień do przeglądania danych.</h1>
                 </div>
