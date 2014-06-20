@@ -25,7 +25,12 @@
         <managed-bean-class>pl.lodz.p.pracowniaproblemowa.acodis.prolog.Prolog</managed-bean-class>
         <managed-bean-scope>application</managed-bean-scope>
         <managed-property>
-            <property-name>theoryPath</property-name>
+            <property-name>libPath</property-name>
+            <property-class>java.lang.String</property-class>
+            <value>/pl/lodz/p/pracowniaproblemowa/acodis/resources/lib.pl</value>
+        </managed-property>
+        <managed-property>
+            <property-name>accessPath</property-name>
             <property-class>java.lang.String</property-class>
             <value>/pl/lodz/p/pracowniaproblemowa/acodis/resources/access.pl</value>
         </managed-property>
@@ -34,6 +39,16 @@
         <managed-bean-name>protect</managed-bean-name>
         <managed-bean-class>pl.lodz.p.pracowniaproblemowa.acodis.protect.Protect</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
+        <managed-property>
+            <property-name>prolog</property-name>
+            <property-class>pl.lodz.p.pracowniaproblemowa.acodis.prolog.Prolog</property-class>
+            <value>#{prolog}</value>
+        </managed-property>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>security</managed-bean-name>
+        <managed-bean-class>pl.lodz.p.pracowniaproblemowa.acodis.security.Security</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
         <managed-property>
             <property-name>prolog</property-name>
             <property-class>pl.lodz.p.pracowniaproblemowa.acodis.prolog.Prolog</property-class>
