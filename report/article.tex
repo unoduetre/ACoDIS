@@ -34,7 +34,7 @@ część zagadnienia skupia się na zapewnieniu kontroli dostępu, wyjaśnimy na
 
 Pojęcie dynamiki można tutaj
 rozumieć na różne sposoby, ale na pewno podstawowym aspektem jest tutaj wrażliwość na zmieniające się warunki, takie jak na przykład czas, lub pewne zdarzenia zachodzące zarówno 
-w samym systemie, jak i poza nim. Oznacza to, że system nie powiniem robić żadnych założeń na temat tego co się aktualnie dzieje, a raczej reagować dynamicznie. Dla porównania
+w samym systemie, jak i poza nim. Oznacza to, że system nie powinien robić żadnych założeń na temat tego co się aktualnie dzieje, a raczej reagować dynamicznie. Dla porównania
 możemy wskazać na przykład dostęp do plików na serwerze. Rozwiązanie statyczne mogłoby polegać na przykład na tym, że w systemie jest na stałe zapamiętane (zaszyfrowane) hasło,
 które użytkownik musi podać przy logowaniu, po którym uzyskuje pełny i nieograniczony czasowo dostęp do pewnych, na sztywno zdefiniowanych zasobów, takich jak pewne pliki w pewnych katalogach.
 Skontrastujmy to z systemem w którym dostęp do plików jest ograniczony pod względem na przykład ilości osób, które jednocześnie z nich korzystają, przy czym czas korzystania może być ograniczony
@@ -85,7 +85,7 @@ przez odpowiednie zdarzenia zachodzące w systemie i poza nim. Oznacza to, że n
 przypisane przez administratora systemu role i ich uprawnienia. Nazwijmy takie uprawnienia \textbf{możliwościami} roli. To że rola ma możliwość nie oznacza automatycznie,
 że ma ona także \textbf{uprawnienie}. Zdecyduje o tym system na podstawie aktualnych zdarzeń.
 
-Model RBAC został wstępnie opisany w artykule Ferraiolo i Kuhna\cite{RBAC}, a dalsze szegóły można znaleźć w artykule Sandhu, Ferraiolo i Kuhna\cite{NISTModel}.
+Model RBAC został wstępnie opisany w artykule Ferraiolo i Kuhna\cite{RBAC}, a dalsze szczegóły można znaleźć w artykule Sandhu, Ferraiolo i Kuhna\cite{NISTModel}.
 Amerykański Narodowy Instytut Standardów i Technologii (National Institute of Standards and Technology) opracował model\cite{NIST}, którego celem jest standaryzacja systemów
 bazujących na rolach. Role stanowią element pośredni, ułatwiający zarządzanie. Do jednej roli może być przyporządkowana więcej niż jedna osoba. Ponadto do jednej roli mogą być
 przyporządkowane różne zasoby.
@@ -114,7 +114,7 @@ dowolnie kształtować zależności między rolami. Na przykład osobie posiadaj
 Omówiliśmy powyżej sposób organizacji zarządzania uprawnieniami. Jednakże uprawnienia służą przecież do zarządzania określonymi zasobami. Optymalnym rozwiązaniem jest
 zdefiniowanie ogólnej postaci zasobu, i umożliwieniu zarządzania uprawnieniami do niej. Dzięki postawieniu problemu na takim poziomie ogólności byliśmy w stanie oddzielić proces
 definiowania i zarządzania uprawnieniami, od procesu tworzenia zasobów. Dzięki temu nasz system uprawnień można dopasować praktycznie do dowolnych zasobów, które jesteśmy w stanie
-przedstawić w okreslonej postaci ogólnej. 
+przedstawić w określonej postaci ogólnej. 
 
 Aby omówić tą postać ogólną należy zauważyć, że każdy zasób, aby był dostępny dla użytkownika za pomocą strony internetowej, musi mieć przypisany mu określony widok, za pomocą którego użytkownik
 wchodzi w interakcję z tym zasobem. Podstawowymi operacjami, jakie można wykonać na zasobie są operacje czytania zasobu i zapisywania zasobu. Wszystkie inne operacje można
@@ -138,7 +138,7 @@ W związku z powyższym każdą interakcje użytkownika z zasobem możemy opisa�
 \end{itemize}
 
 Używając tych danych możemy już zaproponować pewien system kontroli dostępu. Jednakże system taki byłby niepełny, gdyż nie możliwe byłoby w nim zdefiniowanie zależności od innych
-parametrów systemu w aktualnym jego stanie. Dlatego nasz system umożliwia dostęp do dowolnego beana z poziomu Prologu. Dzięki takiemu rozwiązaniu możemy na bierząco podczas weryfikacji
+parametrów systemu w aktualnym jego stanie. Dlatego nasz system umożliwia dostęp do dowolnego beana z poziomu Prologu. Dzięki takiemu rozwiązaniu możemy na bieżąco podczas weryfikacji
 uprawnień odpytywać dowolne elementy systemu o ich stan.
 
 \section{Opis implementacji}
@@ -157,8 +157,27 @@ Poniżej prezentujemy listę stworzonych komponentów:
   \item login -- logowanie
   \item profile -- przeglądanie profili użytkowników
   \item security -- definiowanie uprawnień
-  \item wiki -- funkcjonalnośc wikipedii
+  \item wiki -- funkcjonalność wikipedii
 \end{itemize}
+
+\subsection{Komponent filebrowser}
+\subsection{Komponent login}
+
+\subsection{Komponent profile}
+Komponent służy do przeglądania oraz edycji znajdujących się w systemie danych o użytkownikach. Jego implementację można podzielić logicznie na trzy modelowe warstwy: prezentacji, logiki i danych. \\
+Warstwa prezentacji to utworzony z pomocą JSF front-end w postaci plików \textit{*.xhtml} zgromadzonych w folderze \textit{profile} komponentu. Znajdują się tam wszystkie elementy istotne dla działania komponentu, każdy z nich posiada strukturę umożliwiającą kontrolę dostępu opisaną w poprzednich rozdziałach. Do najważniejszych jego elementów należą \textit{profileReader} odpowiedzialny za wyświetlanie danych dostępnych tylko dla użytkowników z prawami do czytania treści oraz \textit{profileEditor} wprowadzający dodatkową funkcjonalność dla posiadaczy praw do zapisu. Pozostałe elementy agregują dodatkowe treści udostępniane w przeglądarce profili, tj. komunikaty wyświetlane użytkownikom i dodatkowe informacje o kontach. \\
+Logika komponentu opiera się o pakiet \textit{pl.lodz.p.pracowniaproblemowa.acodis.profile} napisany w technologii Java. Składa się on z trzech klas:
+\begin{itemize}
+  \item \textit{Profile} - zawiera model danych dotyczący pojedynczego profilu. Definiuje wszystkie pola opisujące dane profilu oraz metody do obsługi tych danych.
+  \item \textit{ProfileDataBean} - klasa przechowuje wszystkie dane które zmieniają się dynamicznie wraz z użytkowaniem systemu. Przechowuje listę wszystkich profili, aktualnie wyświetlany profil, odniesienie do danych użytkownika wykorzystanych do logowania oraz stan wyświetlanego aktualnie profilu. W metodach klasy kryją się funkcje odpowiedzialne za odczyt i zapis z warstwy danych oraz operacje odczytu i dokonania zmian stanu przeglądarki profili oraz samych danych.
+  \item \textit{ProfileConverter} - z uwagi na to, że przeglądarka danych posiada listener ustawiony na element \textit{selectOneMenu} służacy do wyboru pożądanego profilu zaistniała potrzeba implementacji konwertera skupionego wprost na klasie \textit{Profile}. Zatem w klasie \textit{ProfileConverter} znajduje się kod implementujący inferfejs \textit{Converter}, służący do skutecznego porównania i wyboru odpowiednich instancji profili. Dzięki temu możliwa jest transformacja danych w postaci stringów z front-endu do obiektów Javy i na odwrót.
+\end{itemize}
+Warstwa danych składa się z pliku \textit{profiles.xml} znajdującego się w folderze zasobów systemu. Służy on za podręczną bazę wiedzy zaczytywaną do komponentu profili przy użyciu odpowiednich metod z klasy \textit{ProfileDataBean}. Jest to wydajny i przenośny sposób na agregację danych o użytkownikach, jednocześnie nie rzutujący na eskalację rozmiarów systemu. Jednocześnie rozwiązanie to jest łatwo wymienialne na inne technologie wraz z rozwojem i zmianami w systemie. \\
+Komponent profili z perspektywy użytkowej składa się w zasadniczej mierze z elementu\textit{selectOneMenu} służącego do wyboru pożądanego profilu oraz obszaru wyświetlania danych o wybranej pozycji. Użytkownikowi z prawami \textit{write} została udostępniona dodatkowa funkcjonalność edycji danych wyświetlanego profilu, która jest obsługiwana za pomocą przycisków "edytuj", "zapisz" oraz "anuluj" wyświetlanych przy właściwych stanach przeglądarki profili. Dzięki zaimplementowanym mechanizmom komponent reaguje dynamicznie na aktualny stan warstwy danych oraz uzależnia sposób swojej reakcji od czasu oraz zalogowanego aktualnie użytkownika.
+
+\subsection{Komponent security}
+\subsection{Komponent wiki}
+
 Poniżej prezentujemy przykładowe zaimplementowane przez nas reguły dostępowe:
 \begin{verbatim}
 
