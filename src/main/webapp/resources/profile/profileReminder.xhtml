@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pl"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pf="http://primefaces.org/ui"
+      xmlns:profile="http://xmlns.jcp.org/jsf/composite/profile">
+    <h:body>
+        <cc:interface>
+            <cc:attribute name="componentId" required="true" type="java.lang.String"/>
+        </cc:interface>
+        <cc:implementation>
+            <h:panelGroup rendered="#{protect.getAccessLevel('profileReminder', cc.attrs.componentId, profileDataBean.actualProfile, profileDataBean.actualProfile.id) == 'special'}">
+                <div class="frame">
+                    <h1>Brak wsparcia dla tego elementu.</h1>
+                </div>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{protect.getAccessLevel('profileReminder', cc.attrs.componentId, profileDataBean.actualProfile, profileDataBean.actualProfile.id) == 'write'}">
+                <h:panelGroup layout="block" rendered="#{profileDataBean.happyBirthday}">
+                    <div style="font-family: cursive; font-size: xx-large; color: red; text-align: center;">
+                        Wszystkiego najlepszego z okazji urodzin, #{profileDataBean.actualProfile.label}!
+                    </div>
+                </h:panelGroup>
+                <h:panelGroup layout="block" rendered="#{not profileDataBean.filled}">
+                    <div style="text-align: left; font-weight: bold;">
+                        Twój profil nie posiada wypełnionych podstawowych danych!
+                    </div>
+                </h:panelGroup>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{protect.getAccessLevel('profileReminder', cc.attrs.componentId, profileDataBean.actualProfile, profileDataBean.actualProfile.id) == 'read'}">
+                <h:panelGroup layout="block" rendered="#{profileDataBean.happyBirthday}">
+                    <div style="font-family: cursive; font-size: xx-large; color: red; text-align: center;">
+                        Wszystkiego najlepszego z okazji urodzin, #{profileDataBean.actualProfile.label}!
+                    </div>
+                </h:panelGroup>
+                <h:panelGroup layout="block" rendered="#{not profileDataBean.filled}">
+                    <div style="text-align: left; font-weight: bold;">
+                        Twój profil nie posiada wypełnionych podstawowych danych!
+                    </div>
+                </h:panelGroup>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{protect.getAccessLevel('profileReminder', cc.attrs.componentId, profileDataBean.actualProfile, profileDataBean.actualProfile.id) == 'no'}">
+                <div class="frame">
+                    <h1>Nie masz uprawnień do przeglądania danych.</h1>
+                </div>
+                <ui:include src="/noAccessDialog.xhtml"/>
+            </h:panelGroup>
+        </cc:implementation>
+    </h:body>
+</html>

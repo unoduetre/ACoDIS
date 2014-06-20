@@ -4,7 +4,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,12 +29,15 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
+import pl.lodz.p.pracowniaproblemowa.acodis.login.Login;
 
 public class ProfileDataBean {
 
     private List<Profile> profiles = null;
     private Profile actualProfile;
     private boolean editable;
+    private Login login;
+    private final static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     public ProfileDataBean() {
         if (profiles == null) {
@@ -39,6 +45,16 @@ public class ProfileDataBean {
         }
         this.actualProfile = profiles.get(0);
         this.editable = false;
+    }
+
+    public Login getLogin() {
+        return login;
+    }
+
+    public void setLogin(Login login) {
+        if (login != null) {
+            this.login = login;
+        }
     }
 
     public List<Profile> getProfiles() {
@@ -63,11 +79,17 @@ public class ProfileDataBean {
                 Element elem = (Element) node;
                 String name = elem.getElementsByTagName("name").item(0).getTextContent();
                 String surname = elem.getElementsByTagName("surname").item(0).getTextContent();
-                String duty = elem.getElementsByTagName("duty").item(0).getTextContent();;
-                int age = Integer.parseInt(elem.getElementsByTagName("age").item(0).getTextContent());
+                String duty = elem.getElementsByTagName("duty").item(0).getTextContent();
+                Date birthday = null;
+                try {
+                    birthday = sdf.parse(elem.getElementsByTagName("birthday").item(0).getTextContent());
+                } catch (ParseException ex) {
+                    Logger.getLogger(ProfileDataBean.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 int id = Integer.parseInt(elem.getAttribute("id"));
                 int accessLevel = Integer.parseInt(elem.getElementsByTagName("access").item(0).getTextContent());
-                profiles.add(new Profile(name, surname, duty, age, id, accessLevel));
+                String username = elem.getElementsByTagName("username").item(0).getTextContent();
+                profiles.add(new Profile(name, surname, duty, birthday, id, accessLevel, username));
             }
         }
 
@@ -98,12 +120,15 @@ public class ProfileDataBean {
                 Element duty = xmlDoc.createElement("duty");
                 duty.appendChild(xmlDoc.createTextNode(p.getDuty()));
                 e.appendChild(duty);
-                Element age = xmlDoc.createElement("age");
-                age.appendChild(xmlDoc.createTextNode(Integer.toString(p.getAge())));
-                e.appendChild(age);
+                Element birthday = xmlDoc.createElement("birthday");
+                birthday.appendChild(xmlDoc.createTextNode(p.getBirthdayString()));
+                e.appendChild(birthday);
                 Element access = xmlDoc.createElement("access");
                 access.appendChild(xmlDoc.createTextNode(Integer.toString(p.getAccessLevel())));
                 e.appendChild(access);
+                Element username = xmlDoc.createElement("username");
+                username.appendChild(xmlDoc.createTextNode(p.getUsername()));
+                e.appendChild(username);
 
                 root.appendChild(e);
             }
@@ -172,6 +197,21 @@ public class ProfileDataBean {
         root.setViewId(viewId);
         context.setViewRoot(root);
         this.editable = false;
+    }
+
+    //------------------------------------------------------------------
+    public boolean isHappyBirthday() {
+        Date today = new Date();
+        return actualProfile.getUsername().equals(login.getUsername())
+                && sdf.format(today).compareTo(sdf.format(actualProfile.getBirthday())) == 0;
+    }
+
+    public boolean isFilled() {
+        if (actualProfile.getUsername().equals(login.getUsername())) {
+            return actualProfile.checkIfFilled();
+        } else {
+            return true;
+        }
     }
 
 }

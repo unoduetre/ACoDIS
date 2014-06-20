@@ -16,12 +16,12 @@
             <cc:attribute name="componentId" required="true" type="java.lang.String"/>
         </cc:interface>
         <cc:implementation>
-            <h:panelGroup rendered="#{protect.getAccessLevel('profileEditor', cc.attrs.componentId, 'profile', 'profile') == 'special'}">
+            <h:panelGroup rendered="#{protect.getAccessLevel('profileEditor', cc.attrs.componentId, profileDataBean.actualProfile, profileDataBean.actualProfile.id) == 'special'}">
                 <div class="frame">
                     <h1>Nie masz uprawnień do przeglądania danych.</h1>
                 </div>
             </h:panelGroup>
-            <h:panelGroup rendered="#{protect.getAccessLevel('profileEditor', cc.attrs.componentId, 'profile', 'profile') == 'write'}">
+            <h:panelGroup rendered="#{protect.getAccessLevel('profileEditor', cc.attrs.componentId, profileDataBean.actualProfile, profileDataBean.actualProfile.id) == 'write'}">
                 <h:form>
                     <p style="text-align: right">
                         Wybierz profil: 
@@ -55,33 +55,7 @@
                                     <h:inputText id="profile-duty-input" value="#{profileDataBean.actualProfile.duty}" rendered="#{profileDataBean.editable}" />
                                 </div>
                             </div>
-                            <h2>Dane szczegółowe:</h2>
-                            <div class="ptrow">
-                                <div class="ptname">Wiek:</div>
-                                <div class="ptvalue">
-                                    <h:outputText id="profile-age-output" value="#{profileDataBean.actualProfile.age}" rendered="#{not profileDataBean.editable}" />
-                                    <h:inputText id="profile-age-input" value="#{profileDataBean.actualProfile.age}" rendered="#{profileDataBean.editable}" />
-                                </div>
-                            </div>
-                            <div class="ptrow">
-                                <div class="ptname">Nr identyfikacyjny:</div>
-                                <div class="ptvalue">
-                                    <h:outputText id="profile-id-output" value="#{profileDataBean.actualProfile.id}" rendered="#{not profileDataBean.editable}" />
-                                    <h:inputText id="profile-id-input" value="#{profileDataBean.actualProfile.id}" rendered="#{profileDataBean.editable}" />
-                                </div>
-                            </div>
-                            <h2>Stopień dostępu:</h2>
-                            <div class="ptrow">
-                                <div class="ptname">Typ dostępu:</div>
-                                <div class="ptvalue">
-                                    <h:outputText id="profile-access-output" value="#{profileDataBean.actualProfile.accessLabel}" rendered="#{not profileDataBean.editable}" />
-                                    <h:selectOneMenu id="profile-access" value="#{profileDataBean.actualProfile.accessLevel}" rendered="#{profileDataBean.editable}">
-                                        <f:selectItem itemValue="0" itemLabel="no" />
-                                        <f:selectItem itemValue="1" itemLabel="read" />
-                                        <f:selectItem itemValue="2" itemLabel="write" />
-                                    </h:selectOneMenu>
-                                </div>
-                            </div>
+                            <profile:profileMoreInfo componentId="profileMoreInfo"/>
                         </div>
                         <p style="padding-top: 10px;">
                             <h:commandButton value="Edytuj profil" action="#{profileDataBean.changeEditable}" rendered="#{not profileDataBean.editable}" />
@@ -91,10 +65,10 @@
                     </div>
                 </h:form>
             </h:panelGroup>
-            <h:panelGroup rendered="#{protect.getAccessLevel('profileEditor', cc.attrs.componentId, 'profile', 'profile') == 'read'}">
+            <h:panelGroup rendered="#{protect.getAccessLevel('profileEditor', cc.attrs.componentId, profileDataBean.actualProfile, profileDataBean.actualProfile.id) == 'read'}">
                 <profile:profileReader componentId="profileReader"/>
             </h:panelGroup>
-            <h:panelGroup rendered="#{protect.getAccessLevel('profileEditor', cc.attrs.componentId, 'profile', 'profile') == 'no'}">
+            <h:panelGroup rendered="#{protect.getAccessLevel('profileEditor', cc.attrs.componentId, profileDataBean.actualProfile, profileDataBean.actualProfile.id) == 'no'}">
                 <div class="frame">
                     <h1>Nie masz uprawnień do przeglądania danych.</h1>
                 </div>

@@ -9,25 +9,26 @@
       xmlns:cc="http://java.sun.com/jsf/composite"
       xmlns:jsf="http://xmlns.jcp.org/jsf"
       xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-      xmlns:pf="http://primefaces.org/ui">
+      xmlns:pf="http://primefaces.org/ui"
+      xmlns:profile="http://xmlns.jcp.org/jsf/composite/profile">
     <h:body>
         <cc:interface>
             <cc:attribute name="componentId" required="true" type="java.lang.String"/>
         </cc:interface>
         <cc:implementation>
-            <h:panelGroup rendered="#{protect.getAccessLevel('profileReader', cc.attrs.componentId, 'profile', 'profile') == 'special'}">
+            <h:panelGroup rendered="#{protect.getAccessLevel('profileReader', cc.attrs.componentId, profileDataBean.actualProfile, profileDataBean.actualProfile.id) == 'special'}">
                 <div class="frame">
                     <h1>Nie masz uprawnień do przeglądania danych.</h1>
                     <ui:include src="/noAccessDialog.xhtml"/>
                 </div>
             </h:panelGroup>
-            <h:panelGroup rendered="#{protect.getAccessLevel('profileReader', cc.attrs.componentId, 'profile', 'profile') == 'write'}">
+            <h:panelGroup rendered="#{protect.getAccessLevel('profileReader', cc.attrs.componentId, profileDataBean.actualProfile, profileDataBean.actualProfile.id) == 'write'}">
                 <div class="frame">
                     <h1>Nie masz uprawnień do przeglądania danych.</h1>
                 </div>
                 <ui:include src="/noAccessDialog.xhtml"/>
             </h:panelGroup>
-            <h:panelGroup rendered="#{protect.getAccessLevel('profileReader', cc.attrs.componentId, 'profile', 'profile') == 'read'}">
+            <h:panelGroup rendered="#{protect.getAccessLevel('profileReader', cc.attrs.componentId, profileDataBean.actualProfile, profileDataBean.actualProfile.id) == 'read'}">
                 <h:form>
                     <p style="text-align: right">
                         Wybierz profil: 
@@ -52,25 +53,12 @@
                                 <div class="ptname">Stanowisko:</div>
                                 <div class="ptvalue"><h:outputText id="profile-duty-output" value="#{profileDataBean.actualProfile.duty}" /></div>
                             </div>
-                            <h2>Dane szczegółowe:</h2>
-                            <div class="ptrow">
-                                <div class="ptname">Wiek:</div>
-                                <div class="ptvalue"><h:outputText id="profile-age-output" value="#{profileDataBean.actualProfile.age}" /></div>
-                            </div>
-                            <div class="ptrow">
-                                <div class="ptname">Nr identyfikacyjny:</div>
-                                <div class="ptvalue"><h:outputText id="profile-id-output" value="#{profileDataBean.actualProfile.id}" /></div>
-                            </div>
-                            <h2>Stopień dostępu:</h2>
-                            <div class="ptrow">
-                                <div class="ptname">Typ dostępu:</div>
-                                <div class="ptvalue"><h:outputText id="profile-access-output" value="#{profileDataBean.actualProfile.accessLabel}" /></div>
-                            </div>
+                            <profile:profileMoreInfo componentId="profileMoreInfo"/>
                         </div>
                     </div>
                 </h:form>
             </h:panelGroup>
-            <h:panelGroup rendered="#{protect.getAccessLevel('profileReader', cc.attrs.componentId, 'profile', 'profile') == 'no'}">
+            <h:panelGroup rendered="#{protect.getAccessLevel('profileReader', cc.attrs.componentId, profileDataBean.actualProfile, profileDataBean.actualProfile.id) == 'no'}">
                 <div class="frame">
                     <h1>Nie masz uprawnień do przeglądania danych.</h1>
                 </div>

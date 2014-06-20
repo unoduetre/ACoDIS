@@ -16,18 +16,20 @@
             <cc:attribute name="componentId" required="true" type="java.lang.String"/>
         </cc:interface>
         <cc:implementation>
-            <h:panelGroup rendered="#{protect.getAccessLevel('profile', cc.attrs.componentId, 'profile', 'profile') == 'special'}">
+            <h:panelGroup rendered="#{protect.getAccessLevel('profile', cc.attrs.componentId, profileDataBean.actualProfile, profileDataBean.actualProfile.id) == 'special'}">
                 <div class="frame">
                     <h1>Brak wsparcia dla tego elementu.</h1>
                 </div>
             </h:panelGroup>
-            <h:panelGroup rendered="#{protect.getAccessLevel('profile', cc.attrs.componentId, 'profile', 'profile') == 'write'}">
+            <h:panelGroup rendered="#{protect.getAccessLevel('profile', cc.attrs.componentId, profileDataBean.actualProfile, profileDataBean.actualProfile.id) == 'write'}">
+                <profile:profileReminder componentId="profileReminder"/>
                 <profile:profileEditor componentId="profileEditor"/>
             </h:panelGroup>
-            <h:panelGroup rendered="#{protect.getAccessLevel('profile', cc.attrs.componentId, 'profile', 'profile') == 'read'}">
+            <h:panelGroup rendered="#{protect.getAccessLevel('profile', cc.attrs.componentId, profileDataBean.actualProfile, profileDataBean.actualProfile.id) == 'read'}">
+                <profile:profileReminder componentId="profileReminder"/>
                 <profile:profileReader componentId="profileReader"/>
             </h:panelGroup>
-            <h:panelGroup rendered="#{protect.getAccessLevel('profile', cc.attrs.componentId, 'profile', 'profile') == 'no'}">
+            <h:panelGroup rendered="#{protect.getAccessLevel('profile', cc.attrs.componentId, profileDataBean.actualProfile, profileDataBean.actualProfile.id) == 'no'}">
                 <div class="frame">
                     <h1>Nie masz uprawnień do przeglądania danych.</h1>
                 </div>
