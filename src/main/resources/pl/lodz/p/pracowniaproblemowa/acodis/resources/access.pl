@@ -16,7 +16,10 @@ userCanAccessAtIfLogged(read, _, readAccess).
 % prawo odczytu dla zalogowanego użytkownika write do dowolnego zasobu
 userCanAccessAtIfLogged(write, _, writeAccess). 
 % prawa dla pozostałych użytkowników testowych
-userCanAccessAtIfLogged(test1, _, writeAccess) :- isFilled.
+% gdy pola wypełnione
+userCanAccessAtIfLogged(test1, _, writeAccess) :-
+    isFilled.
+% gdy minuta nieparzysta
 userCanAccessAtIfLogged(test2, _, writeAccess) :-
     isMinute(Minute),
     1 is Minute - 2 * (Minute // 2).
