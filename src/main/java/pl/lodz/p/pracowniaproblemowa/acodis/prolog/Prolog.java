@@ -8,6 +8,7 @@ import alice.tuprolog.Theory;
 import alice.tuprolog.Struct;
 import alice.tuprolog.lib.JavaLibrary;
 
+import pl.lodz.p.pracowniaproblemowa.acodis.datetime.DateAndTime;
 
 public class Prolog
 {
@@ -51,8 +52,10 @@ public class Prolog
   public synchronized String accessLevel(PassedContext passedContext) throws Exception
   {
     Struct passedContextTerm = new Struct("passedContext");
-
     javaLibrary.register(passedContextTerm, passedContext);
+
+    Struct dateAndTimeTerm = new Struct("dateAndTime");
+    javaLibrary.register(dateAndTimeTerm, new DateAndTime());
 
     if(!theoryLoaded)
     {
@@ -109,6 +112,7 @@ public class Prolog
       highestLevel = "no";
     }
 
+    javaLibrary.unregister(dateAndTimeTerm);
     javaLibrary.unregister(passedContextTerm);
 
     return highestLevel;

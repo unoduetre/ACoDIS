@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 import pl.lodz.p.pracowniaproblemowa.acodis.login.Login;
 
-public class ProfileDataBean {
+public class ProfileDataBean implements Serializable {
 
     private List<Profile> profiles = null;
     private Profile actualProfile;

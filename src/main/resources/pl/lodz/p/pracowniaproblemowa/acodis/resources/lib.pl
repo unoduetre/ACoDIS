@@ -49,6 +49,17 @@ convertsToString(String, String) :-
 isLoginBean(Bean) :-
   isBeanNamed(Bean, '#{login}', 'pl.lodz.p.pracowniaproblemowa.acodis.login.Login').
 
+isProfileDataBean(Bean) :-
+  isBeanNamed(Bean, '#{profileDataBean}', 'pl.lodz.p.pracowniaproblemowa.acodis.profile.ProfileDataBean').
+
+isFilled :-
+  isProfileDataBean(Bean),
+  Bean <- isFilled returns BooleanValue,
+  BooleanValue = true.
+
+urlConvertsToString(URL, String) :-
+  class('java.net.URLDecoder') <- decode(URL, "UTF-8") returns String.
+
 isUser(user(Username, Password)) :-
   isLoginBean(LoginBean),
   LoginBean <- getUsername returns UsernameOrVariable,
@@ -66,6 +77,27 @@ isResource(resource(ComponentType, ComponentId, ResourceType, ResourceId)) :-
   passedContext <- getResourceId returns ResourceIdOrVariable,
   convertsToString(ResourceIdOrVariable,ResourceId).
 
+isSecond(Second) :-
+  dateAndTime <- getSecond returns Second.
+
+isMinute(Minute) :-
+  dateAndTime <- getMinute returns Minute.
+
+isHour(Hour) :-
+  dateAndTime <- getHour returns Hour.
+
+isDayOfWeek(DayOfWeek) :-
+  dateAndTime <- getDayOfWeek returns DayOfWeek.
+
+isDayOfMonth(DayOfMonth) :-
+  dateAndTime <- getDayOfMonth returns DayOfMonth.
+
+isMonth(Month) :-
+  dateAndTime <- getMonth returns Month.
+
+isYear(Year) :-
+  dateAndTime <- getYear returns Year.
+
 canAccess(AccessLevel) :- 
   isUser(User),
   isResource(Resource),
@@ -77,33 +109,27 @@ cannotAccess(AccessLevel) :-
   cannotAccessAt(User, Resource, AccessLevel).
 
 canAccessAt(user(Username, Password), resource('login','login','login','login'), readAccess) :-
-  infoMessageIsVisible('LOGIN ACCESS'),
   isUsernameAndPassword(Username, Password).
 
 canAccessAt(user(Username, Password), Resource, AccessLevel) :-
-  infoMessageIsVisible('USER ACCESS'),
   Resource \= resource('login','login','login','login'),
   isUsernameAndPassword(Username, Password),
   userCanAccessAtIfLogged(Username, Resource, AccessLevel).
 
 canAccessAt(user(Username, Password), Resource, AccessLevel) :-
-  infoMessageIsVisible('ROLE ACCESS'),
   Resource \= resource('login','login','login','login'),
   isUsernameAndPassword(Username, Password),
   hasRole(Username, Role),
   roleCanAccessAtIfLogged(Role, Resource, AccessLevel).
 
 cannotAccessAt(user(Username, Password), _, _) :-
-  infoMessageIsVisible('NO ACCESS'),
   \+ isUsernameAndPassword(Username, Password).
 
 cannotAccessAt(user(Username, Password), Resource, AccessLevel) :-
-  infoMessageIsVisible('NO USER ACCESS'),
   Resource \= resource('login','login','login','login'),
   userCannotAccessAtIfLogged(Username, Resource, AccessLevel).
 
 cannotAccessAt(user(Username, Password), Resource, AccessLevel) :-
-  infoMessageIsVisible('NO ROLE ACCESS'),
   Resource \= resource('login','login','login','login'),
   hasRole(Username, Role),
   roleCannotAccessAtIfLogged(Role, Resource, AccessLevel).
