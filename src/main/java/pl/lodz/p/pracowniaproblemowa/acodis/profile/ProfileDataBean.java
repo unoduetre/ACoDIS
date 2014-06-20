@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -202,12 +203,36 @@ public class ProfileDataBean {
     //------------------------------------------------------------------
     public boolean isHappyBirthday() {
         Date today = new Date();
-        return actualProfile.getUsername().equals(login.getUsername())
-                && sdf.format(today).compareTo(sdf.format(actualProfile.getBirthday())) == 0;
+        Calendar calToday = Calendar.getInstance();
+        Calendar calBirthday = Calendar.getInstance();
+        calToday.setTime(today);
+        calBirthday.setTime(actualProfile.getBirthday());
+        boolean birthdayFlag = calToday.get(Calendar.MONTH) == calBirthday.get(Calendar.MONTH)
+                && calToday.get(Calendar.DAY_OF_MONTH) == calBirthday.get(Calendar.DAY_OF_MONTH);
+        return actualProfile.getUsername().equals(login.getUsername()) && birthdayFlag;
     }
 
     public boolean isFilled() {
         if (actualProfile.getUsername().equals(login.getUsername())) {
+            return actualProfile.checkIfFilled();
+        } else {
+            return true;
+        }
+    }
+
+    public boolean isHappyBirthdayUser(String username) {
+        Date today = new Date();
+        Calendar calToday = Calendar.getInstance();
+        Calendar calBirthday = Calendar.getInstance();
+        calToday.setTime(today);
+        calBirthday.setTime(actualProfile.getBirthday());
+        boolean birthdayFlag = calToday.get(Calendar.MONTH) == calBirthday.get(Calendar.MONTH)
+                && calToday.get(Calendar.DAY_OF_MONTH) == calBirthday.get(Calendar.DAY_OF_MONTH);
+        return username.equals(login.getUsername()) && birthdayFlag;
+    }
+
+    public boolean isFilledUser(String username) {
+        if (username.equals(login.getUsername())) {
             return actualProfile.checkIfFilled();
         } else {
             return true;
