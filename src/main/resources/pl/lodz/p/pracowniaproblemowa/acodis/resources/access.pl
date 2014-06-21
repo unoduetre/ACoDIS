@@ -70,16 +70,43 @@ hasRole(Username, hrSpecialist) :-
     hasRole(Username, hrAdmin).
 
 roleCanAccessAtIfLogged(admin, _, writeAccess).
+
 roleCanAccessAtIfLogged(fileAdmin, resource(filebrowser, filebrower, filesystementry, _), writeAccess).
-roleCanAccessAtIfLogged(wikiAdmin, resource(categoryManagerNew, categoryManagerNew, categoryManagerNew, categoryManagerNew), writeAccess).
-roleCanAccessAtIfLogged(wikiAdmin, resource(categoryManager, categoryManager, categoryManager, categoryManager), writeAccess).
+
 roleCanAccessAtIfLogged(wikipedist, resource(editorWrapper, editor, _, _), writeAccess).
 roleCanAccessAtIfLogged(wikipedist, resource(reader, reader, _, _), writeAccess).
-roleCanAccessAtIfLogged(hrAdmin, resource(editorWrapper, editor, hr, _), writeAccess).
-roleCanAccessAtIfLogged(hrAdmin, resource(reader, reader, hr, _), writeAccess).
-roleCanAccessAtIfLogged(hrSpecialist, resource(reader, reader, hr, _), readAccess).
+
+roleCanAccessAtIfLogged(wikiAdmin, resource(categoryManagerNew, categoryManagerNew, categoryManagerNew, categoryManagerNew), writeAccess).
+roleCanAccessAtIfLogged(wikiAdmin, resource(categoryManager, categoryManager, categoryManager, categoryManager), writeAccess).
+
 roleCanAccessAtIfLogged(ruleAdmin, resource(security, security, security, security), readAccess).
 roleCanAccessAtIfLogged(ruleAdmin, resource(security, security, security, security), writeAccess) :-
     isHour(9).
 roleCanAccessAtIfLogged(ruleAdmin, resource(security, security, security, security), writeAccess) :-
     isHour(17).
+roleCanAccessAtIfLogged(ruleAdmin, resource(security, security, security, security), writeAccess) :-
+    isHour(Hour),
+    Hour >= 12,
+    Hour =< 13.
+
+roleCanAccessAtIfLogged(hrSpecialist, resource(profile, profile, basicProfile, _), readAccess).
+roleCanAccessAtIfLogged(hrSpecialist, resource(profileReader, profileReader, basicProfile, _), readAccess).
+roleCanAccessAtIfLogged(hrSpecialist, resource(profileMoreInfo, profileMoreInfo, extendedProfile, _), readAccess).
+roleCanAccessAtIfLogged(hrSpecialist, resource(profileReminder, profileReminder, reminder, _), readAccess).
+roleCanAccessAtIfLogged(hrSpecialist, resource(reader, reader, hr, _), readAccess).
+
+roleCanAccessAtIfLogged(hrAdmin, resource(editorWrapper, editor, hr, _), writeAccess).
+roleCanAccessAtIfLogged(hrAdmin, resource(reader, reader, hr, _), writeAccess).
+
+userCanAccessAtIfLogged(Username, resource(profile, profile, basicProfile, Username), writeAccess).
+userCanAccessAtIfLogged(Username, resource(profileReader, profileReader, basicProfile, Username), readAccess).
+userCanAccessAtIfLogged(Username, resource(profileEditor, profileEditor, basicProfile, Username), writeAccess).
+userCanAccessAtIfLogged(Username, resource(profileMoreInfo, profileMoreInfo, extendedProfile, Username), writeAccess).
+userCanAccessAtIfLogged(Username, resource(profileReminder, profileReminder, reminder, Username), readAccess).
+
+userCanAccessAtIfLogged(Username, resource(profile, profile, basicProfile, _), readAccess) :-
+    hasFilledProfile(Username).
+userCanAccessAtIfLogged(Username, resource(profileReader, profileReader, basicProfile, _), readAccess) :-
+    hasFilledProfile(Username).
+userCanAccessAtIfLogged(Username, resource(profileMoreInfo, profileMoreInfo, extendedProfile, _), readAccess) :-
+    hasFilledProfile(Username).

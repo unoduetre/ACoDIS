@@ -16,12 +16,12 @@
             <cc:attribute name="componentId" required="true" type="java.lang.String"/>
         </cc:interface>
         <cc:implementation>
-            <h:panelGroup rendered="#{protect.getAccessLevel('profile', cc.attrs.componentId, 'extendedProfile', profileDataBean.actualProfile.username) == 'special'}">
+            <h:panelGroup rendered="#{protect.getAccessLevel('profile', cc.attrs.componentId, 'basicProfile', profileDataBean.actualProfile.username) == 'special'}">
                 <div class="frame">
                     <h1>Brak wsparcia dla tego elementu.</h1>
                 </div>
             </h:panelGroup>
-            <h:panelGroup rendered="#{protect.getAccessLevel('profile', cc.attrs.componentId, 'extendedProfile', profileDataBean.actualProfile.username) == 'write'}">
+            <h:panelGroup rendered="#{protect.getAccessLevel('profile', cc.attrs.componentId, 'basicProfile', profileDataBean.actualProfile.username) == 'write'}">
                 <profile:profileReminder componentId="profileReminder"/>
                 <profile:profileEditor componentId="profileEditor"/>
             </h:panelGroup>

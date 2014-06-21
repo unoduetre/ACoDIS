@@ -52,9 +52,14 @@ isLoginBean(Bean) :-
 isProfileDataBean(Bean) :-
   isBeanNamed(Bean, '#{profileDataBean}', 'pl.lodz.p.pracowniaproblemowa.acodis.profile.ProfileDataBean').
 
-isFilled :-
+hasFilledProfile(Username) :-
   isProfileDataBean(Bean),
-  Bean <- isFilled returns BooleanValue,
+  Bean <- isFilledUser(Username) returns BooleanValue,
+  BooleanValue = true.
+
+hasBirthday(Username) :-
+  isProfileDataBean(Bean),
+  Bean <- isHappyBirthdayUser(Username) returns BooleanValue,
   BooleanValue = true.
 
 urlConvertsToString(URL, String) :-
