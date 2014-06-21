@@ -16,12 +16,12 @@
             <cc:attribute name="componentId" required="true" type="java.lang.String"/>
         </cc:interface>
         <cc:implementation>
-            <h:panelGroup rendered="#{protect.getAccessLevel('profileReminder', cc.attrs.componentId, profileDataBean.actualProfile, profileDataBean.actualProfile.username) == 'special'}">
+            <h:panelGroup rendered="#{protect.getAccessLevel('profileReminder', cc.attrs.componentId, 'extendedProfile', profileDataBean.actualProfile.username) == 'special'}">
                 <div class="frame">
                     <h1>Brak wsparcia dla tego elementu.</h1>
                 </div>
             </h:panelGroup>
-            <h:panelGroup rendered="#{protect.getAccessLevel('profileReminder', cc.attrs.componentId, profileDataBean.actualProfile, profileDataBean.actualProfile.username) == 'write'}">
+            <h:panelGroup rendered="#{protect.getAccessLevel('profileReminder', cc.attrs.componentId, 'extendedProfile', profileDataBean.actualProfile.username) == 'write'}">
                 <h:panelGroup layout="block" rendered="#{profileDataBean.happyBirthday}">
                     <div style="font-family: cursive; font-size: xx-large; color: red; text-align: center;">
                         Wszystkiego najlepszego z okazji urodzin, #{profileDataBean.actualProfile.label}!
@@ -33,7 +33,7 @@
                     </div>
                 </h:panelGroup>
             </h:panelGroup>
-            <h:panelGroup rendered="#{protect.getAccessLevel('profileReminder', cc.attrs.componentId, profileDataBean.actualProfile, profileDataBean.actualProfile.username) == 'read'}">
+            <h:panelGroup rendered="#{protect.getAccessLevel('profileReminder', cc.attrs.componentId, 'basicProfile', profileDataBean.actualProfile.username) == 'read'}">
                 <h:panelGroup layout="block" rendered="#{profileDataBean.happyBirthday}">
                     <div style="font-family: cursive; font-size: xx-large; color: red; text-align: center;">
                         Wszystkiego najlepszego z okazji urodzin, #{profileDataBean.actualProfile.label}!
@@ -45,7 +45,7 @@
                     </div>
                 </h:panelGroup>
             </h:panelGroup>
-            <h:panelGroup rendered="#{protect.getAccessLevel('profileReminder', cc.attrs.componentId, profileDataBean.actualProfile, profileDataBean.actualProfile.username) == 'no'}">
+            <h:panelGroup rendered="#{protect.getAccessLevel('profileReminder', cc.attrs.componentId, 'basicProfile', profileDataBean.actualProfile.username) == 'no'}">
                 <div class="frame">
                     <h1>Nie masz uprawnień do przeglądania danych.</h1>
                 </div>

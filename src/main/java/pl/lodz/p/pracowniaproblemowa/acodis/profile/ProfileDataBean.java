@@ -222,22 +222,34 @@ public class ProfileDataBean implements Serializable {
     }
 
     public boolean isHappyBirthdayUser(String username) {
+        Profile p = null;
+        for (Profile prof : profiles) {
+            if (prof.getUsername().equals(username)) {
+                p = prof;
+            } else {
+                return false;
+            }
+        }
+
         Date today = new Date();
         Calendar calToday = Calendar.getInstance();
         Calendar calBirthday = Calendar.getInstance();
         calToday.setTime(today);
-        calBirthday.setTime(actualProfile.getBirthday());
+        calBirthday.setTime(p.getBirthday());
+
         boolean birthdayFlag = calToday.get(Calendar.MONTH) == calBirthday.get(Calendar.MONTH)
                 && calToday.get(Calendar.DAY_OF_MONTH) == calBirthday.get(Calendar.DAY_OF_MONTH);
-        return username.equals(login.getUsername()) && birthdayFlag;
+
+        return birthdayFlag;
     }
 
     public boolean isFilledUser(String username) {
-        if (username.equals(login.getUsername())) {
-            return actualProfile.checkIfFilled();
-        } else {
-            return true;
+        for (Profile prof : profiles) {
+            if (prof.getUsername().equals(username)) {
+                return prof.checkIfFilled();
+            }
         }
+        return false;
     }
 
 }
