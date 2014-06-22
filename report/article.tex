@@ -318,6 +318,20 @@ canAccessAtIfLogged(user('write','write'),_, writeAccess).
 
 roleCanAccessAtIfLogged('administrators',_, writeAccess).
 \end{verbatim}
+
+\section{Oprawa wizualna}
+Do Stworzenia oprawy wizualnej, wykorzystany został framework JSF i biblioteka komponentów PrimeFaces. JSF umożliwia tworzenie szablonów, wykorzystywanych później przez strony komponentów. Primefaces dostarcza wielu użytecznych komponentów, gotowych do wykorzystania, jak na przykład menu, rozwijane panele, czy okienka powiadomień.\\
+Główny moduł strony składa się z następujących elementów:
+\begin{itemize}
+  \item nagłówka, w którym znajduje się menu, umożliwiające nawigację do stron poszczególnych komponentów 
+  \item stopki, nie pełniącej żadnej kluczowej funkcji, ale ładnie dopełniającej kompozycję strony
+  \item części środkowej, wyświetlającej zawartość strony komponentu
+  \item opcjonalnego, rozwijanego panelu bocznego, wyświetlanego w miarę potrzeby (gdy jest sens użycia go w komponencie)
+\end{itemize}
+Oczywiście, w razie potrzeby, można dodawać kolejne elementy, a nawet je zagnieżdżać (przykładem zagnieżdżenia jest lewy panel, stanowiący fragment środkowej części strony, dzięki czemu nie nachodzi on na nagłówek i stopkę).\\
+Wykorzystanie wspomnianego wyżej panelu bocznego jest widoczne w komponencie Wikipedii. Znajdują się na nim linki, umożliwiające tworzenie i zarządzanie zawartością wikipedii, a także drzewko zawartości strony (kategorie i artykuły). Wyodrębnienie tych elementów ze strony głównej pozwala na wygodniejszą i efektywniejszą nawigację i zarządzanie stroną. Boczne menu jest skalowalne, w związku z czym można je dopasować do indywidualnych potrzeb. Istnieje też opcja zwinięcia go, co umożliwia wyświetlanie treści na niemal całej szerokości strony.\\
+Innymi przykładami wykorzystania komponentów PrimeFaces są rozwijane obszary informacji o autorach projektu, widoczne na stronie głównej, czy też okienka informacyjne, powiadamiające o braku uprawnień do przeglądania określonych treści. W tym drugim przypadku widać możliwości konfiguracyjne komponentów PrimeFaces. Tutaj, do okienka informacyjnego, zostało też dodane wyciemnienie tła, uniemożliwiające interakcję ze stroną aż do momentu zamknięcia okna powiadomienia.
+
 \section{Dyskusja rozwiązania i podsumowanie}
 Nasze rozwiązanie postawionego problemu uznajemy za udane. Jednakże gdybyśmy następnym razem wykonywali podobny projekt, to nie zastosowalibyśmy Javy, ani tym bardziej technologii JSF.
 Problemem technologii JSF jest jej stanowość. Przystępując do wykonania projektu i wybierając JavęEE i JSF kierowaliśmy się faktem, że wszyscy członkowie zespołu znają język Java 
