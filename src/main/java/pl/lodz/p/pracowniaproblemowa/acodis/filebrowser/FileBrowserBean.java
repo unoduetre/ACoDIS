@@ -1,7 +1,6 @@
 package pl.lodz.p.pracowniaproblemowa.acodis.filebrowser;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.Map;
 
@@ -68,6 +67,12 @@ public class FileBrowserBean extends FileBrowserEntry implements Serializable {
       f = f.getParentFile();
     }
     return false;
+  }
+  
+  public boolean isReallyFresh() {
+    long creation = attrs.creationTime().toMillis();
+    long now = System.currentTimeMillis();
+    return true || now - creation <= 60000;
   }
   
 }

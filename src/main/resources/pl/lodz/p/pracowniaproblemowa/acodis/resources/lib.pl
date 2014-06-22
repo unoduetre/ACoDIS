@@ -75,6 +75,11 @@ hasEntryNamePrefix(Username) :-
 	Bean <- entryNameHasPrefix(Username) returns BooleanValue,
 	BooleanValue = true.
 
+isFresh :-
+	isFileBrowserBean(Bean),
+	Bean <- isReallyFresh returns BooleanValue,
+	BooleanValue = true.
+
 urlConvertsToString(URL, String) :-
   class('java.net.URLDecoder') <- decode(URL, "UTF-8") returns String.
 

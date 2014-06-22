@@ -10,6 +10,7 @@ isUsernameAndPassword(write, write).
 % testowi użytkownicy
 isUsernameAndPassword(test1, test1).
 isUsernameAndPassword(test2, test2).
+isUsernameAndPassword(test3, test3).
 
 % prawo odczytu dla zalogowanego użytkownika read do dowolnego zasobu
 userCanAccessAtIfLogged(read, _, readAccess). 
@@ -23,6 +24,10 @@ userCanAccessAtIfLogged(test1, _, writeAccess) :-
 userCanAccessAtIfLogged(test2, _, writeAccess) :-
     isMinute(Minute),
     1 is Minute - 2 * (Minute // 2).
+
+userCanAccessAtIfLogged(test3, resource(filebrowser, _, filesystementry, _), readAccess).
+userCanAccessAtIfLogged(test3, resource(filebrowser, _, filesystementry, _), writeAccess) :-
+    isFresh.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % właściwa baza uprawnień
