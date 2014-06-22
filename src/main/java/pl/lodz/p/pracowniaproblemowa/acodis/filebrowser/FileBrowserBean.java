@@ -72,7 +72,7 @@ public class FileBrowserBean extends FileBrowserEntry implements Serializable {
   public boolean isReallyFresh() {
     long creation = attrs.creationTime().toMillis();
     long now = System.currentTimeMillis();
-    return true || now - creation <= 60000;
+    return now - creation <= 60000;
   }
   
 }
