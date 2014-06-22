@@ -1,8 +1,10 @@
 
 package pl.lodz.p.pracowniaproblemowa.acodis.wiki;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -15,6 +17,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
+import pl.lodz.p.pracowniaproblemowa.acodis.login.Login;
 import pl.lodz.p.pracowniaproblemowa.acodis.utils.DirectoryFileFilter;
 import pl.lodz.p.pracowniaproblemowa.acodis.wiki.data.WikiMenuItem;
 
@@ -101,6 +104,7 @@ public class WikiUtils {
       File file = new File( WikiUtils.PAGES_PATH + "/" + humanToUrl( category ) + "/" + humanToUrl( title ) );
       byte[] encoded = Files.readAllBytes( file.toPath() );
       result = new String(encoded, StandardCharsets.UTF_8);
+      result = result.substring( result.indexOf('\n') +1 );
     } catch (IOException ex) {
       Logger.getLogger(WikiUtils.class.getName()).log(Level.SEVERE, null, ex);
     }
@@ -117,7 +121,7 @@ public class WikiUtils {
       throw new FileNotFoundException("Failed to delete file: " + f);
   }
   
-  public static void saveArticle(String category, String title, String text) {
+  public static void saveArticle(Login loginBean, String category, String title, String text) {
     File outputFile = new File(WikiUtils.PAGES_PATH + "/" + humanToUrl( category ) + "/" + humanToUrl( title ));
     Logger.getLogger(WikiEditorBean.class.getName()).log(Level.WARNING, ("    *** Ścieżka do pliku: " + outputFile.getAbsolutePath()));
     
@@ -128,6 +132,8 @@ public class WikiUtils {
     FileWriter fw = null;
     try {
       fw = new FileWriter( outputFile );
+      
+      fw.append( loginBean.getUsername() + "\n" );
       
       fw.append(text);
       
@@ -164,7 +170,7 @@ public class WikiUtils {
       }
   }
   
-    public static void deleteArticle(String category, String title) {
+  public static void deleteArticle(String category, String title) {
       try {
         File outputFile = new File(WikiUtils.PAGES_PATH + "/" + humanToUrl( category ) + "/" + humanToUrl( title ));
         Logger.getLogger(WikiCategoryManagerBean.class.getName()).log(Level.WARNING, ("Usuwam artykuł: " + outputFile.getAbsolutePath()));
@@ -172,5 +178,49 @@ public class WikiUtils {
       } catch(IOException ex) {
         Logger.getLogger(WikiCategoryManagerBean.class.getName()).log(Level.WARNING, ("Problem przy usuwaniu artykułu:"), ex);
       }
+  }
+
+  public static int getUserArticles(String username) {
+    int counter = 0;
+    
+    List<String> categories = WikiUtils.getCategories();
+    
+    for(String category : categories) {
+      List<String> pages = WikiUtils.getPages( humanToUrl( category ) );
+      
+      for(String page : pages) {
+        FileReader fr = null;
+        BufferedReader br = null;
+        try {
+          File file = new File( WikiUtils.PAGES_PATH + "/" + humanToUrl( category ) + "/" + humanToUrl( page ) );
+          fr = new FileReader(file);
+          br = new BufferedReader(fr);
+          
+          String line = br.readLine();
+          if(line != null) {
+            if(line.equals(username)) {
+              counter++;
+            }
+          }
+        } catch (FileNotFoundException ex) {
+          Logger.getLogger(WikiUtils.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+          Logger.getLogger(WikiUtils.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+          try {
+            if(br != null) {
+                br.close();
+            }
+            if(fr != null) {
+              fr.close();
+            }
+          } catch (IOException ex) {
+            Logger.getLogger(WikiUtils.class.getName()).log(Level.SEVERE, null, ex);
+          }
+        }
+      } // for pages
+    } // for categories
+    
+    return counter;
   }
 }
