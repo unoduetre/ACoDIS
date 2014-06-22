@@ -161,6 +161,123 @@ Poniżej prezentujemy listę stworzonych komponentów:
 \end{itemize}
 
 \subsection{Komponent filebrowser}
+Komponent \texttt{filebrowser} stanowi narzędzie pozwalające korzystać z uprawnień
+do zasobów jakimi są węzły systemu plików na serwerze. Rozróżniane są dwa istotnie
+różne typy węzłów:
+
+\begin{itemize}
+\item \emph{Zwykłe pliki} -- dla tego typu węzłów wyświetlane są ich własności
+takie jak typ MIME, rozmiar pliku oraz daty utworzenia, modyfikacji i dostępu.
+Informacje o poszczególnych datach wybierane są spośród wyników
+metody \texttt{java.nio.file.Files.readAttributes}, zaś typ MIME
+odgadywany jest przez (wdrożoną w Javie 7) metodę \texttt{java.nio.file.Files.probeContentType}.
+
+\item \emph{Katalogi} -- dla tego typu węzłów wyświatlana jest lista szczegółowa
+z~elementami ich zawartości. Dla każdego węzła będącego synem przeglądanego katalogu
+wyświetlana jest jego nazwa, typ MIME oraz rozmiar. Wybranie nazwy węzła z listy
+powoduje przejście do niego.
+\end{itemize}
+
+\begin{figure}[H]
+  \caption{Przeglądanie katalogu z prawami tylko do odczytu}
+  \centering
+    \includegraphics[width=\textwidth]{pictures/filebrowser/dir-ro.png}
+\end{figure}
+
+\begin{figure}[H]
+  \caption{Przeglądanie pliku z prawami tylko do odczytu}
+  \centering
+    \includegraphics[width=\textwidth]{pictures/filebrowser/file-ro.png}
+\end{figure}
+
+Oczywiście aby jakiekolwiek informacje zostały wyświetlone, trzeba mieć przynajmniej uprawnienia
+na poziomie \emph{read}. Dodatkową możliwością wspólną dla wszystkich typów węzłów
+jest możliwość przejścia do węzła nadrzędnego. Wspomniane ,,przejście'' pomiędzy jednym
+węzłem a drugim może oczywiście skończyć się informacją o braku uprawnień, w zależności
+od tego jakie uprawnienia do węzła docelowego posiada dany użytkownik. Dla łatwości demonstracji
+działania systemu, jeżeli nie jest sprecyzowane, jaki zasób ma być wyświetlony (w naszej aplikacji
+dotyczy to tylko pierwszego uruchomienia komponentu), wybierany jest katalog domowy użytkownika,
+który uruchamia serwer aplikacji.
+
+\begin{figure}[H]
+  \caption{Dodawanie nowych węzłów w katalogach z uprawnieniem \emph{write}}
+  \centering
+    \includegraphics[width=\textwidth]{pictures/filebrowser/dir-rw1.png}
+\end{figure}
+
+\begin{figure}[H]
+  \caption{Usuwanie pustych katalogów uprawnieniem \emph{write}}
+  \centering
+    \includegraphics[width=\textwidth]{pictures/filebrowser/dir-rw2.png}
+\end{figure}
+
+Dodatkowe możliwości pojawiają się gdy uprawnienia do danego zasobu mają poziom \emph{write}.
+Wtedy dla plików i pustych folderów pojawia się możliwość usunięcia bieżącego węzła,
+oraz dla folderów (niezależnie od tego czy są puste czy nie) pojawia się możliwość
+tworzenia pustych plików oraz pustych folderów wewnątrz nich.
+
+\vspace\baselineskip
+
+Podobnie jak we wszystkich pozostałych elementach naszej implementacji systemu ACoDIS, uprawnienia
+te mogą z być specyficzne dla danego użytkownika lub wynikać z~jego roli oraz dodatkowo
+zależeć od ścieżki do danego zasobu oraz wszelkiego rodzaju czynników zmieniających
+się w sposób dynamiczny. Klasycznym przypadkiem jest tutaj upływający czas (i jedna z reguł
+demonstrujących możliwości systemu jest oparta właśnie na tym).
+
+\vspace\baselineskip
+
+\subsubsection{Zaawansowane reguły dostępu i dynamizm}
+
+Jak zostało wspomniane w ogólnym opisie modułu \texttt{filebrowser}, za każdym
+razem odczytywana jest aktualna informacja o serwerowym systemie plików.
+Zważywszy że struktura tego systemu plików może ulegać ciągłym zmianom
+(między innymi wynikającym z działań użytkowników posiadających uprawnienia
+na poziomie \emph{write} do pewnych węzłów), sam ten fakt czyni zachowanie
+niniejszego moduły dynamicznym. Kluczowy jest jednak dla nas dynamizm
+zdefiniowany wprost poprzez reguły dostępu -- opisany poniżej przykład 3. realizuje
+tę myśl w sposób specyficzny dla modułu \texttt{filebrowser}.
+
+\vspace\baselineskip
+
+Przykładowe zaawansowane reguły związane z niniejszym modułem to:
+\begin{enumerate}
+\item Użytkownik posiada dostęp na poziomie \emph{write} do każdego
+węzła, którego nazwa zaczyna się od jego loginu. O ile teoretycznie
+można sobie wyobrazić system uprawnień
+do plików w którym możemy dawać prawa do edycji zasobu pojedynczym
+innym użytkownikom poprzez ustawienie odpowiedniej nazwy, to
+rozwiązanie takie trudno nazwać optymalnym. Celem stworzenia tej
+reguły jest jednak pokazanie, że możliwości takie jak niniejsza
+mogą być wprowadzane do naszego systemu za pomocą pojedynczych
+linijek kodu w języku Prolog.
+
+\vspace\baselineskip
+
+\item Użytkownik posiada dostęp na poziomie \emph{read} do każdego 
+węzła, który posiada przodka o nazwie zaczynającej się od jego loginu.
+Tak zdefiniowana reguła może zostać w praktycznym zastosowaniu przetłumaczona
+na to, że każdy użytkownik ma dostęp przynajmniej na poziomie \emph{read}
+do całej zawartości swojego katalogu domowego.
+
+\vspace\baselineskip
+
+\item Dla stworzonego na potrzeby demonstracji użytkownika \texttt{test3}
+definiowaliśmy reguły dostępu polegające na tym, że użytkownik ten
+może czytać wszystkie pliki na serwerze, oraz dodatkowo posiada
+uprawnienie na poziomie \emph{write} do plików, które zostały utworzone
+nie dawniej niż \(60\,\mbox{s}\) przed bieżącą chwilą. Reguła ta
+w dosłowny sposób realizuje dynamizm systemu uprawnień, a także
+ma największy potencjał jeżeli chodzi o zastosowania praktyczne --
+nietrudno wyobrazić sobie system, w którym użytkownik po dodaniu
+nowego zasobu ma pewien ograniczony czas na wycofanie się z~tego
+i usunięcie go. Aby to uzyskać, można wykorzystać zaprojektowaną
+przez nas regułę nawet bez wprowadzania do niej zmian, gdyż
+stanowiące osobne zagadnienie ograniczenia
+polegające na tym żeby użytkownik mógł usuwać tylko pliki
+zamieszczone przez siebie mogłyby być realizowane przez
+oddzielne reguły.
+\end{enumerate}
+
 \subsection{Komponent login}
 
 \subsection{Komponent profile}
