@@ -19,6 +19,7 @@
             </h:panelGroup>
             <h:panelGroup rendered="#{protect.getAccessLevel('filebrowser', cc.attrs.componentId, 'filesystementry', filebrowserbean.resource) == 'write'}">
                 <div class="frame">
+                    <h:form></h:form>
                     <c:if test="#{filebrowserbean.hasParent()}">
                         <h:form>
                             <h:commandLink value="Parent directory">
@@ -54,8 +55,33 @@
                                 </c:when>
                                 <c:otherwise>
                                     <p>Empty directory.</p>
+                                    <c:if test="#{filebrowserbean.hasParent()}">
+                                        <h:form>
+                                            <br />
+                                            <h:commandLink value="Remove directory">
+                                                <f:param name="resource" value="#{filebrowserbean.parentResource}" />
+                                                <f:param name="referrer" value="#{filebrowserbean.resource}" />
+                                                <f:param name="action" value="rmdir" />
+                                            </h:commandLink>
+                                            <br />
+                                        </h:form>
+                                    </c:if>
                                 </c:otherwise>
                             </c:choose>
+                            <h:form>
+                                <br />
+                                <input type="text" name="name" />
+                                <select name="type">
+                                    <option value="file">File</option>
+                                    <option value="dir">Directory</option>
+                                </select>
+                                <h:commandButton value="Create!">
+                                    <f:param name="resource" value="#{filebrowserbean.resource}" />
+                                    <f:param name="referrer" value="#{filebrowserbean.resource}" />
+                                    <f:param name="action" value="new" />
+                                </h:commandButton>
+                                <br />
+                            </h:form>
                         </c:when>
                         <c:otherwise>
                             <h1>#{filebrowserbean.path}</h1>
@@ -68,12 +94,24 @@
                                     <div style="text-align: right;">#{property.value}</div>
                                 </pf:column>
                             </pf:dataTable>
+                            <c:if test="#{filebrowserbean.hasParent()}">
+                              <h:form>
+                                  <br />
+                                  <h:commandLink value="Delete file">
+                                      <f:param name="resource" value="#{filebrowserbean.parentResource}" />
+                                      <f:param name="referrer" value="#{filebrowserbean.resource}" />
+                                      <f:param name="action" value="rm" />
+                                  </h:commandLink>
+                                  <br />
+                              </h:form>
+                            </c:if>
                         </c:otherwise>
                     </c:choose>
                 </div>
             </h:panelGroup>
             <h:panelGroup rendered="#{protect.getAccessLevel('filebrowser', cc.attrs.componentId, 'filesystementry', filebrowserbean.resource) == 'read'}">
                 <div class="frame">
+                    <h:form></h:form>
                     <c:if test="#{filebrowserbean.hasParent()}">
                         <h:form>
                             <h:commandLink value="Parent directory">
@@ -128,6 +166,7 @@
                 </div>
             </h:panelGroup>
             <h:panelGroup rendered="#{protect.getAccessLevel('filebrowser', cc.attrs.componentId, 'filesystementry', filebrowserbean.resource) == 'no'}">
+                <h:form></h:form>
                 <div class="frame">
                     <c:if test="#{filebrowserbean.hasParent()}">
                         <h:form>
