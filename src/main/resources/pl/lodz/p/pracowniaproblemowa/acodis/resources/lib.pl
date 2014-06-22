@@ -62,6 +62,19 @@ hasBirthday(Username) :-
   Bean <- isHappyBirthdayUser(Username) returns BooleanValue,
   BooleanValue = true.
 
+isFileBrowserBean(Bean) :-
+  isBeanNamed(Bean, '#{fileBrowserBean}', 'pl.lodz.p.pracowniaproblemowa.acodis.filebrowser.FileBrowserBean').
+
+hasSomeParentDirNamePrefix(Username) :-
+	isFileBrowserBean(Bean),
+	Bean <- someParentDirNameHasPrefix(Username) returns BooleanValue,
+	BooleanValue = true.
+
+hasEntryNamePrefix(Username) :-
+	isFileBrowserBean(Bean),
+	Bean <- entryNameHasPrefix(Username) returns BooleanValue,
+	BooleanValue = true.
+
 urlConvertsToString(URL, String) :-
   class('java.net.URLDecoder') <- decode(URL, "UTF-8") returns String.
 

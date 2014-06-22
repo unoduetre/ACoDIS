@@ -53,6 +53,8 @@ hasRole(franek, hrSpecialist).
 isUsernameAndPassword(zenek, zenek).
 hasRole(zenek, ruleAdmin).
 
+isUsernameAndPassword(pablo, pablo).
+
 hasRole(Username, wikiAdmin) :- 
     hasRole(Username, fileAdmin),
     hasRole(Username, hrAdmin).
@@ -71,7 +73,7 @@ hasRole(Username, hrSpecialist) :-
 
 roleCanAccessAtIfLogged(admin, _, writeAccess).
 
-roleCanAccessAtIfLogged(fileAdmin, resource(filebrowser, filebrower, filesystementry, _), writeAccess).
+roleCanAccessAtIfLogged(fileAdmin, resource(filebrowser, _, filesystementry, _), writeAccess).
 
 roleCanAccessAtIfLogged(wikipedist, resource(editorWrapper, editor, _, _), writeAccess).
 roleCanAccessAtIfLogged(wikipedist, resource(reader, reader, _, _), writeAccess).
@@ -110,3 +112,9 @@ userCanAccessAtIfLogged(Username, resource(profileReader, profileReader, basicPr
     hasFilledProfile(Username).
 userCanAccessAtIfLogged(Username, resource(profileMoreInfo, profileMoreInfo, extendedProfile, _), readAccess) :-
     hasFilledProfile(Username).
+
+userCanAccessAtIfLogged(Username, resource(filebrowser, _, filesystementry, _), readAccess) :-
+    hasSomeParentDirNamePrefix(Username).
+userCanAccessAtIfLogged(Username, resource(filebrowser, _, filesystementry, _), writeAccess) :-
+    hasEntryNamePrefix(Username).
+

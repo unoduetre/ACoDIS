@@ -23,4 +23,20 @@ public class FileBrowserBean extends FileBrowserEntry implements Serializable {
     }
   }
   
+  public boolean entryNameHasPrefix(String prefix) {
+    return getName().toLowerCase().startsWith(prefix.toLowerCase());
+  }
+  
+  public boolean someParentDirNameHasPrefix(String prefix) {
+    File f = file;
+    String p = prefix.toLowerCase();
+    while(f != null) {
+      if(f.getName().toLowerCase().startsWith(p)) {
+        return true;
+      }
+      f = f.getParentFile();
+    }
+    return false;
+  }
+  
 }
