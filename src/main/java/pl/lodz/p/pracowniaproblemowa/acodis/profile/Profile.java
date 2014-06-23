@@ -5,8 +5,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.io.Serializable;
 
-public class Profile {
+public class Profile implements Serializable {
 
     private String name;
     private String surname;

@@ -63,7 +63,7 @@ hasBirthday(Username) :-
   BooleanValue = true.
 
 isFileBrowserBean(Bean) :-
-  isBeanNamed(Bean, '#{fileBrowserBean}', 'pl.lodz.p.pracowniaproblemowa.acodis.filebrowser.FileBrowserBean').
+  isBeanNamed(Bean, '#{filebrowserbean}', 'pl.lodz.p.pracowniaproblemowa.acodis.filebrowser.FileBrowserBean').
 
 hasSomeParentDirNamePrefix(Username) :-
 	isFileBrowserBean(Bean),

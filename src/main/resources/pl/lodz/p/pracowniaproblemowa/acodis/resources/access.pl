@@ -25,8 +25,8 @@ userCanAccessAtIfLogged(test2, _, writeAccess) :-
     isMinute(Minute),
     1 is Minute - 2 * (Minute // 2).
 
-userCanAccessAtIfLogged(test3, resource(filebrowser, _, filesystementry, _), readAccess).
-userCanAccessAtIfLogged(test3, resource(filebrowser, _, filesystementry, _), writeAccess) :-
+userCanAccessAtIfLogged(test3, resource(filebrowser, filebrowser, filesystementry, _), readAccess).
+userCanAccessAtIfLogged(test3, resource(filebrowser, filebrowser, filesystementry, _), writeAccess) :-
     isFresh.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -59,6 +59,7 @@ isUsernameAndPassword(zenek, zenek).
 hasRole(zenek, ruleAdmin).
 
 isUsernameAndPassword(pablo, pablo).
+isUsernameAndPassword(mateusz, mateusz).
 
 hasRole(Username, wikiAdmin) :- 
     hasRole(Username, fileAdmin),
@@ -115,11 +116,11 @@ userCanAccessAtIfLogged(Username, resource(profile, profile, basicProfile, _), r
     hasFilledProfile(Username).
 userCanAccessAtIfLogged(Username, resource(profileReader, profileReader, basicProfile, _), readAccess) :-
     hasFilledProfile(Username).
-userCanAccessAtIfLogged(Username, resource(profileMoreInfo, profileMoreInfo, extendedProfile, _), readAccess) :-
+userCanAccessAtIfLogged(Username, resource(profileReminder, profileReminder, reminder, _), readAccess) :-
     hasFilledProfile(Username).
 
-userCanAccessAtIfLogged(Username, resource(filebrowser, _, filesystementry, _), readAccess) :-
+userCanAccessAtIfLogged(Username, resource(filebrowser, filebrowser, filesystementry, _), readAccess) :-
     hasSomeParentDirNamePrefix(Username).
-userCanAccessAtIfLogged(Username, resource(filebrowser, _, filesystementry, _), writeAccess) :-
+userCanAccessAtIfLogged(Username, resource(filebrowser, filebrowser, filesystementry, _), writeAccess) :-
     hasEntryNamePrefix(Username).
 

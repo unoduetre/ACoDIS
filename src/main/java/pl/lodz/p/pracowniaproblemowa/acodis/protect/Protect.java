@@ -16,7 +16,7 @@ import pl.lodz.p.pracowniaproblemowa.acodis.prolog.PassedContext;
 public class Protect implements Serializable
 {
   private Logger logger = Logger.getLogger(Protect.class.getName());
-  private Map<String, Map<String, String>> componentsTypesAccessLevels = new HashMap<String, Map<String, String>>();
+  private Map<String, Map<String, String>> componentTypesAccessLevels = new HashMap<String, Map<String, String>>();
   private PhaseId previousPhase = null;
   private Prolog prolog = null;
 
@@ -40,43 +40,44 @@ public class Protect implements Serializable
       accessLevel = accessParameter;
     }
 
-    Map<String, String> componentsAccessLevels = componentsTypesAccessLevels.get(componentType);
-    if(componentsAccessLevels == null)
+    Map<String, String> componentAccessLevels = componentTypesAccessLevels.get(componentType);
+    if(componentAccessLevels == null)
     {
-      componentsAccessLevels = new HashMap<String, String>();
-      componentsTypesAccessLevels.put(componentType, componentsAccessLevels);
+      componentAccessLevels = new HashMap<String, String>();
+      componentTypesAccessLevels.put(componentType, componentAccessLevels);
     }
-    componentsAccessLevels.put(componentId,accessLevel);
+    componentAccessLevels.put(componentId,accessLevel);
 
-    logger.info("ACCESS("+componentType+" "+componentId+" "+resourceType+" "+resourceId+"): "+accessLevel);  
+    logger.info("PROLOG ACCESS("+componentType+" "+componentId+" "+resourceType+" "+resourceId+"): "+accessLevel);  
     return accessLevel;
   }
 
   public String getAccessLevel(String componentType, String componentId, String resourceType, String resourceId) throws Exception
   {
-    if(componentId == null) // gdy wczytywane przez UIDebug componentId jest pusty
+    if(componentId == null || componentId.equals("")) // gdy wczytywane przez UIDebug componentId jest pusty
     {
       return "no";
     }
+
     PhaseId currentPhase = FacesContext.getCurrentInstance().getCurrentPhaseId();
-    if(currentPhase == PhaseId.RENDER_RESPONSE && previousPhase != PhaseId.RENDER_RESPONSE)
+    if(previousPhase != null && currentPhase.equals(PhaseId.RENDER_RESPONSE) && !previousPhase.equals(PhaseId.RENDER_RESPONSE))
     {
-      previousPhase = currentPhase;
-      return findAccessLevel(componentType, componentId, resourceType, resourceId);
+      logger.info("Emptying access cache");
+      componentTypesAccessLevels = new HashMap<String, Map<String, String>>();
     }
     previousPhase = currentPhase;
     
-    Map<String, String> componentsAccessLevels = componentsTypesAccessLevels.get(componentType);
-    if(componentsAccessLevels == null)
+    Map<String, String> componentAccessLevels = componentTypesAccessLevels.get(componentType);
+    if(componentAccessLevels == null)
     {
       return findAccessLevel(componentType, componentId, resourceType, resourceId);
     }
-    String accessLevel = componentsAccessLevels.get(componentId);
+    String accessLevel = componentAccessLevels.get(componentId);
     if(accessLevel == null)
     {
       return findAccessLevel(componentType, componentId, resourceType, resourceId);
     }
-    logger.info("ACCESS("+componentType+" "+componentId+" "+resourceType+" "+resourceId+"): "+accessLevel);  
+    logger.info("CACHED ACCESS("+componentType+" "+componentId+" "+resourceType+" "+resourceId+"): "+accessLevel);  
     return accessLevel;
   }
 }
