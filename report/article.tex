@@ -293,7 +293,48 @@ Warstwa danych składa się z pliku \textit{profiles.xml} znajdującego się w f
 Komponent profili z perspektywy użytkowej składa się w zasadniczej mierze z elementu\textit{selectOneMenu} służącego do wyboru pożądanego profilu oraz obszaru wyświetlania danych o wybranej pozycji. Użytkownikowi z prawami \textit{write} została udostępniona dodatkowa funkcjonalność edycji danych wyświetlanego profilu, która jest obsługiwana za pomocą przycisków "edytuj", "zapisz" oraz "anuluj" wyświetlanych przy właściwych stanach przeglądarki profili. Dzięki zaimplementowanym mechanizmom komponent reaguje dynamicznie na aktualny stan warstwy danych oraz uzależnia sposób swojej reakcji od czasu oraz zalogowanego aktualnie użytkownika.
 
 \subsection{Komponent security}
+
 \subsection{Komponent wiki}
+Zbiór komponentów odpowiedzialnych za zarządzanie oraz prezentację artykułów wiki. W jego skład wchodzą:
+\begin{itemize}
+\item wikiReader - komponent odpowiedzialny za odczyt artykułów
+\item wikiCategoryManager - komponent zarządzający kategoriami wiki
+\item wikiEditor - komponent odpowiedzialny za tworzenie i edycję artykułów wiki
+\end{itemize}
+
+System wykonany jest w oparciu o dwie warstwy: model - widok, izolując metody niskopoziomowe i pozwalając na łatwą podmianę technologii przechowywania danych. Obecnie wykorzystywany jest system plików. Podział na kategorie wykonany jest przy pomocy podziału na katalogi, natomiast każdy artykuł jest oddzielnym plikiem, gdzie początek pliku zawiera nagłówek przechowujący informacje o autorze artykułu. Większość operacji niskopoziomowych wykonywana jest przez klasę \textit{pl.lodz.p.pracowniaproblemowa.acodis.wiki.WikiUtils}.
+
+\subsubsection{WikiReader}
+W skład WikiReadera wchodzą następujące moduły:
+\begin{itemize}
+\item wikiReader.xhtml - opakowanie komponentu
+\item resources/wiki/reader.xhtml - widok prezentujący dane
+\item pl.lodz.p.pracowniaproblemowa.acodis.wiki.WikiReaderBean - klasa odpowiedzialna za obsługę logiki odczytywania danych
+\end{itemize}
+
+Podział artykułów na kategorie i artykuły pozwala na zapewnienie rozgraniczenia w dostępie zarówno do poszczególnych stron wiki jak i całych kategorii.
+
+\subsubsection{WikiCategoryManager}
+W skład WikiCategoryManager wchodzą następujące moduły:
+\begin{itemize}
+\item wikiCategoryManager.xhtml - opakowanie komponentu zarządzania istniejącymi kategoriami
+\item wikiCategoryManagerNew.xhtml - opakowanie komponentu tworzenia kategorii
+\item resources/wiki/categoryManager.xhtml - widok prezentujący formularz zarządzania istniejącymi kategoriami
+\item resources/wiki/categoryManagerNew.xhtml - widok prezentujący formularz tworzenia nowej kategorii
+\item pl.lodz.p.pracowniaproblemowa.acodis.wiki.WikiCategoryManagerBean - klasa odpowiedzialna za obsługę logiki zarządzania kategoriami
+\end{itemize}
+
+Zarządzanie kategoriami jest podzielone na tworzenie oraz usuwanie istniejących kategorii oraz istnieje również możliwość dla osób nieuprzywilejowanych ograniczenia funkcjonalności do samego podglądu kategorii.
+
+\subsubsection{WikiEditor}
+W skład WikiEditora wchodzą następujące moduły:
+\begin{itemize}
+\item wikiEditor.xhtml - opakowanie komponentu
+\item resources/wiki/editor.xhtml - widok prezentujący formularz edycji/tworzenia dokumentu
+\item pl.lodz.p.pracowniaproblemowa.acodis.wiki.WikiEditorBean - klasa odpowiedzialna za obsługę logiki tworzenia nowego artykułu
+\end{itemize}
+
+\subsection{Reguły dostępowe}
 
 Poniżej prezentujemy przykładowe zaimplementowane przez nas reguły dostępowe:
 \begin{verbatim}
