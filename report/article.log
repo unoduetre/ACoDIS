@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2014.6.17)  23 JUN 2014 11:52
+This is pdfTeX, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2014.6.17)  23 JUN 2014 11:58
 entering extended mode
 **article.tex
 (./article.tex
@@ -580,62 +580,77 @@ Overfull \hbox (29.50172pt too wide) in paragraph at lines 289--292
 dz.p.pracowniaproblemowa.acodis.profile
  []
 
-[9]
+[9] [10]
+Overfull \hbox (53.42218pt too wide) in paragraph at lines 322--323
+\T1/cmr/m/n/12 wych wy-ko-ny-wa-na jest przez kla-s¦ \T1/cmr/m/it/12 pl.lodz.p.
+pracowniaproblemowa.acodis.wiki.WikiUtils\T1/cmr/m/n/12 . 
+ []
+
+
+Overfull \hbox (1.37067pt too wide) in paragraph at lines 348--349
+[]\T1/cmr/m/n/12 pl.lodz.p.pracowniaproblemowa.acodis.wiki.WikiEditorBean - kla
+-sa od-po-
+ []
+
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [10]
-[11]
-Overfull \hbox (12.38492pt too wide) in paragraph at lines 349--351
+ [11]
+[12]
+Overfull \hbox (12.38492pt too wide) in paragraph at lines 383--385
 \T1/cmr/m/n/12 Reguªa ta-ka tªu-ma-czy si¦ na j¦-zyk pol-ski na-st¦-pu-j¡-co: ,
 ,Je-»e-li za-cho-dzi \T1/cmtt/m/n/12 warunek1
  []
 
-[12]
-Overfull \hbox (28.29692pt too wide) in paragraph at lines 393--394
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [13]
+Overfull \hbox (28.29692pt too wide) in paragraph at lines 427--428
 []\T1/cmr/m/n/12 Ze wszyst-ki-mi re-gu-ªa-mi bi-blio-tecz-ny-mi mo»-na za-po-zn
 a¢ si¦ w pli-ku \T1/cmtt/m/n/12 /src/main/
  []
 
 
-Overfull \hbox (4.3467pt too wide) in paragraph at lines 400--401
+Overfull \hbox (4.3467pt too wide) in paragraph at lines 434--435
 []\T1/cmtt/m/n/12 hasRole(Username, Role) \T1/cmr/m/n/12 -- de-kla-ru-je, »e u»
 yt-kow-nik \T1/cmtt/m/n/12 Username \T1/cmr/m/n/12 ma przy-
  []
 
 
-Overfull \hbox (1.93616pt too wide) in paragraph at lines 403--405
+Overfull \hbox (1.93616pt too wide) in paragraph at lines 437--439
 \T1/cmr/m/n/12 deklaruje, »e u»yt-kow-nik \T1/cmtt/m/n/12 Username \T1/cmr/m/n/
 12 ma od-ci¦-ty do-st¦p do za-so-bu \T1/cmtt/m/n/12 Resource
  []
 
 
-Overfull \hbox (3.08731pt too wide) in paragraph at lines 405--407
+Overfull \hbox (3.08731pt too wide) in paragraph at lines 439--441
 []\T1/cmtt/m/n/12 roleCannotAccessAtIfLogged(Role, Resource, AccessMode) \T1/cm
 r/m/n/12 -- de-kla-
  []
 
 
-Overfull \hbox (8.41374pt too wide) in paragraph at lines 413--414
+Overfull \hbox (8.41374pt too wide) in paragraph at lines 447--448
 []\T1/cmtt/m/n/12 userCreatedNumberOfArticles(Username, Number) \T1/cmr/m/n/12 
 -- u»yt-kow-nik \T1/cmtt/m/n/12 User-
  []
 
-[13]
-Underfull \hbox (badness 10000) in paragraph at lines 435--436
+[14]
+Underfull \hbox (badness 10000) in paragraph at lines 469--470
 []\T1/cmr/m/n/10.95 Computer ac-cess con-trol []$\T1/cmtt/m/n/10.95 http : / / 
 en . wikipedia . org / wiki / Computer _
  []
 
 
-Overfull \hbox (13.25908pt too wide) in paragraph at lines 436--437
+Overfull \hbox (13.25908pt too wide) in paragraph at lines 470--471
 \T1/cmtt/m/n/10.95 Fundamentals_of_Information_Systems_Security/Access_Control_
 Systems 
  []
 
-[14] (./article.aux) ) 
+[15] (./article.aux) ) 
 Here is how much of TeX's memory you used:
- 8846 strings out of 94086
- 116080 string characters out of 1167700
+ 8847 strings out of 94086
+ 116087 string characters out of 1167700
  181001 words of memory out of 3500000
  11874 multiletter control sequences out of 10000+50000
  18864 words of font info for 54 fonts, out of 1200000 for 2000
@@ -652,9 +667,9 @@ mf/fonts/type1/public/cm-super/sfsl1095.pfb></usr/share/texmf/fonts/type1/publi
 c/cm-super/sfsl1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1200.
 pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1095.pfb></usr/share/texm
 f/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on article.pdf (14 pages, 2293175 bytes).
+Output written on article.pdf (15 pages, 2296466 bytes).
 PDF statistics:
- 272 PDF objects out of 1000 (max. 8388607)
- 51 named destinations out of 1000 (max. 131072)
+ 276 PDF objects out of 1000 (max. 8388607)
+ 52 named destinations out of 1000 (max. 131072)
  202 words of extra memory for PDF output out of 10000 (max. 10000000)
 
