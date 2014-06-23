@@ -124,3 +124,11 @@ userCanAccessAtIfLogged(Username, resource(filebrowser, filebrowser, filesysteme
 userCanAccessAtIfLogged(Username, resource(filebrowser, filebrowser, filesystementry, _), writeAccess) :-
     hasEntryNamePrefix(Username).
 
+userCanAccessAtIfLogged(Username, resource(categoryManagerNew, categoryManagerNew, categoryManagerNew, categoryManagerNew), writeAccess) :-
+  hasRole(Username, wikipedist),
+  userCreatedNumberOfArticles(Username, Number),
+  Number >= 3.
+userCanAccessAtIfLogged(Username, resource(categoryManager, categoryManager, categoryManager, categoryManager), writeAccess) :-
+  hasRole(Username, wikipedist),
+  userCreatedNumberOfArticles(Username, Number),
+  Number >= 3.

@@ -80,6 +80,13 @@ isFresh :-
 	Bean <- isReallyFresh returns BooleanValue,
 	BooleanValue = true.
 
+isWikiEditorBean(Bean) :-
+  isBeanNamed(Bean, '#{wikiEditorBean}', 'pl.lodz.p.pracowniaproblemowa.acodis.wiki.WikiEditorBean').
+
+userCreatedNumberOfArticles(Username, Number) :-
+  isWikiEditorBean(Bean),
+  Bean <- getUserArticlesFor(Username) returns Number.
+
 urlConvertsToString(URL, String) :-
   class('java.net.URLDecoder') <- decode(URL, "UTF-8") returns String.
 

@@ -98,6 +98,10 @@ public class WikiEditorBean {
     
     return "wikiMenu";
   }
+
+  public int getUserArticlesFor(String username) {
+    return WikiUtils.getUserArticles(username);
+  }
   
   public int getUserArticles() {
     return WikiUtils.getUserArticles( loginBean.getUsername() );
