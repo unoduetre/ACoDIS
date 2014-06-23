@@ -12,13 +12,25 @@ import javax.faces.event.PhaseId;
 
 import pl.lodz.p.pracowniaproblemowa.acodis.prolog.Prolog;
 import pl.lodz.p.pracowniaproblemowa.acodis.prolog.PassedContext;
+import pl.lodz.p.pracowniaproblemowa.acodis.login.Login;
 
 public class Protect implements Serializable
 {
   private Logger logger = Logger.getLogger(Protect.class.getName());
-  private Map<String, Map<String, String>> componentTypesAccessLevels = new HashMap<String, Map<String, String>>();
-  private PhaseId previousPhase = null;
-  private Prolog prolog = null;
+  protected Map<String, Map<String, String>> componentTypesAccessLevels = new HashMap<String, Map<String, String>>();
+  protected PhaseId previousPhase = null;
+  protected Prolog prolog = null;
+  protected Login login = null;
+
+  public Login getLogin()
+  {
+    return login;
+  }
+
+  public void setLogin(Login login)
+  {
+    this.login = login;
+  }
 
   public Prolog getProlog()
   {
@@ -48,7 +60,7 @@ public class Protect implements Serializable
     }
     componentAccessLevels.put(componentId,accessLevel);
 
-    logger.info("PROLOG ACCESS("+componentType+" "+componentId+" "+resourceType+" "+resourceId+"): "+accessLevel);  
+    logger.info("PROLOG ACCESS("+login.getUsername()+" -> " +componentType+" "+componentId+" "+resourceType+" "+resourceId+"): "+accessLevel);  
     return accessLevel;
   }
 
@@ -77,7 +89,7 @@ public class Protect implements Serializable
     {
       return findAccessLevel(componentType, componentId, resourceType, resourceId);
     }
-    logger.info("CACHED ACCESS("+componentType+" "+componentId+" "+resourceType+" "+resourceId+"): "+accessLevel);  
+    logger.info("CACHED ACCESS("+login.getUsername()+" -> "+componentType+" "+componentId+" "+resourceType+" "+resourceId+"): "+accessLevel);  
     return accessLevel;
   }
 }

@@ -1,7 +1,7 @@
 default_targets=article
 
 article_includes=
-article_figures=diagram.tiff
+article_figures=diagram.tiff dir-ro.png dir-rw1.png dir-rw2.png file-ro.png
 
 presentation_includes=
 presentation_figures=

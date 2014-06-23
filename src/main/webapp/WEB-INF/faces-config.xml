@@ -44,6 +44,11 @@
             <property-class>pl.lodz.p.pracowniaproblemowa.acodis.prolog.Prolog</property-class>
             <value>#{prolog}</value>
         </managed-property>
+        <managed-property>
+            <property-name>login</property-name>
+            <property-class>pl.lodz.p.pracowniaproblemowa.acodis.login.Login</property-class>
+            <value>#{login}</value>
+        </managed-property>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>security</managed-bean-name>

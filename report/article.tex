@@ -34,19 +34,18 @@ część zagadnienia skupia się na zapewnieniu kontroli dostępu, wyjaśnimy na
 
 Pojęcie dynamiki można tutaj
 rozumieć na różne sposoby, ale na pewno podstawowym aspektem jest tutaj wrażliwość na zmieniające się warunki, takie jak na przykład czas, lub pewne zdarzenia zachodzące zarówno 
-w samym systemie, jak i poza nim. Oznacza to, że system nie powinien robić żadnych założeń na temat tego co się aktualnie dzieje, a raczej reagować dynamicznie. Dla porównania
-możemy wskazać na przykład dostęp do plików na serwerze. Rozwiązanie statyczne mogłoby polegać na przykład na tym, że w systemie jest na stałe zapamiętane (zaszyfrowane) hasło,
-które użytkownik musi podać przy logowaniu, po którym uzyskuje pełny i nieograniczony czasowo dostęp do pewnych, na sztywno zdefiniowanych zasobów, takich jak pewne pliki w pewnych katalogach.
-Skontrastujmy to z systemem w którym dostęp do plików jest ograniczony pod względem na przykład ilości osób, które jednocześnie z nich korzystają, przy czym czas korzystania może być ograniczony
-w zależności od konkretnej osoby, a także od ilości osób. Poza tym dostęp może być włączany konkretnym osobom w konkretnych godzinach. Co więcej, uzyskanie dostępu może zależeć od
-wydania zezwolenia. Jak widać stworzenie systemu dynamicznego jest dużo trudniejsze od stworzenia systemu statycznego.
+w samym systemie, jak i poza nim. Oznacza to, że system nie powinien robić żadnych założeń na temat tego co się aktualnie dzieje, a raczej reagować dynamicznie. 
+Jako przykład możemy podać edycję stron typu wiki. W naszym projekcie nowe kategorie stron może dodawać tylko użytkownik posiadający rolę wikipedysty, i tylko taki, który utworzył
+przynajmniej 3 artykuły. Oznacza to, że dostęp do komponentu odpowiadającego za dodawanie nowych kategorii zostaje odblokowany dynamicznie w odpowiedzi na zajście
+opisanego zdarzenie, jakim jest utworzenie trzeciego artykułu.
+Dlatego stworzenie systemu dynamicznego jest dużo trudniejsze od stworzenia systemu statycznego.
 
 Wróćmy teraz do pojęcia kontroli dostępu. Kontrola dostępu oznacza, że dostęp do pewnych zasobów jest, z jednej strony, dozwolony lub zabroniony, natomiast z drugiej, że
-jest on nadzorowany, czyli że na przykład każde skorzystanie z zasobów jest zapisywane, lub nawet zatwierdzane przez odpowiednią osobę. Wynika z tego, że elementami kontroli
-dostępu są nie tylko autentykacja i autoryzacja, ale także wydawanie zgody na dostęp i audyt.
+jest on nadzorowany, czyli że na przykład każde skorzystanie z zasobów jest zapisywane. Wynika z tego, że elementami kontroli
+dostępu są nie tylko autentykacja i autoryzacja, ale także audyt.
 \section{Aktualny stan wiedzy}
 Jest wiele różnych sposobów na zapewnienie kontroli dostępu. Co więcej sposoby te niekoniecznie kolidują ze sobą, a często mogą ze sobą współpracować. Do podstawowych mechanizmów
-mogących zapewnić kontrolę dostępu należą\cite{owasp}\cite{computer}\cite{wikibooks}:
+mogących zapewnić kontrolę dostępu należą (wg. \cite{owasp}\cite{computer}\cite{wikibooks}):
 \begin{itemize}
 \item kontrola dostępu uznaniowa \textit{Discretionary Access Control, DAC}
 \item kontrola dostępu obowiązkowa \textit{Mandatory Access Control, MAC}
@@ -109,7 +108,7 @@ który jest bardzo dobrze dostosowany do rozwiązywania skomplikowanych problem�
 \section{Opis rozwiązania problemu}
 Jak opisaliśmy powyżej, aby zapewnić naszemu rozwiązaniu maksymalną elastyczność zastosowaliśmy reguły opisane jako reguły Prologowe. Dzięki temu możliwe stało się dowolne ustalenie zależności
 między uprawnieniami. Zastosowaliśmy model oparty o role, jednakże nasz system pozwala także przypisywać uprawnienia bezpośrednio konkretnym użytkownikom. Co więcej można zupełnie
-dowolnie kształtować zależności między rolami. Na przykład osobie posiadającej rolę administratora można automatycznie przypisać rolę wikipedysty itp.
+dowolnie kształtować zależności między rolami. Na przykład osobie posiadającej rolę administratora wiki można automatycznie przypisać rolę wikipedysty itp.
 
 Omówiliśmy powyżej sposób organizacji zarządzania uprawnieniami. Jednakże uprawnienia służą przecież do zarządzania określonymi zasobami. Optymalnym rozwiązaniem jest
 zdefiniowanie ogólnej postaci zasobu, i umożliwieniu zarządzania uprawnieniami do niej. Dzięki postawieniu problemu na takim poziomie ogólności byliśmy w stanie oddzielić proces
@@ -143,11 +142,16 @@ uprawnień odpytywać dowolne elementy systemu o ich stan.
 
 \section{Opis implementacji}
 
-Implementacja rozwiązania problemu została wykonana na platformie JavaEE w technologii JSF i PrimeFaces. Początkowo planowaliśmy użyć bazy danych, jednakże w toku prac okazało się,
-że takie rozwiązanie jest zbędne i wprowadziłoby tylko niepotrzebne komplikacje. Co więcej nasz system powinien być dostępny dla dowolnych rozwiązań technologicznych, także takich, które nie
-zawierają bazy danych.
+Implementacja rozwiązania problemu została wykonana na platformie \textsl{JavaEE} w technologii \textsl{JSF} i \textsl{PrimeFaces}.
+Implementację można podzielić na dwie zasadnicze części. 
+Pierwszą jest zestaw przykładowych komponentów, którymi możemy zarządzać. Poniżej opiszemy każdy z tych elementów.
+Drugą jest silnik reguł odpowiedzialny za dostęp do komponentów i zasobów w nich wyświetlanych. 
 
-Każdy moduł jest niezależnym komponentem wykonanym przy użyciu technologii JSF Compound Components.
+\subsection{Zestaw kompomentów}
+
+\subsubsection{Opis ogólny}
+
+Każdy komponent został wykonany przy użyciu technologii \textsl{JSF Compound Components}.
 Lista komponentów jest przedstawiona na rysunku \ref{fig:komponenty}.
 \obraz{diagram}{komponenty}{Diagram komponentów}
 Każdy komponent jest zestawem widoków, w których można przeglądać określone typy zasobów.
@@ -160,7 +164,19 @@ Poniżej prezentujemy listę stworzonych komponentów:
   \item wiki -- funkcjonalność wikipedii
 \end{itemize}
 
-\subsection{Komponent filebrowser}
+Każdy komponent jest wykonany według określonego szablonu przedstawionego w postaci skrótowej poniżej:
+\begin{itemize}
+\item nagłówek komponentu -- zawiera nagłówek xml i niezbędne elementy,
+\item część dostępna dla uprawnień specjalnych -- wyświetlana, gdy użytkownik ma uprawnienia na poziomie \textbf{special},
+\item część dostępna dla uprawnień do zapisu -- wyświetlana, gdy użytkownik ma uprawnienia na poziomie \textbf{write},
+\item część dostępna dla uprawnień do odczytu -- wyświetlana, gdy użytkownik ma uprawnienia na poziomie \textbf{read},
+\item część dostępna dla braku uprawnień -- wyświetlana, gdy użytkownik ma uprawnienia na poziomie \textbf{no},
+\item stopka komponentu -- zamknięcie tagów otwartych w nagłówku.
+\end{itemize}
+W katalogu projektu \texttt{/src/main/webapp/resources/example} znajduje się przykładowy, poglądowy moduł złożony z dwóch zagnieżdżonych komponentów. Wszystkie pozostałe komponenty
+wykonane są zgodnie z tym szablonem.
+
+\subsubsection{Komponent filebrowser}
 Komponent \texttt{filebrowser} stanowi narzędzie pozwalające korzystać z uprawnień
 do zasobów jakimi są węzły systemu plików na serwerze. Rozróżniane są dwa istotnie
 różne typy węzłów:
@@ -178,17 +194,9 @@ wyświetlana jest jego nazwa, typ MIME oraz rozmiar. Wybranie nazwy węzła z li
 powoduje przejście do niego.
 \end{itemize}
 
-\begin{figure}[H]
-  \caption{Przeglądanie katalogu z prawami tylko do odczytu}
-  \centering
-    \includegraphics[width=\textwidth]{pictures/filebrowser/dir-ro.png}
-\end{figure}
+\obraz{dir-ro}{dirro}{Przeglądanie katalogu z prawami tylko do odczytu}
 
-\begin{figure}[H]
-  \caption{Przeglądanie pliku z prawami tylko do odczytu}
-  \centering
-    \includegraphics[width=\textwidth]{pictures/filebrowser/file-ro.png}
-\end{figure}
+\obraz{file-ro}{filero}{Przeglądanie pliku z prawami tylko do odczytu}
 
 Oczywiście aby jakiekolwiek informacje zostały wyświetlone, trzeba mieć przynajmniej uprawnienia
 na poziomie \emph{read}. Dodatkową możliwością wspólną dla wszystkich typów węzłów
@@ -196,37 +204,23 @@ jest możliwość przejścia do węzła nadrzędnego. Wspomniane ,,przejście'' 
 węzłem a drugim może oczywiście skończyć się informacją o braku uprawnień, w zależności
 od tego jakie uprawnienia do węzła docelowego posiada dany użytkownik. Dla łatwości demonstracji
 działania systemu, jeżeli nie jest sprecyzowane, jaki zasób ma być wyświetlony (w naszej aplikacji
-dotyczy to tylko pierwszego uruchomienia komponentu), wybierany jest katalog domowy użytkownika,
-który uruchamia serwer aplikacji.
+dotyczy to tylko pierwszego uruchomienia komponentu), wybierany jest specjalny katalog na serwerze przypisany do aktualnie zalogowanego użytkownika.
+Jeżeli takowy nie istnieje to jest on tworzony.
 
-\begin{figure}[H]
-  \caption{Dodawanie nowych węzłów w katalogach z uprawnieniem \emph{write}}
-  \centering
-    \includegraphics[width=\textwidth]{pictures/filebrowser/dir-rw1.png}
-\end{figure}
+\obraz{dir-rw1}{dirrwone}{Dodawanie nowych węzłów w katalogach z uprawnieniem \emph{write}}
 
-\begin{figure}[H]
-  \caption{Usuwanie pustych katalogów uprawnieniem \emph{write}}
-  \centering
-    \includegraphics[width=\textwidth]{pictures/filebrowser/dir-rw2.png}
-\end{figure}
+\obraz{dir-rw2}{dirrwtwo}{Usuwanie pustych katalogów uprawnieniem \emph{write}}
 
 Dodatkowe możliwości pojawiają się gdy uprawnienia do danego zasobu mają poziom \emph{write}.
 Wtedy dla plików i pustych folderów pojawia się możliwość usunięcia bieżącego węzła,
 oraz dla folderów (niezależnie od tego czy są puste czy nie) pojawia się możliwość
 tworzenia pustych plików oraz pustych folderów wewnątrz nich.
 
-\vspace\baselineskip
-
 Podobnie jak we wszystkich pozostałych elementach naszej implementacji systemu ACoDIS, uprawnienia
 te mogą z być specyficzne dla danego użytkownika lub wynikać z~jego roli oraz dodatkowo
 zależeć od ścieżki do danego zasobu oraz wszelkiego rodzaju czynników zmieniających
 się w sposób dynamiczny. Klasycznym przypadkiem jest tutaj upływający czas (i jedna z reguł
 demonstrujących możliwości systemu jest oparta właśnie na tym).
-
-\vspace\baselineskip
-
-\subsubsection{Zaawansowane reguły dostępu i dynamizm}
 
 Jak zostało wspomniane w ogólnym opisie modułu \texttt{filebrowser}, za każdym
 razem odczytywana jest aktualna informacja o serwerowym systemie plików.
@@ -236,8 +230,6 @@ na poziomie \emph{write} do pewnych węzłów), sam ten fakt czyni zachowanie
 niniejszego moduły dynamicznym. Kluczowy jest jednak dla nas dynamizm
 zdefiniowany wprost poprzez reguły dostępu -- opisany poniżej przykład 3. realizuje
 tę myśl w sposób specyficzny dla modułu \texttt{filebrowser}.
-
-\vspace\baselineskip
 
 Przykładowe zaawansowane reguły związane z niniejszym modułem to:
 \begin{enumerate}
@@ -251,15 +243,11 @@ reguły jest jednak pokazanie, że możliwości takie jak niniejsza
 mogą być wprowadzane do naszego systemu za pomocą pojedynczych
 linijek kodu w języku Prolog.
 
-\vspace\baselineskip
-
 \item Użytkownik posiada dostęp na poziomie \emph{read} do każdego 
 węzła, który posiada przodka o nazwie zaczynającej się od jego loginu.
 Tak zdefiniowana reguła może zostać w praktycznym zastosowaniu przetłumaczona
 na to, że każdy użytkownik ma dostęp przynajmniej na poziomie \emph{read}
 do całej zawartości swojego katalogu domowego.
-
-\vspace\baselineskip
 
 \item Dla stworzonego na potrzeby demonstracji użytkownika \texttt{test3}
 definiowaliśmy reguły dostępu polegające na tym, że użytkownik ten
@@ -278,9 +266,26 @@ zamieszczone przez siebie mogłyby być realizowane przez
 oddzielne reguły.
 \end{enumerate}
 
-\subsection{Komponent login}
+\subsubsection{Komponent login}
+Komponent ten umożliwia zalogowanie się użytkownika. Co ciekawe całą logikę logowania udało się zaimplementować jako kilka reguł Prologowych. Oznacza to, że sam komponent nie posiada
+wewnętrznej logiki, a cała logika zawarta jest w systemie reguł opisujących proces logowania. 
+Zanim użytkownik się zaloguje komponent wyświetla się w trybie braku dostępu (\textbf{no}). Jednakże po wpisaniu prawidłowego loginu i hasła użytkownik uzyskuje dostęp do komponentu
+w trybie odczytu (\textbf{read}). W tym trybie komponent wyświetla informacje o aktualnie zalogowanym użytkowniku. Za takie działanie komponentu odpowiada tylko jedna reguła dostępowa
+opisana poniżej.
 
-\subsection{Komponent profile}
+\begin{verbatim}
+canAccessAt(user(Username, Password),
+            resource('login','login','login','login'),
+            readAccess) :-
+  isUsernameAndPassword(Username, Password).
+\end{verbatim}
+
+Powyższą regułę można zapisać w języku polskim jako: ,,Jeżeli Username i Password są poprawnymi danymi logowania, to użytkownik o loginie Username i haśle Password ma dostęp do
+zasobu o identyfikatorach login, login, login, login na poziomie odczytu. Bardziej szczegółowy opis i postać ogólna reguł Prologu jest dostępna w sekcji opisującej silnik reguł.
+Natomiast procedura wylogowania użytkownika polega po prostu na usunięciu jego zapamiętanych danych. W takim wypadku warunek w powyższej regule nie jest już spełniony i użytkownik traci
+automatycznie prawo dostępu na poziomie odczytu. Dokładniejszy opis jest zawarty w sekcji opisującej silnik reguł.
+
+\subsubsection{Komponent profile}
 Komponent służy do przeglądania oraz edycji znajdujących się w systemie danych o użytkownikach. Jego implementację można podzielić logicznie na trzy modelowe warstwy: prezentacji, logiki i danych. \\
 Warstwa prezentacji to utworzony z pomocą JSF front-end w postaci plików \textit{*.xhtml} zgromadzonych w folderze \textit{profile} komponentu. Znajdują się tam wszystkie elementy istotne dla działania komponentu, każdy z nich posiada strukturę umożliwiającą kontrolę dostępu opisaną w poprzednich rozdziałach. Do najważniejszych jego elementów należą \textit{profileReader} odpowiedzialny za wyświetlanie danych dostępnych tylko dla użytkowników z prawami do czytania treści oraz \textit{profileEditor} wprowadzający dodatkową funkcjonalność dla posiadaczy praw do zapisu. Pozostałe elementy agregują dodatkowe treści udostępniane w przeglądarce profili, tj. komunikaty wyświetlane użytkownikom i dodatkowe informacje o kontach. \\
 Logika komponentu opiera się o pakiet \textit{pl.lodz.p.pracowniaproblemowa.acodis.profile} napisany w technologii Java. Składa się on z trzech klas:
@@ -292,34 +297,24 @@ Logika komponentu opiera się o pakiet \textit{pl.lodz.p.pracowniaproblemowa.aco
 Warstwa danych składa się z pliku \textit{profiles.xml} znajdującego się w folderze zasobów systemu. Służy on za podręczną bazę wiedzy zaczytywaną do komponentu profili przy użyciu odpowiednich metod z klasy \textit{ProfileDataBean}. Jest to wydajny i przenośny sposób na agregację danych o użytkownikach, jednocześnie nie rzutujący na eskalację rozmiarów systemu. Jednocześnie rozwiązanie to jest łatwo wymienialne na inne technologie wraz z rozwojem i zmianami w systemie. \\
 Komponent profili z perspektywy użytkowej składa się w zasadniczej mierze z elementu\textit{selectOneMenu} służącego do wyboru pożądanego profilu oraz obszaru wyświetlania danych o wybranej pozycji. Użytkownikowi z prawami \textit{write} została udostępniona dodatkowa funkcjonalność edycji danych wyświetlanego profilu, która jest obsługiwana za pomocą przycisków "edytuj", "zapisz" oraz "anuluj" wyświetlanych przy właściwych stanach przeglądarki profili. Dzięki zaimplementowanym mechanizmom komponent reaguje dynamicznie na aktualny stan warstwy danych oraz uzależnia sposób swojej reakcji od czasu oraz zalogowanego aktualnie użytkownika.
 
-\subsection{Komponent security}
-\subsection{Komponent wiki}
+\subsubsection{Komponent security}
+Komponent security jest głównym komponentem odpowiedzialnym za dynamiczną modyfikację reguł w trakcie działania systemu. Zestaw reguł jest podzielony na dwie części. 
 
-Poniżej prezentujemy przykładowe zaimplementowane przez nas reguły dostępowe:
-\begin{verbatim}
+Pierwszą z nich jest biblioteka gotowych reguł zawierająca dwa zestawy elementów:
+\begin{itemize}
+\item elementy odpowiedzialne za podstawową funkcjonalność reguł i logowania
+\item gotowe reguły, które mogą być użyte przez administratora jako warunki dostępu (jako przykład można podać chociażby regułę zwracającą ilość utworzonych przez danego
+      użytkownika stron na wiki, której można użyć jako warunku dostępu, chociażby do modułu tworzenia kategorii)
+\end{itemize}
+Część biblioteczna jest stała i nie zmienia się podczas działania systemu. Nowe wersje systemu mogą łatwo dodawać nowe elementy, gdy zostaną dodane do systemu nowe moduły
+udostępniające nową funkcjonalność.
 
-isPasswordFor('test','test').
-isPasswordFor('no','no').
-isPasswordFor('read','read').
-isPasswordFor('write','write').
-isPasswordFor('admin','admin').
-isPasswordFor('zenek','zenek').
-isPasswordFor('franek','franek').
+Drugą częścią jest zestaw aktualnie obowiązujących reguł. Ta część systemu może być modyfikowana dynamicznie w trakcie jego działania przez użytkownika o odpowiednich uprawnieniach.
+Komponent security umożliwia edycję i zapis reguł w tej części.
 
-hasRole('admin','administrators').
-hasRole('zenek','wikipedists').
-hasRole('franek','fileadmins').
+\subsubsection{Komponent wiki}
 
-hasRole(Username,'wikipedists') :- hasRole(Username, 'administrators').
-hasRole(Username,'fileadmins') :- hasRole(Username, 'administrators').
-
-canAccessAtIfLogged(user('read','read'),_, readAccess).
-canAccessAtIfLogged(user('write','write'),_, writeAccess).
-
-roleCanAccessAtIfLogged('administrators',_, writeAccess).
-\end{verbatim}
-
-\section{Oprawa wizualna}
+\subsubsection{Oprawa wizualna}
 Do Stworzenia oprawy wizualnej, wykorzystany został framework JSF i biblioteka komponentów PrimeFaces. JSF umożliwia tworzenie szablonów, wykorzystywanych później przez strony komponentów. Primefaces dostarcza wielu użytecznych komponentów, gotowych do wykorzystania, jak na przykład menu, rozwijane panele, czy okienka powiadomień.\\
 Główny moduł strony składa się z następujących elementów:
 \begin{itemize}
@@ -331,6 +326,92 @@ Główny moduł strony składa się z następujących elementów:
 Oczywiście, w razie potrzeby, można dodawać kolejne elementy, a nawet je zagnieżdżać (przykładem zagnieżdżenia jest lewy panel, stanowiący fragment środkowej części strony, dzięki czemu nie nachodzi on na nagłówek i stopkę).\\
 Wykorzystanie wspomnianego wyżej panelu bocznego jest widoczne w komponencie Wikipedii. Znajdują się na nim linki, umożliwiające tworzenie i zarządzanie zawartością wikipedii, a także drzewko zawartości strony (kategorie i artykuły). Wyodrębnienie tych elementów ze strony głównej pozwala na wygodniejszą i efektywniejszą nawigację i zarządzanie stroną. Boczne menu jest skalowalne, w związku z czym można je dopasować do indywidualnych potrzeb. Istnieje też opcja zwinięcia go, co umożliwia wyświetlanie treści na niemal całej szerokości strony.\\
 Innymi przykładami wykorzystania komponentów PrimeFaces są rozwijane obszary informacji o autorach projektu, widoczne na stronie głównej, czy też okienka informacyjne, powiadamiające o braku uprawnień do przeglądania określonych treści. W tym drugim przypadku widać możliwości konfiguracyjne komponentów PrimeFaces. Tutaj, do okienka informacyjnego, zostało też dodane wyciemnienie tła, uniemożliwiające interakcję ze stroną aż do momentu zamknięcia okna powiadomienia.
+
+\subsection{Silnik reguł Prologowych}
+
+\subsection{Opis ogólny}
+
+Sercem systemu jest silnik reguł Prologowych. Użyliśmy tutaj silnika \textsl{tuProlog}, gdyż jest on napisany w Javie i dobrze integruje się z tą platformą. Rozważaliśmy też
+użycie silnika \textsl{SWIProlog}, jednakże wstępna weryfikacja pokazała, że jego integracja z Javą jest niepełna. Choć silnik \textsl{tuProlog} nie jest tak zaawansowaną platformą jak
+\textsl{SWIProlog}, to do naszych zastosowań okazał się wystarczający. Jego dodatkowym atutem, który okazał się bardzo istotny jest możliwość dostępu w prosty sposób do dowolnych
+obiektów i klas Javy.
+
+Tak jak wspomnieliśmy wcześniej użyte reguły podzielone zostały na dwa podzbiory. Pierwszy to reguły \textit{biblioteczne}, które nie zmieniają się w trakcie działania systemu.
+Opisują one dwa ważne elementy systemu, jakim jest proces logowania i obsługa podstawowych reguł, a także zawierają zestaw gotowych, użytecznych reguł, które mogą być użyte w drugim
+podzbiorze jako warunki od których możemy uzależnić dostęp. Drugi podzbiór jest dynamiczny i może być na bieżąco modyfikowany przez osobę o odpowiednich uprawnieniach. Zestaw ten
+jest składa się na deklarację określonych, konkretych uprawnień dla konkretnych ról i użytkowników. Można powiedzieć, że część biblioteczna jest frameworkiem w którym tworzone są już
+konkretne reguły dla konkretnego systemu. Natomiast reguły biblioteczna mają postać ogólną i nie zmieniają się. Poniżej krótko opisujemy oba zestawy.
+
+Przed przedstawieniem konkretnych reguł wypada powiedzieć kilka słów o języku Prolog, co pomoże zrozumieć podane niżej przykłady. Ogólna postać reguły w języku Prolog wygląda następująco:
+\begin{verbatim}
+wniosek :- warunek1, warunek2, ..., warunekN. 
+\end{verbatim}
+Reguła taka tłumaczy się na język polski następująco: ,,Jeżeli zachodzi \texttt{warunek1} i \texttt{warunek2} i \ldots i \texttt{warunekN}, to zachodzi \texttt{wniosek}''.
+Warunki i wnioski mają postać relacji \(n\)-argumentowych, przy czym \(n\) może być zerem. A więc postać ogólna wniosku lub warunku jest jedną z następujących:
+\begin{itemize}
+\item \texttt{relacja}
+\item \texttt{relacja(argument1, argument2, \ldots, argumentN)}.
+\end{itemize}
+Jako argumenty mogą zostać użyte zmienne oznaczające nieznane obiekty, które charakteryzują się tym, że zaczynają się zawsze od wielkiej litery (wyjątkiem jest \texttt{\_}, która
+oznacza po prosty zupełnie dowolny objekt). Poza tym można jako argumentów użyć funkcji (w Prologu funkcje to nie to samo co w innych językach programowania, odpowiednikiem
+prologowych funkcji są struktury danych w innych językach), które same mogą mieć dowolną ilość argumentów (także zero, w takim wypadku jest to po prostu stała).
+A więc najbardziej ogólnie można regułę opisać jako:
+\begin{verbatim}
+relacja1(Zmienna1, stala1, funkcja1(Zmienna2, stala2)) :- 
+  relacja2(Zmienna2, stala2, funkcja2(Zmienna2, stala1)),
+  relacja3(Zmienna3).
+\end{verbatim}
+Nazwy relacji są tak dobrane, aby ich znaczenie było oczywiste.
+Należy zwrócić także uwagę, że Prolog podstawia pod zmienne wartości w momencie, gdy zostają one wyznaczone z postaci reguł.
+
+\subsection{Reguły biblioteczne}
+Nie będziemy tu opisywać wszystkich reguł bibliotecznych, gdyż zajęłoby to zbyt dużo miejsca, a jedynie podamy reprezentatywne przykłady. Należy przypomnieć, że reguły biblioteczne działają
+na niskim poziomie i są częścią implementacji, więc ich postać nie musi być tak czytelna jak reguł dostępowych. 
+Poniższa reguła sprawdza, czy jej argument jest aktualnym użytkownikiem.
+
+\penalty -10000
+\begin{verbatim}
+isUser(user(Username, Password)) :-
+  isLoginBean(LoginBean),
+  LoginBean <- getUsername returns UsernameOrVariable,
+  convertsToString(UsernameOrVariable, Username),
+  LoginBean <- getRealPassword returns PasswordOrVariable,
+  convertsToString(PasswordOrVariable, Password).
+\end{verbatim}
+
+Natomiast poniższa reguła daje użytkownikowi dostęp do zasobów (z wyłączeniem komponentu logowania), o ile należy on do określonej roli i ta rola ma dostęp do tych zasobów:
+
+\penalty -100
+\begin{verbatim}
+canAccessAt(user(Username, Password), Resource, AccessLevel) :-
+  Resource \= resource('login','login','login','login'),
+  isUsernameAndPassword(Username, Password),
+  hasRole(Username, Role),
+  roleCanAccessAtIfLogged(Role, Resource, AccessLevel).
+\end{verbatim}
+
+Ze wszystkimi regułami bibliotecznymi można zapoznać się w pliku \texttt{/src/main/}\penalty 1000\texttt{resources/pl/lodz/p/pracowniaproblemowa/acodis/resources/lib.pl}
+
+\subsection{Reguły dostępowe}
+Reguły dostępowe przedstawię bardziej dokładnie. Ich pełną postać można zobaczyć wchodząc z odpowiednimi uprawnieniami do komponentu \textbf{security}.
+Relacje, które stanowią sedno systemu ograniczającego dostęp należą do poniższych:
+\begin{itemize}
+\item \texttt{isUsernameAndPassword(Username, Password)} -- deklaruje, że hasłem dla użytkownika \texttt{Username} jest \texttt{Password}.
+\item \texttt{hasRole(Username, Role)} -- deklaruje, że użytkownik \texttt{Username} ma przypisaną rolę \texttt{Role}.
+\item \texttt{userCanAccessAtIfLogged(Username, Resource, AccessMode)} -- deklaruje, że użytkownik \texttt{Username} ma dostęp do zasobu \texttt{Resource} na poziomie \texttt{AccessMode}.
+\item \texttt{roleCanAccessAtIfLogged(Role, Resource, AccessMode)} -- deklaruje, że rola \texttt{Role} ma dostęp do zasobu \texttt{Resource} na poziomie \texttt{AccessMode}.
+\item \texttt{userCannotAccessAtIfLogged(Username, Resource, AccessMode)} -- \penalty 1000 deklaruje, że użytkownik \texttt{Username} ma odcięty dostęp do zasobu \texttt{Resource}
+na poziomie \texttt{AccessMode}.
+\item \texttt{roleCannotAccessAtIfLogged(Role, Resource, AccessMode)} -- deklaruje, że rola \texttt{Role} ma odcięty dostęp do zasobu \texttt{Resource}
+na poziomie \texttt{AccessMode}.
+\end{itemize}
+Należy zwrócić uwagę, że odcięcia dostępu mają priorytet nad prawami dostępu.
+Niektóre z powyższych relacji są spełnione tylko pod pełnymi warunkami. Nie będziemy wymieniać ich wszystkich i ograniczymy się do przykładowych:
+\begin{itemize}
+\item \texttt{hasFilledProfile(Username)} -- użytkownik \texttt{Username} wypełnił swój profil.
+\item \texttt{isHour(Hour)} -- aktualna godzina to \texttt{Hour}.
+\item \texttt{userCreatedNumberOfArticles(Username, Number)} -- użytkownik \texttt{User\-name} utworzył \texttt{Number} artykułów.
+\end{itemize}
 
 \section{Dyskusja rozwiązania i podsumowanie}
 Nasze rozwiązanie postawionego problemu uznajemy za udane. Jednakże gdybyśmy następnym razem wykonywali podobny projekt, to nie zastosowalibyśmy Javy, ani tym bardziej technologii JSF.
