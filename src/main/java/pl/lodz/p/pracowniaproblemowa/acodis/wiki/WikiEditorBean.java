@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.context.FacesContext;
+import pl.lodz.p.pracowniaproblemowa.acodis.login.Login;
 
 /**
  *
@@ -25,6 +26,8 @@ public class WikiEditorBean {
   private String inputTitle = "";
   
   private boolean isNewPage = true;
+  
+  private Login loginBean;
 
   public WikiEditorBean() {
     Logger.getLogger(WikiEditorBean.class.getName()).log(Level.WARNING, "* new WikiEditorBean()");
@@ -62,14 +65,14 @@ public class WikiEditorBean {
 
   public String saveFile() {
     Logger.getLogger(WikiEditorBean.class.getName()).log(Level.WARNING, "saveFile()");
-    
+    getUserArticles();
     if(isNewPage) {
       isNewPage = false;
       inputCategory = category;
       inputTitle = title;
     }
     
-    WikiUtils.saveArticle(inputCategory, inputTitle, editorValue);
+    WikiUtils.saveArticle(loginBean, inputCategory, inputTitle, editorValue);
     
     return "wiki";
   }
@@ -94,6 +97,10 @@ public class WikiEditorBean {
     WikiUtils.deleteArticle( inputCategory, inputTitle );
     
     return "wikiMenu";
+  }
+  
+  public int getUserArticles() {
+    return WikiUtils.getUserArticles( loginBean.getUsername() );
   }
   
   ////////////////////////////////////////////////////////////////////////////
@@ -208,5 +215,9 @@ public class WikiEditorBean {
     Logger.getLogger(WikiEditorBean.class.getName()).log(Level.WARNING, "setInputTitle()");
     
     this.inputTitle = inputTitle;
+  }
+
+  public void setLoginBean(Login loginBean) {
+    this.loginBean = loginBean;
   }
 }

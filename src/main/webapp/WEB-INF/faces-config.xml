@@ -69,6 +69,11 @@
         <managed-bean-name>wikiEditorBean</managed-bean-name>
         <managed-bean-class>pl.lodz.p.pracowniaproblemowa.acodis.wiki.WikiEditorBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>loginBean</property-name>
+            <property-class>pl.lodz.p.pracowniaproblemowa.acodis.login.Login</property-class>
+            <value>#{login}</value>
+        </managed-property>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>installTestDataBean</managed-bean-name>
