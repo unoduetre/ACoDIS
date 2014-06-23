@@ -20,7 +20,7 @@
             <h:panelGroup rendered="#{protect.getAccessLevel('security', cc.attrs.componentId, 'security', 'security') == 'write'}">
               <h:form>
                   <p>
-                    <pf:inputTextarea styleClass="code-panel" value="#{security.code}"/>
+                    <pf:inputTextarea styleClass="code-panel" value="#{security.code}" autoResize="true"/>
                   </p>
                   <p>
                       <pf:commandButton value="#{msgs['save']}" action="#{security.save()}" ajax="false"/>
@@ -30,7 +30,7 @@
             <h:panelGroup rendered="#{protect.getAccessLevel('security', cc.attrs.componentId, 'security', 'security') == 'read'}">
                 <h:form>
                     <p>
-                      <pf:inputTextarea styleClass="code-panel" disabled="true" value="#{security.code}"/>
+                      <pf:inputTextarea styleClass="code-panel" disabled="true" value="#{security.code}" autoResize="true"/>
                     </p>
                 </h:form>
             </h:panelGroup>
