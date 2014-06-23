@@ -2,18 +2,29 @@ package pl.lodz.p.pracowniaproblemowa.acodis.filebrowser;
 
 import java.io.File;
 import java.io.Serializable;
+import java.net.URLDecoder;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+
+import pl.lodz.p.pracowniaproblemowa.acodis.login.Login;
+import pl.lodz.p.pracowniaproblemowa.acodis.filebrowser.FileBrowserEntry;
 
 
 public class FileBrowserBean extends FileBrowserEntry implements Serializable {
   
   private static final long serialVersionUID = 1419920132613404300L;
   
+  private Login login;
+  private Logger logger = Logger.getLogger(FileBrowserBean.class.getName());
+  
   public FileBrowserBean() {
-    super(new File("/"));
+    super(new File(System.getProperty("user.home")));
+  }
+  
+  private void init() {
     FacesContext context = FacesContext.getCurrentInstance();
     ExternalContext extContext = context.getExternalContext();
     Map<String, String> attributes = extContext.getRequestParameterMap();
@@ -50,6 +61,17 @@ public class FileBrowserBean extends FileBrowserEntry implements Serializable {
           }
         }
       }
+    } else {
+      try {
+        String filesPath = new File(URLDecoder.decode(FileBrowserBean.class.getResource("/files/.holder").getPath(), "UTF-8")).getParent();
+        String userDir = (new File(new File(filesPath), login.getUsername())).getAbsolutePath();
+        if(! (new File(userDir)).exists()) {
+          (new File(userDir)).mkdirs();
+        }
+        setResource(encodePath(userDir));
+      } catch (Throwable e) {
+        logger.info(e.toString());
+      }
     }
   }
   
@@ -73,6 +95,20 @@ public class FileBrowserBean extends FileBrowserEntry implements Serializable {
     long creation = attrs.creationTime().toMillis();
     long now = System.currentTimeMillis();
     return now - creation <= 60000;
+  }
+  
+  public boolean doesFileExist(String path) {
+    return (new File(path)).exists();
+  }
+  
+  public Login getLogin() {
+    return login;
+  }
+  
+  public void setLogin(Login login) {
+    this.login = login;
+    
+    init();
   }
   
 }
